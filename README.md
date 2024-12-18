@@ -1,2 +1,2 @@
 # Projet-MineSmash
-Minecraft 2D game with a twist
+Minecraft 2D game with a twiste
