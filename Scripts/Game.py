@@ -1,12 +1,13 @@
 import pygame
 
 pygame.init()
-screen = pygame.display.set_mode((640, 640))
+screen = pygame.display.set_mode((64, 64))
+clock = pygame.time.Clock()
 
 class Bloc() :
     def __init__(self):
         self.sprite = None
-        self.nom = None
+        self.id = None
     
     def placer(self):
         """Place le bloc au coordonées du curseur. """
@@ -16,21 +17,41 @@ class Bloc() :
             Si le bloc est solide --> détruire
             Si le bloc est liquide et que le joueur à un seau --> mettre dans le seau"""
     
+    def draw(self):
+        return self.sprite
+    
 class Solide(Bloc) :
-    def __init__(self):
-        super.__init__()
+    def __init__(self, id, sprite):
+        super().__init__()
         self.durete : 0
         self.is_flammable = False
 
 class Liquide(Bloc) : 
     def __init__(self):
-        super.__init__()
+        super().__init__()
         self.degats : 0
         self.viscosite : 0
 
 class Personnage():
     def __init__(self):
-        self.coordonées = [x, y]
+        self.coordx = 0
+        self.coordy = 0
         self.vie = 200
         self.armure = 0
         self.vitesse = 10
+
+cobble = Solide(1, pygame.image.load("Asset/image/Blocs/bloc_stone.png"))
+running = True
+cobble.sprite = pygame.transform.scale(pygame.image.load('Asset/image/Blocs/bloc_stone.png'), (64, 64))
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.blit(cobble.draw(), (0, 0))
+
+    pygame.display.flip()
+    clock.tick(4)
+    screen.fill("White")
+
+pygame.quit()
