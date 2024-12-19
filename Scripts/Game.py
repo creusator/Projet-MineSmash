@@ -1,33 +1,30 @@
 import pygame
 
-pygame.init()
-screen = pygame.display.set_mode((64, 64))
-clock = pygame.time.Clock()
-
 class Bloc() :
-    def __init__(self, sprite):
-        self.sprite = None
+    def __init__(self, chemin_sprite):
+        self.sprite = self.charger_sprite(chemin_sprite)
         self.id = None
-    
+
+    def charger_sprite(self, chemin_sprite):
+        """Renvoi un sprite utilisable redimensionné en 64x64"""
+        return pygame.transform.scale(pygame.image.load(chemin_sprite), (64, 64))
+
     def placer(self):
-        """Place le bloc au coordonées du curseur. """
+        """Place le bloc SUR la GRILLE au coordonées du curseur. """
 
     def detruire(self):
         """Notes pour plus tard :
-            Si le bloc est solide --> détruire
+            Si le bloc est solide --> mettre dans l'inventaire / détruire
             Si le bloc est liquide et que le joueur à un seau --> mettre dans le seau"""
     
-    def draw(self):
-        return self.sprite
-    
 class Solide(Bloc) :
-    def __init__(self, sprite):
-        super().__init__(sprite)
+    def __init__(self, id, chemin_sprite):
+        super().__init__(chemin_sprite)
         self.durete : 0
         self.is_flammable = False
 
 class Liquide(Bloc) : 
-    def __init__(self):
+    def __init__(self, sprite):
         super().__init__()
         self.degats : 0
         self.viscosite : 0
@@ -40,16 +37,23 @@ class Personnage():
         self.armure = 0
         self.vitesse = 10
 
-cobble = Solide(pygame.transform.scale(pygame.image.load('Asset/image/Blocs/bloc_stone.png'), (64, 64)))
-print(str(cobble.sprite))
+SCREEN_WIDTH = 512
+SCREEN_HEIGHT = 256
+
+pygame.init()
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+clock = pygame.time.Clock()
 
 running = True
+cobble = Solide(1, 'Asset/image/Blocs/bloc_stone.png')
+
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    screen.blit(cobble.draw(), (0, 0))
+    screen.blit(cobble.sprite, (0, 0))
 
     pygame.display.flip()
     clock.tick(4)
