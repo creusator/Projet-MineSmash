@@ -5,7 +5,7 @@ screen = pygame.display.set_mode((64, 64))
 clock = pygame.time.Clock()
 
 class Bloc() :
-    def __init__(self):
+    def __init__(self, sprite):
         self.sprite = None
         self.id = None
     
@@ -21,8 +21,8 @@ class Bloc() :
         return self.sprite
     
 class Solide(Bloc) :
-    def __init__(self, id, sprite):
-        super().__init__()
+    def __init__(self, sprite):
+        super().__init__(sprite)
         self.durete : 0
         self.is_flammable = False
 
@@ -40,9 +40,10 @@ class Personnage():
         self.armure = 0
         self.vitesse = 10
 
-cobble = Solide(1, pygame.image.load("Asset/image/Blocs/bloc_stone.png"))
+cobble = Solide(pygame.transform.scale(pygame.image.load('Asset/image/Blocs/bloc_stone.png'), (64, 64)))
+print(str(cobble.sprite))
+
 running = True
-cobble.sprite = pygame.transform.scale(pygame.image.load('Asset/image/Blocs/bloc_stone.png'), (64, 64))
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
