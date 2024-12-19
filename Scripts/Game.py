@@ -1,9 +1,15 @@
 class Bloc() :
     def __init__(self):
         self.sprite = None
+        self.nom = None
     
     def placer(self):
         pass
+
+    def detruire(self):
+        """Notes pour plus tard :
+            Si le bloc est solide --> détruire
+            Si le bloc est liquide et que le joueur à un seau --> mettre dans le seau"""
     
 class Solide(Bloc) :
     def __init__(self):
@@ -22,3 +28,4 @@ class Personnage():
         self.coordonées = [x, y]
         self.vie = 200
         self.armure = 0
+        self.vitesse = 10
