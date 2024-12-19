@@ -1,10 +1,15 @@
+import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((640, 640))
+
 class Bloc() :
     def __init__(self):
         self.sprite = None
         self.nom = None
     
     def placer(self):
-        pass
+        """Place le bloc au coordonées du curseur. """
 
     def detruire(self):
         """Notes pour plus tard :
