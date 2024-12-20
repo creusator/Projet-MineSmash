@@ -22,10 +22,7 @@ class Solide(Bloc) :
         super().__init__(chemin_sprite)
         self.durete : 0
         self.is_flammable = False
-    
-    def stone_block(self):
-        stone_block = Solide(1, 'Asset/image/Blocs/bloc_stone.png')
-        return stone_block
+
 
 class Liquide(Bloc) : 
     def __init__(self, sprite):
@@ -40,6 +37,18 @@ class Personnage():
         self.vie = 200
         self.armure = 0
         self.vitesse = 10
+
+def stone_block():
+    stone_block = Solide(1, 'Asset/image/Blocs/bloc_stone.png')
+    return stone_block
+
+def grass_block():
+    stone_block = Solide(1, 'Asset/image/Blocs/bloc_herbe.png')
+    return stone_block
+
+def dirt_block():
+    stone_block = Solide(1, 'Asset/image/Blocs/bloc_terre.png')
+    return stone_block
 
 SCREEN_WIDTH = 512
 SCREEN_HEIGHT = 256
@@ -57,7 +66,9 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    screen.blit(cobble.sprite, (0, 0))
+    screen.blit(stone_block().sprite, (0, 0))
+    screen.blit(grass_block().sprite, (64, 0))
+    screen.blit(dirt_block().sprite, (64, 64))
 
     pygame.display.flip()
     clock.tick(4)
