@@ -22,6 +22,10 @@ class Solide(Bloc) :
         super().__init__(chemin_sprite)
         self.durete : 0
         self.is_flammable = False
+    
+    def stone_block(self):
+        stone_block = Solide(1, 'Asset/image/Blocs/bloc_stone.png')
+        return stone_block
 
 class Liquide(Bloc) : 
     def __init__(self, sprite):
