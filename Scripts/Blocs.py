@@ -33,17 +33,14 @@ class Liquide(Bloc) :
 def stone_block():
     stone_block = Solide(1, 'Asset/image/Blocs/bloc_stone.png')
     stone_block.durete = 10
-    stone_block.id = 1
     return stone_block
 
 def grass_block():
-    grass_block = Solide(1, 'Asset/image/Blocs/bloc_herbe.png')
+    grass_block = Solide(2, 'Asset/image/Blocs/bloc_herbe.png')
     grass_block.durete = 5
-    grass_block.id = 2
     return grass_block
 
 def dirt_block():
-    dirt_block = Solide(1, 'Asset/image/Blocs/bloc_terre.png')
+    dirt_block = Solide(3, 'Asset/image/Blocs/bloc_terre.png')
     dirt_block.durete = 5
-    dirt_block.id = 3
     return dirt_block
