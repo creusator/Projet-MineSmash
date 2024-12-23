@@ -17,54 +17,33 @@ clock = pygame.time.Clock()
 
 running = True
 
+liste_bloc=[
+    [grass_block(),grass_block(),grass_block(),grass_block(),grass_block(),grass_block(),grass_block(),grass_block(),grass_block(),grass_block()],
+    [dirt_block(),dirt_block(),dirt_block(),dirt_block(),dirt_block(),dirt_block(),dirt_block(),dirt_block(),dirt_block(),dirt_block()],
+    [stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block()],
+    [stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block()]
+]
+
+def position_bloc(li):
+    x=0
+    y=0
+    for a in li:
+        x=0
+        for b in a:
+            if b==[]:
+                x+=64
+            else:
+                screen.blit(b.sprite,(x, y))
+                x+=64
+        y+=64
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    screen.blit(stone_block().sprite, (0, 448))
-    screen.blit(stone_block().sprite, (0, 384))
-    screen.blit(grass_block().sprite, (0, 256))
-    screen.blit(dirt_block().sprite, (0, 320))
-    screen.blit(stone_block().sprite, (64, 448))
-    screen.blit(stone_block().sprite, (64, 384))
-    screen.blit(grass_block().sprite, (64, 256))
-    screen.blit(dirt_block().sprite, (64, 320))
-    screen.blit(stone_block().sprite, (128, 448))
-    screen.blit(stone_block().sprite, (128, 384))
-    screen.blit(grass_block().sprite, (128, 256))
-    screen.blit(dirt_block().sprite, (128, 320))
-    screen.blit(stone_block().sprite, (192, 448))
-    screen.blit(stone_block().sprite, (192, 384))
-    screen.blit(grass_block().sprite, (192, 256))
-    screen.blit(dirt_block().sprite, (192, 320))
-    screen.blit(stone_block().sprite, (256, 448))
-    screen.blit(stone_block().sprite, (256, 384))
-    screen.blit(grass_block().sprite, (256, 256))
-    screen.blit(dirt_block().sprite, (256, 320))
-    screen.blit(stone_block().sprite, (320, 448))
-    screen.blit(stone_block().sprite, (320, 384))
-    screen.blit(grass_block().sprite, (320, 256))
-    screen.blit(dirt_block().sprite, (320, 320))
-    screen.blit(stone_block().sprite, (384, 448))
-    screen.blit(stone_block().sprite, (384, 384))
-    screen.blit(grass_block().sprite, (384, 256))
-    screen.blit(dirt_block().sprite, (384, 320))
-    screen.blit(stone_block().sprite, (448, 448))
-    screen.blit(stone_block().sprite, (448, 384))
-    screen.blit(grass_block().sprite, (448, 256))
-    screen.blit(dirt_block().sprite, (448, 320))
-    screen.blit(stone_block().sprite, (512, 448))
-    screen.blit(stone_block().sprite, (512, 384))
-    screen.blit(grass_block().sprite, (512, 256))
-    screen.blit(dirt_block().sprite, (512, 320))
-    screen.blit(stone_block().sprite, (576, 448))
-    screen.blit(stone_block().sprite, (576, 384))
-    screen.blit(grass_block().sprite, (576, 256))
-    screen.blit(dirt_block().sprite, (576, 320))
-
+    screen.fill((135,206,235))
+    position_bloc(liste_bloc)
     pygame.display.flip()
     clock.tick(4)
-    screen.fill((135,206,235))
-
 pygame.quit()
