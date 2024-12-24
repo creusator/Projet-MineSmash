@@ -26,7 +26,7 @@ liste_bloc=[
 
 def position_bloc(li):
     x=0
-    y=0
+    y=256
     for a in li:
         x=0
         for b in a:
