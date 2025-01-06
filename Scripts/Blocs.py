@@ -1,5 +1,4 @@
 import pygame
-from Game import *
 
 class Bloc() :
     def __init__(self, chemin_sprite):
@@ -31,7 +30,7 @@ class Liquide(Bloc) :
         self.degats : 0
         self.viscosite : 0
 
-def position_bloc(li):
+def position_bloc(screen, li):
     x=0
     y=256
     for a in li:

@@ -25,7 +25,7 @@ while running:
         if event.type == pygame.K_e:
             pass
     screen.fill((135,206,235))
-    position_bloc(liste_bloc)
+    position_bloc(screen, liste_bloc)
     pygame.display.flip()
     clock.tick(4)
 pygame.quit()
