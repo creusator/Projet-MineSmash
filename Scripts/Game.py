@@ -22,6 +22,12 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.K_q:
+            Personnage.move("left")
+        if event.type == pygame.K_d:
+            Personnage.move("right")
+        if event.type == pygame.K_SPACE:
+            Personnage.move("jump")
         if event.type == pygame.K_e:
             pass
     screen.fill((135,206,235))
