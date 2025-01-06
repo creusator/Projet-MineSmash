@@ -23,7 +23,8 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
+        if event.type == pygame.K_e:
+            return 0
     screen.fill((135,206,235))
     position_bloc(liste_bloc)
     pygame.display.flip()
