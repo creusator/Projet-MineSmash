@@ -1,4 +1,5 @@
 import pygame
+from Game import *
 
 class Bloc() :
     def __init__(self, chemin_sprite):
@@ -57,3 +58,4 @@ def dirt_block():
     dirt_block = Solide(3, 'Asset/image/Blocs/bloc_terre.png')
     dirt_block.durete = 5
     return dirt_block
+

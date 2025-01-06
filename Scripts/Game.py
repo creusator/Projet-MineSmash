@@ -18,13 +18,12 @@ liste_bloc=[
     [stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block()]
 ]
 
-
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.K_e:
-            return 0
+            pass
     screen.fill((135,206,235))
     position_bloc(liste_bloc)
     pygame.display.flip()
