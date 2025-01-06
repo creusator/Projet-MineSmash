@@ -60,5 +60,5 @@ def dirt_block():
 
 def air():
     air = Liquide(None)
-    air.viscosite = 0.5
+    air.viscosite = 0.0
     return air
