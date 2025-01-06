@@ -1,12 +1,6 @@
 import pygame
 from Blocs import *
-class Personnage():
-    def __init__(self):
-        self.coordx = 0
-        self.coordy = 0
-        self.vie = 200
-        self.armure = 0
-        self.vitesse = 10
+from Personnage import *
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 512
@@ -24,18 +18,6 @@ liste_bloc=[
     [stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block()]
 ]
 
-def position_bloc(li):
-    x=0
-    y=256
-    for a in li:
-        x=0
-        for b in a:
-            if b==[]:
-                x+=64
-            else:
-                screen.blit(b.sprite,(x, y))
-                x+=64
-        y+=64
 
 while running:
     for event in pygame.event.get():
