@@ -15,8 +15,21 @@ liste_grille=[
     ["","","","","","","","",""]
 ]
 class Grille():
-    def __init__(self,ligne):
-        self.ligne = None
+    def __init__(self, largeur, hauteur, taille_case,liste_initiale=None):
+        self.largeur = largeur
+        self.hauteur = hauteur
+        self.taille_case = taille_case
+        self.cases = liste_initiale
+    def dessiner(self, surface):
+        for ligne in range(len(self.cases)):
+            for colonne in range(len(self.cases[ligne])):
+                x = colonne * self.taille_case
+                y = ligne * self.taille_case
+
+        for x in range(0, self.largeur, self.taille_case):
+            pygame.draw.line(surface, (200, 200, 200), (x, 0), (x, self.hauteur))
+        for y in range(0, self.hauteur, self.taille_case):
+            pygame.draw.line(surface, (200, 200, 200), (0, y), (self.largeur, y))
 
 
 class Bloc() :
