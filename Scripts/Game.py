@@ -19,19 +19,23 @@ liste_bloc=[
 ]
 
 while running:
+
+    delta = clock.tick(30)/1000
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.K_q:
-            Personnage.move("left")
+            Personnage.move("left", delta)
         if event.type == pygame.K_d:
-            Personnage.move("right")
+            Personnage.move("right", delta)
         if event.type == pygame.K_SPACE:
-            Personnage.move("jump")
+            Personnage.move("jump", delta)
         if event.type == pygame.K_e:
             pass
+
     screen.fill((135,206,235))
     position_bloc(screen, liste_bloc)
     pygame.display.flip()
-    clock.tick(4)
+    clock.tick(30)
 pygame.quit()
