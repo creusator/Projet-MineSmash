@@ -77,3 +77,7 @@ def dirt_block():
     dirt_block.durete = 5
     return dirt_block
 
+def air():
+    air = Liquide(None)
+    air.viscosite = 0.0
+    return air

@@ -4,6 +4,7 @@ from Personnage import *
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 512
+FRAMERATE = 60
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -18,14 +19,27 @@ liste_bloc=[
     [stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block()]
 ]
 
+p1 = Personnage()
+
 while running:
+
+    delta = clock.tick(FRAMERATE)/1000
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.K_q:
+            Personnage.move("left", delta)
+        if event.type == pygame.K_d:
+            Personnage.move("right", delta)
+        if event.type == pygame.K_SPACE:
+            Personnage.move("jump", delta)
         if event.type == pygame.K_e:
             pass
+
     screen.fill((135,206,235))
     position_bloc(screen, liste_bloc)
+    screen.blit(p1.sprite, (p1.coordx, p1.coordy))
     pygame.display.flip()
-    clock.tick(4)
+    clock.tick(FRAMERATE)
 pygame.quit()
