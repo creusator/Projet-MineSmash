@@ -1,7 +1,10 @@
+import pygame
+
 class Personnage():
     def __init__(self):
-        self.coordx = 0
-        self.coordy = 0
+        self.sprite = pygame.image.load("Asset/image/personnage/skin de base.png")
+        self.coordx = 50
+        self.coordy = 50
         self.vie = 200
         self.armure = 0
         self.vitesse = 10
