@@ -4,7 +4,7 @@ from Personnage import *
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 512
-FRAMERATE = 60
+FRAMERATE = 30
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -28,18 +28,20 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.K_q:
-            Personnage.move("left", delta)
-        if event.type == pygame.K_d:
-            Personnage.move("right", delta)
-        if event.type == pygame.K_SPACE:
-            Personnage.move("jump", delta)
-        if event.type == pygame.K_e:
-            pass
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                Personnage.move(p1, "left")
+            if event.key == pygame.K_RIGHT:
+                Personnage.move(p1, "right")
+            if event.key == pygame.K_SPACE:
+                Personnage.move(p1, "jump")
+            if event.key == pygame.K_e:
+                pass
 
     screen.fill((135,206,235))
     position_bloc(screen, liste_bloc)
     screen.blit(p1.sprite, (p1.coordx, p1.coordy))
+    p1.afficher(screen)
     pygame.display.flip()
     clock.tick(FRAMERATE)
 pygame.quit()
