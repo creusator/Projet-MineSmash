@@ -18,6 +18,7 @@ liste_bloc=[
     [stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block()],
     [stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block(),stone_block()]
 ]
+grille=Grille(SCREEN_WIDTH, SCREEN_HEIGHT,64,liste_grille)
 
 p1 = Personnage()
 
@@ -41,7 +42,7 @@ while running:
         p1.move("right", delta)
 
     screen.fill((135,206,235))
-    position_bloc(screen, liste_bloc)
+    grille.dessiner(screen)
     screen.blit(p1.sprite, (p1.coordx, p1.coordy))
     p1.afficher(screen)
     pygame.display.flip()

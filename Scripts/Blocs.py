@@ -1,21 +1,8 @@
 import pygame
-liste_grille=[
-    ["","","","","","","","",""],
-    ["","","","","","","","",""],
-    ["","","","","","","","",""],
-    ["","","","","","","","",""],
-    ["","","","","","","","",""],
-    ["","","","","","","","",""],
-    ["","","","","","","","",""],
-    ["","","","","","","","",""],
-    ["","","","","","","","",""],
-    ["","","","","","","","",""],
-    ["","","","","","","","",""],
-    ["","","","","","","","",""],
-    ["","","","","","","","",""]
-]
+from liste_vide import *
+
 class Grille():
-    def __init__(self, largeur, hauteur, taille_case,liste_initiale=None):
+    def __init__(self, largeur:int, hauteur, taille_case,liste_initiale=None):
         self.largeur = largeur
         self.hauteur = hauteur
         self.taille_case = taille_case
@@ -27,17 +14,18 @@ class Grille():
                 y = ligne * self.taille_case
 
         for x in range(0, self.largeur, self.taille_case):
-            pygame.draw.line(surface, (200, 200, 200), (x, 0), (x, self.hauteur))
+            pygame.draw.line(surface, (0, 0, 0), (x, 0), (x, self.hauteur))
         for y in range(0, self.hauteur, self.taille_case):
-            pygame.draw.line(surface, (200, 200, 200), (0, y), (self.largeur, y))
+            pygame.draw.line(surface, (0, 0, 0), (0, y), (self.largeur, y))
 
+grille=Grille(1024,512,64,liste_grille)
 
 class Bloc() :
     def __init__(self, chemin_sprite):
         self.sprite = self.charger_sprite(chemin_sprite)
         self.id = None
 
-    def charger_sprite(self, chemin_sprite):
+    def charger_sprite(self, chemin_sprite) -> pygame.Surface:
         """Renvoi un sprite utilisable redimensionné en 64x64"""
         return pygame.transform.scale(pygame.image.load(chemin_sprite), (64, 64))
 
