@@ -1,0 +1,8 @@
+[
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air",],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air",],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air",],
+    ["grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass",],
+    ["dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt",],
+    ["stone","stone","stone","stone","stone","stone","stone","stone","stone","stone","stone","stone","stone","stone","stone","stone",],
+]
