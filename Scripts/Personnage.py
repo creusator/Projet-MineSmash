@@ -4,7 +4,7 @@ class Personnage():
     def __init__(self):
         self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
         self.coordx = 50
-        self.coordy = 50
+        self.coordy = 64
         self.vie = 200
         self.armure = 0
         self.vitesse = 256
@@ -24,7 +24,7 @@ class Personnage():
             self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
         
         if arg == "jump":
-            self.coordy -= 20
+            self.coordy -= 80
         #Multiplier 20 par la viscosité du liquide dans lequel est le joueur.
 
     def gravité(self):
