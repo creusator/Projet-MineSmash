@@ -7,18 +7,18 @@ class Personnage():
         self.coordy = 50
         self.vie = 200
         self.armure = 0
-        self.vitesse = 10
+        self.vitesse = 256
     
     def charger_sprite(self, chemin_sprite):
         """Renvoi un sprite utilisable redimensionné en 64x64"""
         return pygame.transform.scale(pygame.image.load(chemin_sprite), (64, 128))
 
-    def move(self, arg):
+    def move(self, arg, delta):
         if arg == "right":
-            self.coordx += self.vitesse
+            self.coordx += self.vitesse * delta
 
         if arg == "left":
-            self.coordx -= self.vitesse
+            self.coordx -= self.vitesse * delta
         
         if arg == "jump":
             coordy += 10
