@@ -42,7 +42,7 @@ while running:
 
     screen.fill((135,206,235))
     position_bloc(screen, liste_bloc)
-    screen.blit(p1.sprite, (p1.coordx, p1.coordy))
+    p1.gravité()
     p1.afficher(screen)
     pygame.display.flip()
     clock.tick(FRAMERATE)

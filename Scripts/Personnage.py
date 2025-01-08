@@ -24,5 +24,8 @@ class Personnage():
             self.coordy -= 20
         #Multiplier 20 par la viscosité du liquide dans lequel est le joueur.
 
+    def gravité(self):
+        self.coordy += 5
+
     def afficher(self, screen):
-        screen.blit(self.sprite, (self.coordx, self.coordy))
+        screen.blit(self.sprite, (self.coordx, self.coordy))                 
