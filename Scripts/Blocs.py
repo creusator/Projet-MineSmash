@@ -50,19 +50,6 @@ class Liquide(Bloc) :
         self.degats : 0
         self.viscosite : 0
 
-def position_bloc(screen, li):
-    x=0
-    y=256
-    for a in li:
-        x=0
-        for b in a:
-            if b==[]:
-                x+=64
-            else:
-                screen.blit(b.sprite,(x, y))
-                x+=64
-        y+=64
-
 def stone_block():
     stone_block = Solide(1, 'Asset/image/Blocs/bloc_stone.png')
     stone_block.durete = 10
