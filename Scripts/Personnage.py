@@ -21,8 +21,8 @@ class Personnage():
             self.coordx -= self.vitesse * delta
         
         if arg == "jump":
-            coordy += 10
-        #Multiplier 10 par la viscosité du liquide dans lequel est le joueur.
+            self.coordy -= 20
+        #Multiplier 20 par la viscosité du liquide dans lequel est le joueur.
 
     def afficher(self, screen):
         screen.blit(self.sprite, (self.coordx, self.coordy))

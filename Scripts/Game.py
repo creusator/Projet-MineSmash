@@ -31,9 +31,10 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                p1.move("jump")
+                p1.move("jump", delta)
             if event.key == pygame.K_e:
                 pass
+
     if key[pygame.K_LEFT]:
         p1.move("left", delta)
     if key[pygame.K_RIGHT]:
