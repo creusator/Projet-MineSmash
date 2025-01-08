@@ -46,7 +46,7 @@ class Liquide(Bloc) :
     def __init__(self, id, chemin_sprite):
         super().__init__()
         self.degats : 0
-        self.viscosite : 0
+        self.viscosite : 0.0
 
 def stone_block():
     '''Crée un bloc de pierre'''
