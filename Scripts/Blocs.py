@@ -1,5 +1,4 @@
 import pygame
-from liste_vide import *
 
 class Grille():
     def __init__(self, largeur:int, hauteur, taille_case,liste_initiale=None):
@@ -17,8 +16,6 @@ class Grille():
             pygame.draw.line(surface, (0, 0, 0), (x, 0), (x, self.hauteur))
         for y in range(0, self.hauteur, self.taille_case):
             pygame.draw.line(surface, (0, 0, 0), (0, y), (self.largeur, y))
-
-grille=Grille(1024,512,64,liste_grille)
 
 class Bloc() :
     def __init__(self, chemin_sprite):
@@ -45,7 +42,7 @@ class Solide(Bloc) :
         self.has_collision = True
 
 class Liquide(Bloc) : 
-    def __init__(self, sprite):
+    def __init__(self, id, chemin_sprite):
         super().__init__()
         self.degats : 0
         self.viscosite : 0
@@ -66,6 +63,6 @@ def dirt_block():
     return dirt_block
 
 def air():
-    air = Liquide(None)
+    air = Liquide(0, None)
     air.viscosite = 0.0
     return air

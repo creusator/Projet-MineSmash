@@ -12,7 +12,7 @@ clock = pygame.time.Clock()
 
 running = True
 
-grille=Grille(SCREEN_WIDTH, SCREEN_HEIGHT,64,liste_grille)
+grille=Grille(SCREEN_WIDTH, SCREEN_HEIGHT,64,open('Save/monde-test/chunk1.txt', 'r').readlines())
 
 p1 = Personnage()
 
