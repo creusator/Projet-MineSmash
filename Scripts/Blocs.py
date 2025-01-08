@@ -1,12 +1,13 @@
 import pygame
 
 class Grille():
-    def __init__(self, largeur:int, hauteur, taille_case,liste_initiale=None):
+    def __init__(self, largeur:int, hauteur:int, taille_case:int,liste_initiale=None):
         self.largeur = largeur
         self.hauteur = hauteur
         self.taille_case = taille_case
         self.cases = liste_initiale
-    def dessiner(self, surface):
+
+    def dessiner(self, surface:pygame.Surface):
         for ligne in range(len(self.cases)):
             for colonne in range(len(self.cases[ligne])):
                 x = colonne * self.taille_case
@@ -48,21 +49,25 @@ class Liquide(Bloc) :
         self.viscosite : 0
 
 def stone_block():
+    '''Crée un bloc de pierre'''
     stone_block = Solide(1, 'Asset/image/Blocs/bloc_stone.png')
     stone_block.durete = 10
     return stone_block
 
 def grass_block():
+    '''Crée un bloc d'herbe'''
     grass_block = Solide(2, 'Asset/image/Blocs/bloc_herbe.png')
     grass_block.durete = 5
     return grass_block
 
 def dirt_block():
+    '''Crée un bloc de terre'''
     dirt_block = Solide(3, 'Asset/image/Blocs/bloc_terre.png')
     dirt_block.durete = 5
     return dirt_block
 
 def air():
+    '''Crée un bloc d'air'''
     air = Liquide(0, None)
     air.viscosite = 0.0
     return air

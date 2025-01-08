@@ -14,6 +14,7 @@ class Personnage():
         return pygame.transform.scale(pygame.image.load(chemin_sprite), (64, 128))
 
     def move(self, arg, delta):
+        '''Permet d'executer les instructions nécéssaires au déplacement du personnage'''
         if arg == "right":
             self.coordx += self.vitesse * delta
 
@@ -25,7 +26,9 @@ class Personnage():
         #Multiplier 20 par la viscosité du liquide dans lequel est le joueur.
 
     def gravité(self):
+        '''Applique la gravité au personnage en fonction des liquides'''
         self.coordy += 5
 
     def afficher(self, screen):
+        '''Permet d'afficher le personnage sur l'écran'''
         screen.blit(self.sprite, (self.coordx, self.coordy))                 
