@@ -32,9 +32,9 @@ while running:
             if event.key == pygame.K_e:
                 pass
 
-    if key[pygame.K_LEFT]:
+    if key[pygame.K_q]:
         p1.move("left", delta)
-    if key[pygame.K_RIGHT]:
+    if key[pygame.K_d]:
         p1.move("right", delta)
 
     screen.fill((135,206,235))
