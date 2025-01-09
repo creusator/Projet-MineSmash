@@ -1,4 +1,5 @@
 import pygame
+import json
 
 class Grille():
     def __init__(self, largeur:int, hauteur:int, taille_case:int,liste_initiale=None):
@@ -6,6 +7,11 @@ class Grille():
         self.hauteur = hauteur
         self.taille_case = taille_case
         self.cases = liste_initiale
+
+    def charger(self, chemin_chunk:str):
+        """Renvoi une matrice utilisable a partir du chemin d'accès du JSON"""
+        chunk = open(chemin_chunk, 'r')
+        return json.load(chunk)
 
     def dessiner(self, surface:pygame.Surface):
         for ligne in range(len(self.cases)):
