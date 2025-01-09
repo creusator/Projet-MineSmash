@@ -2,11 +2,11 @@ import pygame
 import json
 
 class Grille():
-    def __init__(self, largeur:int, hauteur:int, taille_case:int):
-        self.largeur = largeur
-        self.hauteur = hauteur
+    def __init__(self, largeur_grille:int, hauteur_grille:int, taille_case:int):
+        self.largeur_grille = largeur_grille
+        self.hauteur_grille = hauteur_grille
         self.taille_case = taille_case
-        self.cases = None
+        self.chunk = None
 
     def charger(self, chemin_chunk:str):
         """Renvoi une matrice utilisable a partir du chemin d'accès du JSON"""
@@ -14,7 +14,8 @@ class Grille():
         return json.load(chunk)
 
     def dessiner(self, screen):
-        for y, ligne in enumerate(self.cases):
+        """Dessine les blocs sur l'écran en fontion des données de la matrice"""
+        for y, ligne in enumerate(self.chunk):
             for x, bloc in enumerate(ligne):
                 if bloc == 0 :
                     screen.blit(air().sprite, (x * self.taille_case, y * self.taille_case))

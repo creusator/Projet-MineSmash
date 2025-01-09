@@ -14,7 +14,7 @@ running = True
 
 p1 = Personnage()
 grille = Grille(SCREEN_WIDTH, SCREEN_HEIGHT, 64)
-grille.cases = grille.charger("Save/monde-test/chunk1.json")
+grille.chunk = grille.charger("Save/monde-test/chunk1.json")
 
 while running:
 
