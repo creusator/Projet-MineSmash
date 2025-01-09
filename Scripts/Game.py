@@ -1,7 +1,7 @@
 import pygame
 from Blocs import *
 from Personnage import *
-from Interface import *
+from interface import *
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 512
