@@ -13,11 +13,9 @@ clock = pygame.time.Clock()
 
 running = True
 
-chunk = open('Save/monde-test/chunk1.txt', 'r')
-print(chunk.read())
-grille=Grille(SCREEN_WIDTH, SCREEN_HEIGHT,64,chunk.read())
-
 p1 = Personnage()
+grille = Grille(SCREEN_WIDTH, SCREEN_HEIGHT, 64)
+grille.chunk = grille.charger("Save/monde-test/chunk1.json")
 inventaire=Inventaire()
 
 while running:
@@ -43,7 +41,6 @@ while running:
     screen.fill((135,206,235))
     grille.dessiner(screen)
     p1.gravité()
-    screen.blit(p1.sprite, (p1.coordx, p1.coordy))
     p1.afficher(screen)
     pygame.display.flip()
     clock.tick(FRAMERATE)
