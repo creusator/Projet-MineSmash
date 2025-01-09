@@ -13,12 +13,17 @@ class Grille():
         chunk = open(chemin_chunk, 'r')
         return json.load(chunk)
 
-    def dessiner(self, screen:pygame.Surface):
-        for ligne in range(len(self.cases)):
-            for colonne in range(len(self.cases[ligne])):
-                x = colonne * self.taille_case
-                y = ligne * self.taille_case
-                screen.blit(stone_block().sprite, (x, y+64))
+    def dessiner(self, screen):
+        for y, ligne in enumerate(self.cases):
+            for x, bloc in enumerate(ligne):
+                if bloc == 0 :
+                    screen.blit(air().sprite, (x * self.taille_case, y * self.taille_case))
+                if bloc == 1 :
+                    screen.blit(stone_block().sprite, (x * self.taille_case, y * self.taille_case))
+                if bloc == 2 :
+                    screen.blit(grass_block().sprite, (x * self.taille_case, y * self.taille_case))
+                if bloc == 3 :
+                    screen.blit(dirt_block().sprite, (x * self.taille_case, y * self.taille_case))
 
 class Bloc() :
     def __init__(self, chemin_sprite):
@@ -46,7 +51,7 @@ class Solide(Bloc) :
 
 class Liquide(Bloc) : 
     def __init__(self, id, chemin_sprite):
-        super().__init__()
+        super().__init__(chemin_sprite)
         self.degats : 0
         self.viscosite : 0.0
 
@@ -70,6 +75,6 @@ def dirt_block():
 
 def air():
     '''Crée un bloc d'air'''
-    air = Liquide(0, None)
+    air = Liquide(0, 'Asset/image/Blocs/air.png')
     air.viscosite = 0.0
     return air
