@@ -18,13 +18,7 @@ class Grille():
             for colonne in range(len(self.cases[ligne])):
                 x = colonne * self.taille_case
                 y = ligne * self.taille_case
-
-        for x in range(0, self.largeur, self.taille_case):
-            pygame.draw.line(screen, (0, 0, 0), (x, 0), (x, self.hauteur))
-            screen.blit(stone_block().sprite, (x, y))
-        for y in range(0, self.hauteur, self.taille_case):
-            pygame.draw.line(screen, (0, 0, 0), (0, y), (self.largeur, y))
-            screen.blit(dirt_block().sprite, (x, y))
+                screen.blit(stone_block().sprite, (x, y+64))
 
 class Bloc() :
     def __init__(self, chemin_sprite):

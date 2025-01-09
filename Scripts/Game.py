@@ -38,7 +38,6 @@ while running:
     screen.fill((135,206,235))
     grille.dessiner(screen)
     p1.gravité()
-    screen.blit(p1.sprite, (p1.coordx, p1.coordy))
     p1.afficher(screen)
     pygame.display.flip()
     clock.tick(FRAMERATE)
