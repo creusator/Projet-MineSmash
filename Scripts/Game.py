@@ -1,6 +1,7 @@
 import pygame
 from Blocs import *
 from Personnage import *
+from interface import *
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 512
@@ -15,6 +16,7 @@ running = True
 p1 = Personnage()
 grille = Grille(SCREEN_WIDTH, SCREEN_HEIGHT, 64)
 grille.chunk = grille.charger("Save/monde-test/chunk1.json")
+inventaire=Inventaire()
 
 while running:
 
@@ -28,12 +30,13 @@ while running:
             if event.key == pygame.K_SPACE:
                 p1.move("jump", delta)
             if event.key == pygame.K_e:
-                pass
+                inventaire.ouvrir
 
     if key[pygame.K_q]:
         p1.move("left", delta)
     if key[pygame.K_d]:
         p1.move("right", delta)
+        
 
     screen.fill((135,206,235))
     grille.dessiner(screen)
