@@ -13,7 +13,8 @@ clock = pygame.time.Clock()
 running = True
 
 p1 = Personnage()
-grille = Grille(SCREEN_HEIGHT, SCREEN_WIDTH, 64, chunk)
+grille = Grille(SCREEN_WIDTH, SCREEN_HEIGHT, 64)
+grille.cases = grille.charger("Save/monde-test/chunk1.json")
 
 while running:
 
