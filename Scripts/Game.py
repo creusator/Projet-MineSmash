@@ -1,7 +1,7 @@
 import pygame
 from Blocs import *
 from Personnage import *
-from interface import *
+from Interface import *
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 512
@@ -30,7 +30,7 @@ while running:
             if event.key == pygame.K_SPACE:
                 p1.move("jump", delta)
             if event.key == pygame.K_e:
-                inventaire.ouvrir
+                inventaire.ouvrir(screen)
 
     if key[pygame.K_q]:
         p1.move("left", delta)
