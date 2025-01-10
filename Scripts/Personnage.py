@@ -33,4 +33,4 @@ class Personnage():
 
     def afficher(self, screen):
         '''Permet d'afficher le personnage sur l'écran'''
-        screen.blit(self.sprite, (self.coordx, self.coordy))                 
+        screen.blit(self.sprite, (self.coordx, self.coordy))
