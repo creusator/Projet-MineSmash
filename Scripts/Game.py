@@ -30,7 +30,7 @@ while running:
             if event.key == pygame.K_SPACE:
                 p1.jump(grille.coord_grille((p1.coordx, p1.coordy)))
             if event.key == pygame.K_e:
-                inventaire.ouvrir(screen)
+                inventaire.afficher(screen)
 
     if key[pygame.K_q]:
         p1.move("left", delta)
