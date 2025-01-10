@@ -13,6 +13,10 @@ class Grille():
         chunk = open(chemin_chunk, 'r')
         return json.load(chunk)
 
+    def coord_grille(pos):
+        x, y = pos
+        return x // self.taille_case, y // self.taille_case
+
     def dessiner(self, screen):
         """Dessine les blocs sur l'écran en fontion des données de la matrice"""
         for y, ligne in enumerate(self.chunk):
