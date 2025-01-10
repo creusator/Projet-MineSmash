@@ -13,7 +13,7 @@ class Grille():
         chunk = open(chemin_chunk, 'r')
         return json.load(chunk)
 
-    def coord_grille(pos):
+    def coord_grille(self, pos:tuple):
         x, y = pos
         return x // self.taille_case, y // self.taille_case
 
