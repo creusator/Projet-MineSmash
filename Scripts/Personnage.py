@@ -38,9 +38,9 @@ class Personnage():
     def afficher(self, screen):
         '''Permet d'afficher le personnage sur l'écran'''
         screen.blit(self.sprite, (self.coordx - 32, self.coordy - 128))
-        screen.blit(self.pos_indicator, (self.coordx, self.coordy)) #Pieds du joueur
-        screen.blit(self.pos_indicator, (self.coordx, self.coordy - 140)) #Tête du joueur
-        screen.blit(self.pos_indicator, (self.coordx - 32, self.coordy - 64)) #Bas gauche
-        screen.blit(self.pos_indicator, (self.coordx + 32, self.coordy - 64)) #Bas droit
-        screen.blit(self.pos_indicator, (self.coordx - 32, self.coordy - 128)) #Haut gauche
-        screen.blit(self.pos_indicator, (self.coordx + 32, self.coordy - 128)) #Haut droit
+        #screen.blit(self.pos_indicator, (self.coordx, self.coordy)) #Pieds du joueur
+        #screen.blit(self.pos_indicator, (self.coordx, self.coordy - 140)) #Tête du joueur
+        #screen.blit(self.pos_indicator, (self.coordx - 32, self.coordy - 64)) #Bas gauche
+        #screen.blit(self.pos_indicator, (self.coordx + 32, self.coordy - 64)) #Bas droit
+        #screen.blit(self.pos_indicator, (self.coordx - 32, self.coordy - 128)) #Haut gauche
+        #screen.blit(self.pos_indicator, (self.coordx + 32, self.coordy - 128)) #Haut droit
