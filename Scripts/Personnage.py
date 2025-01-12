@@ -26,8 +26,8 @@ class Personnage():
                 self.coordx -= self.vitesse * delta
                 self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
 
-    def jump(self, bloc_grille):
-        if bloc_grille == 0:
+    def jump(self,bloc_grille_pied, bloc_grille_tete):
+        if bloc_grille_pied != 0 and bloc_grille_tete == 0:
             self.coordy -= 128
 
     def gravité(self,bloc_grille):

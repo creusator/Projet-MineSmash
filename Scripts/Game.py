@@ -28,7 +28,7 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                p1.jump(grille.get_bloc(grille.get_coord_grille((p1.coordx, p1.coordy - 140))))
+                p1.jump(grille.get_bloc(grille.get_coord_grille((p1.coordx, p1.coordy))), grille.get_bloc(grille.get_coord_grille((p1.coordx, p1.coordy - 140))))
             if event.key == pygame.K_e:
                 inventaire.ouvrir()
 
