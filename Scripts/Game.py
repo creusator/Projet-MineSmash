@@ -31,6 +31,12 @@ while running:
                 p1.jump(grille.get_bloc(grille.get_coord_grille((p1.coordx, p1.coordy))), grille.get_bloc(grille.get_coord_grille((p1.coordx, p1.coordy - 140))))
             if event.key == pygame.K_e:
                 inventaire.ouvrir()
+        if event.type == pygame.MOUSEBUTTONDOWN:  
+            x, y = grille.get_coord_grille(event.pos)
+            if event.button == 1:
+                grille.detruire_bloc(x, y)
+            elif event.button == 3:
+                grille.placer_bloc(x, y, 1)
 
     if key[pygame.K_q]:
         p1.move("left",grille.get_bloc(grille.get_coord_grille((p1.coordx - 32, p1.coordy - 64))),grille.get_bloc(grille.get_coord_grille((p1.coordx - 32, p1.coordy - 128))), delta)

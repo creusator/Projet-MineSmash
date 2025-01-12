@@ -13,6 +13,16 @@ class Grille():
         chunk = open(chemin_chunk, 'r')
         return json.load(chunk)
 
+    def placer_bloc(self, x:int, y:int, bloc:int):
+        """Place le bloc 'bloc' la grille au coordonées du curseur. """
+        if 0 <= y < len(self.chunk) and 0 <= x < len(self.chunk[0]):
+            if self.chunk[y][x] == 0 :
+                self.chunk[y][x] = bloc
+
+    def detruire_bloc(self, x:int, y:int):
+        if 0 <= y < len(self.chunk) and 0 <= x < len(self.chunk[0]):
+            self.chunk[y][x] = 0
+
     def get_coord_grille(self, pos:tuple) -> tuple:
         x, y = pos
         return int(x // self.taille_case), int(y // self.taille_case)
@@ -42,14 +52,6 @@ class Bloc() :
     def charger_sprite(self, chemin_sprite) -> pygame.Surface:
         """Renvoi un sprite utilisable redimensionné en 64x64"""
         return pygame.transform.scale(pygame.image.load(chemin_sprite), (64, 64))
-
-    def placer(self):
-        """Place le bloc SUR la GRILLE au coordonées du curseur. """
-
-    def detruire(self):
-        """Notes pour plus tard :
-            Si le bloc est solide --> mettre dans l'inventaire / détruire
-            Si le bloc est liquide et que le joueur à un seau --> mettre dans le seau"""
 
 class Solide(Bloc) :
     def __init__(self, id, chemin_sprite):
