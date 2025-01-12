@@ -13,11 +13,11 @@ class Grille():
         chunk = open(chemin_chunk, 'r')
         return json.load(chunk)
 
-    def get_coord_grille(self, pos:tuple):
+    def get_coord_grille(self, pos:tuple) -> tuple:
         x, y = pos
         return int(x // self.taille_case), int(y // self.taille_case)
 
-    def get_bloc(self, pos:tuple):
+    def get_bloc(self, pos:tuple) -> int:
         x, y = pos
         return int(self.chunk[y][x])
 
@@ -64,25 +64,25 @@ class Liquide(Bloc) :
         self.degats : 0
         self.viscosite : 0.0
 
-def stone_block():
+def stone_block() -> Solide:
     '''Crée un bloc de pierre'''
     stone_block = Solide(1, 'Asset/image/Blocs/bloc_stone.png')
     stone_block.durete = 10
     return stone_block
 
-def grass_block():
+def grass_block() -> Solide:
     '''Crée un bloc d'herbe'''
     grass_block = Solide(2, 'Asset/image/Blocs/bloc_herbe.png')
     grass_block.durete = 5
     return grass_block
 
-def dirt_block():
+def dirt_block() -> Solide:
     '''Crée un bloc de terre'''
     dirt_block = Solide(3, 'Asset/image/Blocs/bloc_terre.png')
     dirt_block.durete = 5
     return dirt_block
 
-def air():
+def air() -> Liquide:
     '''Crée un bloc d'air'''
     air = Liquide(0, 'Asset/image/Blocs/air.png')
     air.viscosite = 0.0

@@ -28,19 +28,16 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                p1.jump(grille.get_coord_grille((p1.coordx, p1.coordy)))
+                p1.jump(grille.get_bloc(grille.get_coord_grille((p1.coordx, p1.coordy - 140))))
             if event.key == pygame.K_e:
                 inventaire.ouvrir()
 
     if key[pygame.K_q]:
-        p1.move("left", delta)
+        p1.move("left",grille.get_bloc(grille.get_coord_grille((p1.coordx - 32, p1.coordy - 64))),grille.get_bloc(grille.get_coord_grille((p1.coordx - 32, p1.coordy - 128))), delta)
     if key[pygame.K_d]:  
-        p1.move("right", delta)
+        p1.move("right",grille.get_bloc(grille.get_coord_grille((p1.coordx + 32, p1.coordy - 64))),grille.get_bloc(grille.get_coord_grille((p1.coordx +   32, p1.coordy - 128))), delta)
 
-    screen.fill((135,206,235))   
-    #print(grille.get_coord_grille((p1.coordx, p1.coordy)))
-    #print(inventaire.constante)
-    print(grille.get_bloc(grille.get_coord_grille((p1.coordx, p1.coordy))))
+    screen.fill((135,206,235))
     p1.afficher(screen)
     p1.gravité(grille.get_bloc(grille.get_coord_grille((p1.coordx, p1.coordy))))
     grille.dessiner(screen)
