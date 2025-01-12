@@ -8,7 +8,7 @@ class Personnage():
         self.coordy = 256
         self.vie = 200
         self.armure = 0
-        self.vitesse = 256
+        self.vitesse = 512
     
     def charger_sprite(self, chemin_sprite) -> pygame.surface.Surface:
         """Renvoi un sprite utilisable redimensionné en 64x128"""
