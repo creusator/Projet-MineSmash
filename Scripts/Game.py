@@ -28,21 +28,21 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                p1.jump(grille.coord_grille((p1.coordx, p1.coordy)))
+                p1.jump(grille.get_coord_grille((p1.coordx, p1.coordy)))
             if event.key == pygame.K_e:
                 inventaire.ouvrir()
 
     if key[pygame.K_q]:
         p1.move("left", delta)
-    if key[pygame.K_d]:
+    if key[pygame.K_d]:  
         p1.move("right", delta)
 
     screen.fill((135,206,235))   
-    #print(p1.coordx, p1.coordy)
-    #print(grille.coord_grille((p1.coordx, p1.coordy)))
+    #print(grille.get_coord_grille((p1.coordx, p1.coordy)))
     #print(inventaire.constante)
+    print(grille.get_bloc(grille.get_coord_grille((p1.coordx, p1.coordy))))
     p1.afficher(screen)
-    p1.gravité(grille.coord_grille((p1.coordx, p1.coordy)))
+    p1.gravité(grille.get_bloc(grille.get_coord_grille((p1.coordx, p1.coordy))))
     grille.dessiner(screen)
     inventaire.afficher(screen)
     pygame.display.flip()

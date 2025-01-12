@@ -23,15 +23,15 @@ class Personnage():
             self.coordx -= self.vitesse * delta
             self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
 
-    def jump(self, coord_grille):
-        self.coordy -= 80
+    def jump(self, coord_grille:tuple):
+        self.coordy -= 128
 
-    def gravité(self,coord_grille:tuple):
+    def gravité(self,bloc_grille):
         '''Applique la gravité au personnage en fonction des bloc en dessous'''
-        x, y = coord_grille
-        if y <= 3.0  : #Pour l'instant le personnage s'arrête de tomber à une certaine couche au lieu du bloc en dessous
-            self.coordy += 7 #Ce problème est en train d'être réglé (soonTM)
+        if bloc_grille == 0  :
+            self.coordy += 7 
 
     def afficher(self, screen):
         '''Permet d'afficher le personnage sur l'écran'''
-        screen.blit(self.sprite, (self.coordx - 32, self.coordy - 64))                 
+        screen.blit(self.sprite, (self.coordx - 32, self.coordy - 128))
+        screen.blit(pygame.image.load("Asset\image\personnage\pos_indicator.png"), (self.coordx, self.coordy))
