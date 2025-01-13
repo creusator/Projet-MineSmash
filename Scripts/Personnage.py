@@ -3,7 +3,7 @@ import pygame
 class Personnage():
     def __init__(self):
         self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
-        self.pos_indicator = pygame.image.load("Asset\image\personnage\pos_indicator.png")
+        self.pos_indicator = pygame.image.load("Asset/image/personnage/pos_indicator.png")
         self.coordx = 448
         self.coordy = 256
         self.vie = 200
