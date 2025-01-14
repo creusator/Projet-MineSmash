@@ -15,25 +15,25 @@ class Personnage():
         """Renvoi un sprite utilisable redimensionné en 64x128"""
         return pygame.transform.scale(pygame.image.load(chemin_sprite), (64, 128))
 
-    def move(self, direction, delta):
+    def move(self, direction, grille, delta):
         '''Permet d'exécuter les instructions nécessaires au déplacements du personnage'''
         if direction == "right":
-            bloc_grille_bas = Grille.get_bloc(Grille.get_coord_grille((self.coordx + 32, self.coordy - 16)))
-            bloc_grille_haut = Grille.get_bloc(Grille.get_coord_grille((self.coordx +   32, self.coordy - 128)))
-            if collision_pos_bas == 0 and collision_pos_haut == 0 :
+            bloc_grille_bas = grille.get_bloc(grille.get_coord_grille((self.coordx + 32, self.coordy - 16)))
+            bloc_grille_haut = grille.get_bloc(grille.get_coord_grille((self.coordx +   32, self.coordy - 128)))
+            if bloc_grille_bas == 0 and bloc_grille_haut == 0 :
                 self.coordx += self.vitesse * delta
                 self.sprite = self.charger_sprite("Asset/image/personnage/skin de base droite.png")
 
         if direction == "left":
-            bloc_grille_bas = Grille.get_bloc(Grille.get_coord_grille((self.coordx - 32, self.coordy - 16)))
-            bloc_grille_haut = Grille.get_bloc(Grille.get_coord_grille((self.coordx - 32, self.coordy - 128)))
-            if collision_pos_bas == 0 and collision_pos_haut == 0 :
+            bloc_grille_bas = grille.get_bloc(grille.get_coord_grille((self.coordx - 32, self.coordy - 16)))
+            bloc_grille_haut = grille.get_bloc(grille.get_coord_grille((self.coordx - 32, self.coordy - 128)))
+            if bloc_grille_bas == 0 and bloc_grille_haut == 0 :
                 self.coordx -= self.vitesse * delta
                 self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
 
-    def jump(self):
-        bloc_grille_pied = Grille.get_bloc(Grille.get_coord_grille((self.coordx, self.coordy)))
-        bloc_grille_tete = Grille.get_bloc(Grille.get_coord_grille((self.coordx, self.coordy - 140)))
+    def jump(self, grille):
+        bloc_grille_pied = grille.get_bloc(grille.get_coord_grille((self.coordx, self.coordy)))
+        bloc_grille_tete = grille.get_bloc(grille.get_coord_grille((self.coordx, self.coordy - 140)))
         if bloc_grille_pied != 0 and bloc_grille_tete == 0:
             self.coordy -= 128
 

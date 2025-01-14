@@ -28,7 +28,7 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                p1.jump()
+                p1.jump(grille)
             if event.key == pygame.K_e:
                 inventaire.ouvrir()
         if event.type == pygame.MOUSEBUTTONDOWN:  
@@ -39,9 +39,9 @@ while running:
                 grille.placer_bloc(x, y, 1)
 
     if key[pygame.K_q]:
-        p1.move("left", delta)
+        p1.move("left", grille, delta)
     if key[pygame.K_d]:
-        p1.move("right" , delta)
+        p1.move("right" , grille, delta)
 
     screen.fill((135,206,235))
     p1.afficher(screen)
