@@ -1,4 +1,5 @@
 import pygame
+from Blocs import Grille
 
 class Personnage():
     def __init__(self):
@@ -14,19 +15,25 @@ class Personnage():
         """Renvoi un sprite utilisable redimensionné en 64x128"""
         return pygame.transform.scale(pygame.image.load(chemin_sprite), (64, 128))
 
-    def move(self, direction, collision_pos_bas,collision_pos_haut, delta):
+    def move(self, direction, delta):
         '''Permet d'exécuter les instructions nécessaires au déplacements du personnage'''
         if direction == "right":
+            bloc_grille_bas = Grille.get_bloc(Grille.get_coord_grille((self.coordx + 32, self.coordy - 16)))
+            bloc_grille_haut = Grille.get_bloc(Grille.get_coord_grille((self.coordx +   32, self.coordy - 128)))
             if collision_pos_bas == 0 and collision_pos_haut == 0 :
                 self.coordx += self.vitesse * delta
                 self.sprite = self.charger_sprite("Asset/image/personnage/skin de base droite.png")
 
         if direction == "left":
+            bloc_grille_bas = Grille.get_bloc(Grille.get_coord_grille((self.coordx - 32, self.coordy - 16)))
+            bloc_grille_haut = Grille.get_bloc(Grille.get_coord_grille((self.coordx - 32, self.coordy - 128)))
             if collision_pos_bas == 0 and collision_pos_haut == 0 :
                 self.coordx -= self.vitesse * delta
                 self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
 
-    def jump(self,bloc_grille_pied, bloc_grille_tete):
+    def jump(self):
+        bloc_grille_pied = Grille.get_bloc(Grille.get_coord_grille((self.coordx, self.coordy)))
+        bloc_grille_tete = Grille.get_bloc(Grille.get_coord_grille((self.coordx, self.coordy - 140)))
         if bloc_grille_pied != 0 and bloc_grille_tete == 0:
             self.coordy -= 128
 
