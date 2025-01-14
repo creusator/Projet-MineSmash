@@ -39,9 +39,9 @@ while running:
                 grille.placer_bloc(x, y, 1)
 
     if key[pygame.K_q]:
-        p1.move("left",grille.get_bloc(grille.get_coord_grille((p1.coordx - 32, p1.coordy - 64))),grille.get_bloc(grille.get_coord_grille((p1.coordx - 32, p1.coordy - 128))), delta)
-    if key[pygame.K_d]:  
-        p1.move("right",grille.get_bloc(grille.get_coord_grille((p1.coordx + 32, p1.coordy - 64))),grille.get_bloc(grille.get_coord_grille((p1.coordx +   32, p1.coordy - 128))), delta)
+        p1.move("left",grille.get_bloc(grille.get_coord_grille((p1.coordx - 32, p1.coordy - 16))),grille.get_bloc(grille.get_coord_grille((p1.coordx - 32, p1.coordy - 128))), delta)
+    if key[pygame.K_d]:
+        p1.move("right",grille.get_bloc(grille.get_coord_grille((p1.coordx + 32, p1.coordy - 16))),grille.get_bloc(grille.get_coord_grille((p1.coordx +   32, p1.coordy - 128))), delta)
 
     screen.fill((135,206,235))
     p1.afficher(screen)

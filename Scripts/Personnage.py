@@ -39,8 +39,8 @@ class Personnage():
         """Affiche à l'écran des graphisme de debug, visualisation des collisions ect..."""
         screen.blit(self.pos_indicator, (self.coordx, self.coordy)) #Pieds du joueur
         screen.blit(self.pos_indicator, (self.coordx, self.coordy - 140)) #Tête du joueur
-        screen.blit(self.pos_indicator, (self.coordx - 32, self.coordy - 64)) #Bas gauche
-        screen.blit(self.pos_indicator, (self.coordx + 32, self.coordy - 64)) #Bas droit
+        screen.blit(self.pos_indicator, (self.coordx - 32, self.coordy - 16)) #Bas gauche
+        screen.blit(self.pos_indicator, (self.coordx + 32, self.coordy - 16)) #Bas droit
         screen.blit(self.pos_indicator, (self.coordx - 32, self.coordy - 128)) #Haut gauche
         screen.blit(self.pos_indicator, (self.coordx + 32, self.coordy - 128)) #Haut droit
 
