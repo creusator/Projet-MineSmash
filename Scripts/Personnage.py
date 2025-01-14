@@ -37,8 +37,9 @@ class Personnage():
         if bloc_grille_pied != 0 and bloc_grille_tete == 0:
             self.coordy -= 128
 
-    def gravité(self,bloc_grille):
+    def gravité(self, grille):
         '''Applique la gravité au personnage en fonction des bloc en dessous'''
+        bloc_grille = grille.get_bloc(grille.get_coord_grille((self.coordx, self.coordy)))
         if bloc_grille == 0  :
             self.coordy += 10
 

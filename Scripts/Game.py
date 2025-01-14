@@ -45,7 +45,7 @@ while running:
 
     screen.fill((135,206,235))
     p1.afficher(screen)
-    p1.gravité(grille.get_bloc(grille.get_coord_grille((p1.coordx, p1.coordy))))
+    p1.gravité(grille)
     grille.dessiner(screen)
     inventaire.afficher(screen)
     pygame.display.flip()
