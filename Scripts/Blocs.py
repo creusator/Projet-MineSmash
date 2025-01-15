@@ -24,12 +24,14 @@ class Grille():
             self.chunk[y][x] = 0
 
     def get_coord_grille(self, pos:tuple) -> tuple:
+        """Prend des coordonées et renvoie les coordonées de la grille associé"""
         x, y = pos
         return int(x // self.taille_case), int(y // self.taille_case)
 
     def get_bloc(self, pos:tuple) -> int:
+        """Prend des coordonées et renvoie le bloc de la grille associé"""
         x, y = pos
-        return int(self.chunk[y][x])
+        return self.chunk[int(y // self.taille_case)][int(x // self.taille_case)]
 
     def dessiner(self, screen):
         """Dessine les blocs sur l'écran en fontion des données de la matrice"""
