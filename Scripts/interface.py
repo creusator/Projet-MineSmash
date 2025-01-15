@@ -28,10 +28,10 @@ class Inventaire():
 class Barre_outil():
 
     def __init__ (self):
-        self.constante = 0
+        self.constante = 1
         self.coordx_affichage = None
         self.coordy_affichage = None
-        self.coordx = 500
+        self.coordx = 256
         self.coordy = 400
         self.barre = self.charger_barre("Asset/image/interface/barre d'inventaire.png")
         self.largeur,self.hauteur = self.barre.get_size()
@@ -39,14 +39,14 @@ class Barre_outil():
     
     def charger_barre(self, chemin_barre):
         """Renvoi une barre utilisable redimensionné en 128*98"""
-        return pygame.transform.scale(pygame.image.load(chemin_barre), (2808, 48))
+        return pygame.transform.scale(pygame.image.load(chemin_barre), (4680, 96))
 
     def afficher(self, screen):
         if self.constante < 1:
             self.constante = 9
         elif self.constante > 9:
             self.constante = 1
-        screen.blit(self.barre,(self.coordx,self.coordy),[0,0,192*self.constante,self.hauteur])
+        screen.blit(self.barre,(self.coordx,self.coordy),[0,0,520*self.constante,self.hauteur])
     def scroll(self,arg):
         if arg == "up":
             self.constante+=1
