@@ -12,11 +12,11 @@ class Personnage():
         self.velocite = 0
         self.gravite = 10
     
-    def charger_sprite(self, chemin_sprite) -> pygame.surface.Surface:
+    def charger_sprite(self, chemin_sprite:str) -> pygame.surface.Surface:
         """Renvoi un sprite utilisable redimensionné en 64x128"""
         return pygame.transform.scale(pygame.image.load(chemin_sprite), (64, 128))
 
-    def move(self, direction, grille, delta):
+    def move(self, direction:str , grille:list, delta:float) -> None:
         '''Permet d'exécuter les instructions nécessaires au déplacements du personnage'''
         if direction == "right":
             bloc_grille_bas = grille.get_bloc(grille.get_coord_grille((self.coordx + 24, self.coordy - 16)))
@@ -36,7 +36,7 @@ class Personnage():
                 self.velocite += self.acceleration * delta
                 self.coordx -= self.velocite * delta
 
-    def jump(self, grille):
+    def jump(self, grille:list) -> None:
         bloc_grille_pied_gauche = grille.get_bloc(grille.get_coord_grille((self.coordx - 16, self.coordy)))
         bloc_grille_pied_droit = grille.get_bloc(grille.get_coord_grille((self.coordx + 16, self.coordy)))
         bloc_grille_tete = grille.get_bloc(grille.get_coord_grille((self.coordx, self.coordy - 140)))
@@ -44,18 +44,18 @@ class Personnage():
             if bloc_grille_tete == 0:
                 self.coordy -= 128
 
-    def gravité(self, grille):
+    def gravité(self, grille:list) -> None:
         '''Applique la gravité au personnage en fonction des bloc en dessous'''
         bloc_grille_pied_gauche = grille.get_bloc(grille.get_coord_grille((self.coordx - 16, self.coordy)))
         bloc_grille_pied_droit = grille.get_bloc(grille.get_coord_grille((self.coordx + 16, self.coordy)))
         if bloc_grille_pied_gauche == 0 and bloc_grille_pied_droit == 0  :
             self.coordy += self.gravite
 
-    def debug(self, screen):
+    def debug(self, screen:pygame.surface.Surface) -> None:
         """Affiche à l'écran des graphisme de debug, visualisation des collisions ect..."""
+        screen.blit(self.pos_indicator, (self.coordx, self.coordy - 140)) #Tête du joueur
         screen.blit(self.pos_indicator, (self.coordx - 16, self.coordy)) #Pieds gauche du joueur
         screen.blit(self.pos_indicator, (self.coordx + 16, self.coordy)) #Pieds droit du joueur
-        screen.blit(self.pos_indicator, (self.coordx, self.coordy - 140)) #Tête du joueur
         screen.blit(self.pos_indicator, (self.coordx - 24, self.coordy - 16)) #Bas gauche
         screen.blit(self.pos_indicator, (self.coordx + 24, self.coordy - 16)) #Bas droit
         screen.blit(self.pos_indicator, (self.coordx - 24, self.coordy - 64)) #Milieu gauche
@@ -63,7 +63,7 @@ class Personnage():
         screen.blit(self.pos_indicator, (self.coordx - 24, self.coordy - 128)) #Haut gauche
         screen.blit(self.pos_indicator, (self.coordx + 24, self.coordy - 128)) #Haut droit
 
-    def afficher(self, screen):
+    def afficher(self, screen:pygame.surface.Surface) -> None:
         '''Permet d'afficher le personnage sur l'écran'''
         screen.blit(self.sprite, (self.coordx - 32, self.coordy - 128))
         self.debug(screen)
