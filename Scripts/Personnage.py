@@ -18,15 +18,17 @@ class Personnage():
         '''Permet d'exécuter les instructions nécessaires au déplacements du personnage'''
         if direction == "right":
             bloc_grille_bas = grille.get_bloc(grille.get_coord_grille((self.coordx + 32, self.coordy - 16)))
+            bloc_grille_milieu = grille.get_bloc(grille.get_coord_grille((self.coordx + 32, self.coordy - 64)))
             bloc_grille_haut = grille.get_bloc(grille.get_coord_grille((self.coordx +   32, self.coordy - 128)))
-            if bloc_grille_bas == 0 and bloc_grille_haut == 0 :
+            if bloc_grille_bas == 0 and bloc_grille_milieu == 0 and bloc_grille_haut == 0 :
                 self.coordx += self.vitesse * delta
                 self.sprite = self.charger_sprite("Asset/image/personnage/skin de base droite.png")
 
         if direction == "left":
             bloc_grille_bas = grille.get_bloc(grille.get_coord_grille((self.coordx - 32, self.coordy - 16)))
+            bloc_grille_milieu = grille.get_bloc(grille.get_coord_grille((self.coordx - 32, self.coordy - 64)))
             bloc_grille_haut = grille.get_bloc(grille.get_coord_grille((self.coordx - 32, self.coordy - 128)))
-            if bloc_grille_bas == 0 and bloc_grille_haut == 0 :
+            if bloc_grille_bas == 0 and bloc_grille_milieu == 0 and bloc_grille_haut == 0 :
                 self.coordx -= self.vitesse * delta
                 self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
 
@@ -48,6 +50,8 @@ class Personnage():
         screen.blit(self.pos_indicator, (self.coordx, self.coordy - 140)) #Tête du joueur
         screen.blit(self.pos_indicator, (self.coordx - 32, self.coordy - 16)) #Bas gauche
         screen.blit(self.pos_indicator, (self.coordx + 32, self.coordy - 16)) #Bas droit
+        screen.blit(self.pos_indicator, (self.coordx - 32, self.coordy - 64)) #Milieu gauche
+        screen.blit(self.pos_indicator, (self.coordx + 32, self.coordy - 64)) #Milieu droit
         screen.blit(self.pos_indicator, (self.coordx - 32, self.coordy - 128)) #Haut gauche
         screen.blit(self.pos_indicator, (self.coordx + 32, self.coordy - 128)) #Haut droit
 
