@@ -5,8 +5,7 @@ class Personnage():
     def __init__(self):
         self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
         self.pos_indicator = pygame.image.load("Asset/image/personnage/pos_indicator.png")
-        self.coordx = 448
-        self.coordy = 256
+        self.coordx, self.coordy = 448, 256
         self.vie = 200
         self.armure = 0
         self.vitesse = 512
@@ -39,8 +38,8 @@ class Personnage():
 
     def gravité(self, grille):
         '''Applique la gravité au personnage en fonction des bloc en dessous'''
-        bloc_grille = grille.get_bloc(grille.get_coord_grille((self.coordx, self.coordy)))
-        if bloc_grille == 0  :
+        bloc_grille_pied = grille.get_bloc(grille.get_coord_grille((self.coordx, self.coordy)))
+        if bloc_grille_pied == 0  :
             self.coordy += 10
 
     def debug(self, screen):
