@@ -8,7 +8,9 @@ class Personnage():
         self.coordx, self.coordy = 448, 256
         self.vie = 200
         self.armure = 0
-        self.vitesse = 512
+        self.acceleration = 1024
+        self.velocite = 0
+        self.gravite = 10
     
     def charger_sprite(self, chemin_sprite) -> pygame.surface.Surface:
         """Renvoi un sprite utilisable redimensionné en 64x128"""
@@ -21,16 +23,18 @@ class Personnage():
             bloc_grille_milieu = grille.get_bloc(grille.get_coord_grille((self.coordx + 24, self.coordy - 64)))
             bloc_grille_haut = grille.get_bloc(grille.get_coord_grille((self.coordx +   24, self.coordy - 128)))
             if bloc_grille_bas == 0 and bloc_grille_milieu == 0 and bloc_grille_haut == 0 :
-                self.coordx += self.vitesse * delta
                 self.sprite = self.charger_sprite("Asset/image/personnage/skin de base droite.png")
+                self.velocite += self.acceleration * delta
+                self.coordx += self.velocite * delta
 
         if direction == "left":
             bloc_grille_bas = grille.get_bloc(grille.get_coord_grille((self.coordx - 24, self.coordy - 16)))
             bloc_grille_milieu = grille.get_bloc(grille.get_coord_grille((self.coordx - 24, self.coordy - 64)))
             bloc_grille_haut = grille.get_bloc(grille.get_coord_grille((self.coordx - 24, self.coordy - 128)))
             if bloc_grille_bas == 0 and bloc_grille_milieu == 0 and bloc_grille_haut == 0 :
-                self.coordx -= self.vitesse * delta
                 self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
+                self.velocite += self.acceleration * delta
+                self.coordx -= self.velocite * delta
 
     def jump(self, grille):
         bloc_grille_pied_gauche = grille.get_bloc(grille.get_coord_grille((self.coordx - 16, self.coordy)))
@@ -45,7 +49,7 @@ class Personnage():
         bloc_grille_pied_gauche = grille.get_bloc(grille.get_coord_grille((self.coordx - 16, self.coordy)))
         bloc_grille_pied_droit = grille.get_bloc(grille.get_coord_grille((self.coordx + 16, self.coordy)))
         if bloc_grille_pied_gauche == 0 and bloc_grille_pied_droit == 0  :
-            self.coordy += 10
+            self.coordy += self.gravite
 
     def debug(self, screen):
         """Affiche à l'écran des graphisme de debug, visualisation des collisions ect..."""
