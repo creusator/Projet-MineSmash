@@ -17,6 +17,7 @@ p1 = Personnage()
 grille = Grille(SCREEN_WIDTH, SCREEN_HEIGHT, 64)
 grille.chunk = grille.charger("Save/monde-test/chunk1.json")
 inventaire = Inventaire()
+barre_outil = Barre_outil()
 
 while running:
 
@@ -26,17 +27,22 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.KEYDOWN:
+        elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 p1.jump(grille, delta)
             if event.key == pygame.K_e:
                 inventaire.ouvrir()
-        if event.type == pygame.MOUSEBUTTONDOWN:  
+        elif event.type == pygame.MOUSEBUTTONDOWN:  
             x, y = grille.get_coord_grille(event.pos)
             if event.button == 1:
                 grille.detruire_bloc(x, y)
             elif event.button == 3:
                 grille.placer_bloc(x, y, 1)
+        elif event.type == pygame.MOUSEWHEEL:
+            if event.y == 1:
+                barre_outil.scroll("haut")
+            elif event.y == -1:
+                barre_outil.scroll("bas")
 
     if key[pygame.K_q]:
         p1.move("left", grille, delta)
@@ -47,6 +53,7 @@ while running:
     p1.afficher(screen)
     p1.gravité(grille, delta)
     grille.dessiner(screen)
+    barre_outil.afficher(screen)
     inventaire.afficher(screen)
     pygame.display.flip()
     clock.tick(FRAMERATE)
