@@ -7,8 +7,8 @@ class Personnage():
     def __init__(self):
         self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
         self.pos_indicator = pygame.image.load("Asset/image/personnage/pos_indicator.png")
-        self.vie = 200
-        self.armure = 0
+        self.vie = 20
+        self.armure = 20
         self.coord = vecteur(480, 512/2)
         self.velocite = vecteur(0, 0)
         self.acceleration = vecteur(0, 0)

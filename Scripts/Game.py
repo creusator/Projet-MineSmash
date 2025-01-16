@@ -18,7 +18,8 @@ grille = Grille(SCREEN_WIDTH, SCREEN_HEIGHT, 64)
 grille.chunk = grille.charger("Save/monde-test/chunk1.json")
 inventaire = Inventaire()
 barre_outil = Barre_outil()
-
+barre_vie = Barre_vie()
+barre_armure = Barre_armure()
 while running:
 
     delta = clock.tick(FRAMERATE)/1000
@@ -47,6 +48,8 @@ while running:
     player.update_pos(grille, delta)
     grille.dessiner(screen)
     barre_outil.afficher(screen)
+    barre_armure.afficher(screen,player.armure)
+    barre_vie.afficher(screen, player.vie)
     inventaire.afficher(screen)
     pygame.display.flip()
     clock.tick(FRAMERATE)
