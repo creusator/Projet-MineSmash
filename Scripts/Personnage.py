@@ -69,13 +69,13 @@ class Personnage():
     def colliding_left(self, grille:list) -> bool:
         collision_bas_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 16))
         collision_milieu_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 64))
-        collision_haut_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 128))
+        collision_haut_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 115))
         return collision_bas_gauche != 0 or collision_milieu_gauche != 0 or collision_haut_gauche != 0
     
     def colliding_right(self, grille:list) -> bool:
         collision_bas_droite = grille.get_bloc((self.coord.x + 24, self.coord.y - 16))
         collision_milieu_droite = grille.get_bloc((self.coord.x + 24, self.coord.y - 64))
-        collision_haut_droite = grille.get_bloc((self.coord.x +   24, self.coord.y - 128))
+        collision_haut_droite = grille.get_bloc((self.coord.x +   24, self.coord.y - 115))
         return collision_bas_droite != 0 or collision_milieu_droite != 0 or collision_haut_droite != 0
 
     def debug(self, screen:pygame.surface.Surface) -> None:
@@ -87,8 +87,8 @@ class Personnage():
         screen.blit(self.pos_indicator, (self.coord.x + 24, self.coord.y - 16)) #Bas droit
         screen.blit(self.pos_indicator, (self.coord.x - 24, self.coord.y - 64)) #Milieu gauche
         screen.blit(self.pos_indicator, (self.coord.x + 24, self.coord.y - 64)) #Milieu droit
-        screen.blit(self.pos_indicator, (self.coord.x - 24, self.coord.y - 128)) #Haut gauche
-        screen.blit(self.pos_indicator, (self.coord.x + 24, self.coord.y - 128)) #Haut droit
+        screen.blit(self.pos_indicator, (self.coord.x - 24, self.coord.y - 115)) #Haut gauche
+        screen.blit(self.pos_indicator, (self.coord.x + 24, self.coord.y - 115)) #Haut droit
 
     def afficher(self, screen:pygame.surface.Surface) -> None:
         '''Permet d'afficher le personnage sur l'écran'''
