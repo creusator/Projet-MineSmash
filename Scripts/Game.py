@@ -40,9 +40,9 @@ while running:
                 grille.placer_bloc(x, y, 1)
         elif event.type == pygame.MOUSEWHEEL:
             if event.y == 1:
-                barre_outil.scroll("haut")
+                barre_outil.scroll("up")
             elif event.y == -1:
-                barre_outil.scroll("bas")
+                barre_outil.scroll("down")
 
     if key[pygame.K_q]:
         p1.move("left", grille, delta)

@@ -42,11 +42,12 @@ class Barre_outil():
         return pygame.transform.scale(pygame.image.load(chemin_barre), (4680, 96))
 
     def afficher(self, screen):
-        if self.constante < 1:
+        if self.constante <= 0:
             self.constante = 9
-        elif self.constante > 9:
+        elif self.constante >= 10:
             self.constante = 1
-        screen.blit(self.barre,(self.coordx,self.coordy),[0,0,520*self.constante,self.hauteur])
+        screen.blit(self.barre,(self.coordx,self.coordy),[(520*(self.constante-1)),0,520,self.hauteur])
+
     def scroll(self,arg):
         if arg == "up":
             self.constante+=1
