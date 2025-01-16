@@ -29,8 +29,6 @@ class Barre_outil():
 
     def __init__ (self):
         self.constante = 1
-        self.coordx_affichage = None
-        self.coordy_affichage = None
         self.coordx = 256
         self.coordy = 400
         self.barre = self.charger_barre("Asset/image/interface/barre d'inventaire.png")
@@ -38,7 +36,7 @@ class Barre_outil():
         self.valeur = 0
     
     def charger_barre(self, chemin_barre):
-        """Renvoi une barre utilisable redimensionné en 128*98"""
+        """Renvoi une barre utilisable redimensionné en 4680 * 96"""
         return pygame.transform.scale(pygame.image.load(chemin_barre), (4680, 96))
 
     def afficher(self, screen):
@@ -53,3 +51,38 @@ class Barre_outil():
             self.constante+=1
         elif arg == "down":
             self.constante-=1
+
+
+class Barre_vie():
+
+    def __init__ (self):
+        self.constante = 1
+        self.coordx = 255
+        self.coordy = 365
+        self.barre = self.charger_barre("Asset/image/interface/barre de vie.png")
+        self.largeur,self.hauteur = self.barre.get_size()
+        self.valeur = 0
+        
+    def charger_barre(self, chemin_barre):
+        """Renvoi une barre utilisable redimensionné en 5166 * 24"""
+        return pygame.transform.scale(pygame.image.load(chemin_barre), (5166, 24))
+
+    def afficher(self, screen, vie):
+        screen.blit(self.barre,(self.coordx,self.coordy),[246*(20-vie),0,246,self.hauteur])
+
+class Barre_armure():
+
+    def __init__ (self):
+        self.constante = 1
+        self.coordx = 535
+        self.coordy = 365
+        self.barre = self.charger_barre("Asset/image/interface/barre d'armure.png")
+        self.largeur,self.hauteur = self.barre.get_size()
+        self.valeur = 0
+    
+    def charger_barre(self, chemin_barre):
+        """Renvoi une barre utilisable redimensionné en 5166 * 24"""
+        return pygame.transform.scale(pygame.image.load(chemin_barre), (5166, 24))
+    
+    def afficher(self, screen, armure):
+        screen.blit(self.barre,(self.coordx,self.coordy),[246*(20-armure),0,246,self.hauteur])
