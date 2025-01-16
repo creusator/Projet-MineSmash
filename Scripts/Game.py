@@ -44,7 +44,7 @@ while running:
 
     screen.fill((135,206,235))
     player.afficher(screen)
-    player.update(grille, delta)
+    player.update_pos(grille, delta)
     grille.dessiner(screen)
     barre_outil.afficher(screen)
     inventaire.afficher(screen)

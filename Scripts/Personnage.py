@@ -25,7 +25,7 @@ class Personnage():
         if self.is_on_ground(grille) and collision_tete == 0:
             self.jumping = True
     
-    def update(self, grille:list, delta:float) -> None :
+    def update_pos(self, grille:list, delta:float) -> None :
         '''Permet d'exécuter les instructions nécessaires au déplacements du personnage'''
         key = pygame.key.get_pressed()
         self.acceleration = vecteur(0,self.gravite)
@@ -43,11 +43,19 @@ class Personnage():
 
         if key[pygame.K_q]:
             self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
-            self.acceleration.x = -ACCELERATION
+            if self.colliding_left(grille) == False:
+                self.acceleration.x = -ACCELERATION
+            else :
+                self.acceleration.x = 0
+                self.velocite.x = 0
                 
-        if key[pygame.K_d]:
+        if key[pygame.K_d]: 
             self.sprite = self.charger_sprite("Asset/image/personnage/skin de base droite.png")
-            self.acceleration.x = ACCELERATION
+            if self.colliding_right(grille) == False:
+                self.acceleration.x = ACCELERATION
+            else :
+                self.acceleration.x = 0
+                self.velocite.x = 0
 
         self.acceleration.x += self.velocite.x * FRICTION
         self.velocite += self.acceleration
@@ -68,7 +76,7 @@ class Personnage():
         collision_bas_droite = grille.get_bloc((self.coord.x + 24, self.coord.y - 16))
         collision_milieu_droite = grille.get_bloc((self.coord.x + 24, self.coord.y - 64))
         collision_haut_droite = grille.get_bloc((self.coord.x +   24, self.coord.y - 128))
-        return collision_bas_droite != 0 or collision_milieu_droite != 0 or collision_haut_dr != 0
+        return collision_bas_droite != 0 or collision_milieu_droite != 0 or collision_haut_droite != 0
 
     def debug(self, screen:pygame.surface.Surface) -> None:
         """Affiche à l'écran des graphisme de debug, visualisation des collisions ect..."""
