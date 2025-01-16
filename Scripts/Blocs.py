@@ -8,18 +8,18 @@ class Grille():
         self.taille_case = taille_case
         self.chunk = None
 
-    def charger(self, chemin_chunk:str):
+    def charger(self, chemin_chunk:str) -> list:
         """Renvoi une matrice utilisable a partir du chemin d'accès du JSON"""
         chunk = open(chemin_chunk, 'r')
         return json.load(chunk)
 
-    def placer_bloc(self, x:int, y:int, bloc:int):
+    def placer_bloc(self, x:int, y:int, bloc:int) -> None:
         """Place le bloc 'bloc' la grille au coordonées du curseur. """
         if 0 <= y < len(self.chunk) and 0 <= x < len(self.chunk[0]):
             if self.chunk[y][x] == 0 :
                 self.chunk[y][x] = bloc
 
-    def detruire_bloc(self, x:int, y:int):
+    def detruire_bloc(self, x:int, y:int) -> None:
         if 0 <= y < len(self.chunk) and 0 <= x < len(self.chunk[0]):
             self.chunk[y][x] = 0
 
@@ -33,7 +33,7 @@ class Grille():
         x, y = pos
         return self.chunk[int(y // self.taille_case)][int(x // self.taille_case)]
 
-    def dessiner(self, screen):
+    def dessiner(self, screen:pygame.surface.Surface) -> None:
         """Dessine les blocs sur l'écran en fontion des données de la matrice"""
         for y, ligne in enumerate(self.chunk):
             for x, bloc in enumerate(ligne):
@@ -47,23 +47,23 @@ class Grille():
                     screen.blit(dirt_block().sprite, (x * self.taille_case, y * self.taille_case))
 
 class Bloc() :
-    def __init__(self, chemin_sprite):
+    def __init__(self, chemin_sprite:str):
         self.sprite = self.charger_sprite(chemin_sprite)
         self.id = None
 
-    def charger_sprite(self, chemin_sprite) -> pygame.Surface:
+    def charger_sprite(self, chemin_sprite:str) -> pygame.Surface:
         """Renvoi un sprite utilisable redimensionné en 64x64"""
         return pygame.transform.scale(pygame.image.load(chemin_sprite), (64, 64))
 
 class Solide(Bloc) :
-    def __init__(self, id, chemin_sprite):
+    def __init__(self, id:int, chemin_sprite:str):
         super().__init__(chemin_sprite)
         self.durete : 0
         self.is_flammable = False
         self.has_collision = True
 
 class Liquide(Bloc) : 
-    def __init__(self, id, chemin_sprite):
+    def __init__(self, id:int, chemin_sprite:str):
         super().__init__(chemin_sprite)
         self.degats : 0
         self.viscosite : 0.0

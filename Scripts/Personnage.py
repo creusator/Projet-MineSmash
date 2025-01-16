@@ -27,26 +27,11 @@ class Personnage():
     
     def update(self, grille:list, delta:float) -> None :
         '''Permet d'exécuter les instructions nécessaires au déplacements du personnage'''
-        collision_bas_droite = grille.get_bloc((self.coord.x + 24, self.coord.y - 16))
-        collision_milieu_droite = grille.get_bloc((self.coord.x + 24, self.coord.y - 64))
-        collision_haut_droite = grille.get_bloc((self.coord.x +   24, self.coord.y - 128))
-        collision_bas_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 16))
-        collision_milieu_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 64))
-        collision_haut_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 128))
-        collision_tete = grille.get_bloc((self.coord.x, self.coord.y - 140))
-
         key = pygame.key.get_pressed()
         self.acceleration = vecteur(0,self.gravite)
 
         ACCELERATION = 0.5
         FRICTION = -0.12
-
-        if key[pygame.K_q]:
-            self.acceleration.x = -ACCELERATION
-            self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
-        if key[pygame.K_d]:
-            self.acceleration.x = ACCELERATION
-            self.sprite = self.charger_sprite("Asset/image/personnage/skin de base droite.png")
 
         if self.is_on_ground(grille):
             if self.jumping :
@@ -56,14 +41,34 @@ class Personnage():
                 self.velocite.y = 0
                 self.acceleration.y = 0
 
+        if key[pygame.K_q]:
+            self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
+            self.acceleration.x = -ACCELERATION
+                
+        if key[pygame.K_d]:
+            self.sprite = self.charger_sprite("Asset/image/personnage/skin de base droite.png")
+            self.acceleration.x = ACCELERATION
+
         self.acceleration.x += self.velocite.x * FRICTION
         self.velocite += self.acceleration
         self.coord += self.velocite + self.acceleration * delta
 
-    def is_on_ground(self, grille):
+    def is_on_ground(self, grille:list) -> bool:
         collision_pied_gauche = grille.get_bloc((self.coord.x - 16, self.coord.y))
         collision_pied_droit = grille.get_bloc((self.coord.x + 16, self.coord.y))
         return collision_pied_droit != 0 or collision_pied_gauche != 0
+
+    def colliding_left(self, grille:list) -> bool:
+        collision_bas_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 16))
+        collision_milieu_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 64))
+        collision_haut_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 128))
+        return collision_bas_gauche != 0 or collision_milieu_gauche != 0 or collision_haut_gauche != 0
+    
+    def colliding_right(self, grille:list) -> bool:
+        collision_bas_droite = grille.get_bloc((self.coord.x + 24, self.coord.y - 16))
+        collision_milieu_droite = grille.get_bloc((self.coord.x + 24, self.coord.y - 64))
+        collision_haut_droite = grille.get_bloc((self.coord.x +   24, self.coord.y - 128))
+        return collision_bas_droite != 0 or collision_milieu_droite != 0 or collision_haut_dr != 0
 
     def debug(self, screen:pygame.surface.Surface) -> None:
         """Affiche à l'écran des graphisme de debug, visualisation des collisions ect..."""
