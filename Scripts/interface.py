@@ -18,7 +18,7 @@ class Inventaire():
         elif self.constante == 1:
             self.constante = 0
 
-    def afficher(self, scree:pygame.surface.Surface) -> None:
+    def afficher(self, screen:pygame.surface.Surface) -> None:
         if self.constante == 0:
             screen.blit(self.vide, (self.coordx, self.coordy))
         if self.constante == 1:
