@@ -8,22 +8,21 @@ class Inventaire():
         self.coordy = 64
         self.constante = 0
 
-    def charger_inventaire(self, chemin_inventaire):
+    def charger_inventaire(self, chemin_inventaire:str) -> pygame.surface.Surface:
         """Renvoi un inventaire utilisable redimensionné en 128*98"""
         return pygame.transform.scale(pygame.image.load(chemin_inventaire), (512, 392))
 
-    def ouvrir(self):
+    def ouvrir(self) -> None:
         if self.constante == 0:
             self.constante = 1
         elif self.constante == 1:
             self.constante = 0
 
-    def afficher(self, screen):
+    def afficher(self, scree:pygame.surface.Surface) -> None:
         if self.constante == 0:
             screen.blit(self.vide, (self.coordx, self.coordy))
         if self.constante == 1:
             screen.blit(self.inventaire, (self.coordx, self.coordy))
-
 
 class Barre_outil():
 
@@ -35,18 +34,18 @@ class Barre_outil():
         self.largeur,self.hauteur = self.barre.get_size()
         self.valeur = 0
     
-    def charger_barre(self, chemin_barre):
+    def charger_barre(self, chemin_barre:str) -> pygame.surface.Surface:
         """Renvoi une barre utilisable redimensionné en 4680 * 96"""
         return pygame.transform.scale(pygame.image.load(chemin_barre), (4680, 96))
 
-    def afficher(self, screen):
+    def afficher(self, screen:pygame.surface.Surface) -> None:
         if self.constante <= 0:
             self.constante = 9
         elif self.constante >= 10:
             self.constante = 1
         screen.blit(self.barre,(self.coordx,self.coordy),[(520*(self.constante-1)),0,520,self.hauteur])
 
-    def scroll(self,arg):
+    def scroll(self,arg:str) -> None:
         if arg == "up":
             self.constante+=1
         elif arg == "down":
@@ -63,11 +62,11 @@ class Barre_vie():
         self.largeur,self.hauteur = self.barre.get_size()
         self.valeur = 0
         
-    def charger_barre(self, chemin_barre):
+    def charger_barre(self, chemin_barre:str) -> pygame.surface.Surface:
         """Renvoi une barre utilisable redimensionné en 5166 * 24"""
         return pygame.transform.scale(pygame.image.load(chemin_barre), (5166, 24))
 
-    def afficher(self, screen, vie):
+    def afficher(self, screen:pygame.surface.Surface, vie:int) -> None:
         screen.blit(self.barre,(self.coordx,self.coordy),[246*(20-vie),0,246,self.hauteur])
 
 class Barre_armure():
@@ -80,9 +79,9 @@ class Barre_armure():
         self.largeur,self.hauteur = self.barre.get_size()
         self.valeur = 0
     
-    def charger_barre(self, chemin_barre):
+    def charger_barre(self, chemin_barre:str) -> pygame.surface.Surface:
         """Renvoi une barre utilisable redimensionné en 5166 * 24"""
         return pygame.transform.scale(pygame.image.load(chemin_barre), (5166, 24))
     
-    def afficher(self, screen, armure):
+    def afficher(self, screen:pygame.surface.Surface, armure:int) -> None:
         screen.blit(self.barre,(self.coordx,self.coordy),[246*(20-armure),0,246,self.hauteur])
