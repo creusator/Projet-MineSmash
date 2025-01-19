@@ -15,6 +15,7 @@ class Personnage():
         self.gravite = 0.81
         self.jump_force = 13
         self.jumping = False
+        self.collision_box = pygame.rect
 
     def charger_sprite(self, chemin_sprite:str) -> pygame.surface.Surface:
         """Renvoi un sprite utilisable redimensionné en 64x128"""

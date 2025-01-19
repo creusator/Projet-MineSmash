@@ -20,6 +20,7 @@ inventaire = Inventaire()
 barre_outil = Barre_outil()
 barre_vie = Barre_vie()
 barre_armure = Barre_armure()
+
 while running:
 
     delta = clock.tick(FRAMERATE)/1000
