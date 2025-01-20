@@ -49,7 +49,7 @@ class Grille():
 class Bloc() :
     def __init__(self, chemin_sprite:str):
         self.sprite = self.charger_sprite(chemin_sprite)
-        self.collision_box = pygame.rect(0,0,64,64)
+        self.collision_box = pygame.Rect(0,0,64,64)
         self.id = None
 
     def charger_sprite(self, chemin_sprite:str) -> pygame.Surface:
