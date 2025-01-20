@@ -7,7 +7,7 @@ class Personnage():
     def __init__(self):
         self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
         self.pos_indicator = pygame.image.load("Asset/image/personnage/pos_indicator.png")
-        self.vie = 20
+        self.vie = 5
         self.armure = 20
         self.coord = vecteur(480, 512/2)
         self.velocite = vecteur(0, 0)
@@ -15,7 +15,7 @@ class Personnage():
         self.gravite = 0.81
         self.jump_force = 13
         self.jumping = False
-        self.collision_box = pygame.rect
+        self.collision_box = pygame.rect(0,0,64,128)
 
     def charger_sprite(self, chemin_sprite:str) -> pygame.surface.Surface:
         """Renvoi un sprite utilisable redimensionné en 64x128"""
