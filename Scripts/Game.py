@@ -45,9 +45,9 @@ while running:
                 barre_outil.scroll("down")
 
     screen.fill((135,206,235))
+    grille.dessiner(screen)
     player.afficher(screen)
     player.update_pos(grille, delta)
-    grille.dessiner(screen)
     barre_outil.afficher(screen)
     barre_armure.afficher(screen,player.armure)
     barre_vie.afficher(screen, player.vie)
