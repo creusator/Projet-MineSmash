@@ -39,13 +39,14 @@ class Grille():
         """Dessine les blocs sur l'écran en fontion des données de la matrice"""
         for y, ligne in enumerate(self.chunk):
             for x, bloc_id in enumerate(ligne):
+
                 bloc = return_bloc(bloc_id)
                 coordbloc = (x * self.taille_case, y * self.taille_case)
                 screen.blit(bloc.sprite, coordbloc)
+                
                 if type(bloc) is Solide :
                     bloc.collision_box.topleft = coordbloc
                     pygame.draw.rect(screen, GREEN, bloc.collision_box)
-                
 
 class Bloc() :
     def __init__(self, chemin_sprite:str):
@@ -55,7 +56,6 @@ class Bloc() :
     def charger_sprite(self, chemin_sprite:str) -> pygame.Surface:
         """Renvoi un sprite utilisable redimensionné en 64x64"""
         return pygame.transform.scale(pygame.image.load(chemin_sprite), (64, 64))
-
 
 class Solide(Bloc) :
     def __init__(self, chemin_sprite:str):
@@ -81,25 +81,25 @@ def return_bloc(bloc_id:int):
     if bloc_id == 3 :
         return dirt_block()
 
-def stone_block():
+def stone_block() -> Solide:
     '''Crée un bloc de pierre'''
     stone_block = Solide('Asset/image/Blocs/bloc_stone.png')
     stone_block.durete = 10
     return stone_block
 
-def grass_block():
+def grass_block() -> Solide:
     '''Crée un bloc d'herbe'''
     grass_block = Solide('Asset/image/Blocs/bloc_herbe.png')
     grass_block.durete = 5
     return grass_block
 
-def dirt_block():
+def dirt_block() -> Solide:
     '''Crée un bloc de terre'''
     dirt_block = Solide('Asset/image/Blocs/bloc_terre.png')
     dirt_block.durete = 5
     return dirt_block
 
-def air():
+def air() -> Liquide:
     '''Crée un bloc d'air'''
     air = Liquide('Asset/image/Blocs/air.png')
     air.viscosite = 0.0
