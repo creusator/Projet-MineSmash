@@ -45,7 +45,7 @@ while running:
                 barre_outil.scroll("down")
 
     screen.fill((135,206,235))
-    grille.dessiner(screen)
+    grille.dessiner(screen, player)
     player.afficher(screen)
     player.update_pos(grille, delta)
     grille.empty_collision_list()

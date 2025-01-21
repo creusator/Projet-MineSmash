@@ -2,6 +2,7 @@ import pygame
 import json
 
 GREEN = (0, 255, 0)
+RED = (255,0,0)
 
 class Grille():
     def __init__(self, largeur_grille:int, hauteur_grille:int, taille_case:int):
@@ -37,22 +38,26 @@ class Grille():
         x, y = pos
         return self.chunk[int(y // self.taille_case)][int(x // self.taille_case)]
 
-    def dessiner(self, screen:pygame.surface.Surface) -> None:
+    def dessiner(self, screen:pygame.surface.Surface, player) -> None:
         """Dessine les blocs sur l'écran en fontion des données de la matrice"""
         for y, ligne in enumerate(self.chunk):
             for x, bloc_id in enumerate(ligne):
 
-                bloc = return_bloc(bloc_id)
+                bloc = identify_bloc(bloc_id)
                 coordbloc = (x * self.taille_case, y * self.taille_case)
                 screen.blit(bloc.sprite, coordbloc)
 
                 if type(bloc) is Solide :
                     bloc.collision_box.topleft = coordbloc
                     self.collision_list.append(bloc.collision_box)
-                    pygame.draw.rect(screen, self.color, bloc.collision_box)
+                    if bloc.collision_box.colliderect(player.collision_box):
+                        bloc.rect_color = RED
+                    else:
+                        bloc.rect_color = GREEN
+                    pygame.draw.rect(screen, bloc.rect_color, bloc.collision_box)
     
     def empty_collision_list(self):
-        '''Vide la liste des rects pour éviter d'en creer à l'infini'''
+        '''Vide la liste des rects pour éviter d'en créer à l'infini'''
         self.collision_list = []
 
 
@@ -60,6 +65,7 @@ class Bloc() :
     def __init__(self, chemin_sprite:str):
         self.sprite = self.charger_sprite(chemin_sprite)
         self.collision_box = pygame.Rect(0,0,64,64)
+        self.rect_color = GREEN
 
     def charger_sprite(self, chemin_sprite:str) -> pygame.Surface:
         """Renvoi un sprite utilisable redimensionné en 64x64"""
@@ -78,8 +84,8 @@ class Liquide(Bloc) :
         self.damages = 0
         self.viscosity = 0.0
 
-def return_bloc(bloc_id:int):
-    '''Retourne un bloc ainsi que tout ces attributs et son rect'''
+def identify_bloc(bloc_id:int):
+    '''Retourne un bloc ainsi que tout ces attributs et son rect en fonction d'un id'''
     if bloc_id == 0 :
         return air()
     if bloc_id == 1 :
