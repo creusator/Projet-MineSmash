@@ -9,6 +9,7 @@ class Grille():
         self.hauteur_grille = hauteur_grille
         self.taille_case = taille_case
         self.collision_list = []
+        self.color = GREEN
         self.chunk = None
 
     def charger(self, chemin_chunk:str) -> list:
@@ -44,11 +45,16 @@ class Grille():
                 bloc = return_bloc(bloc_id)
                 coordbloc = (x * self.taille_case, y * self.taille_case)
                 screen.blit(bloc.sprite, coordbloc)
-                
+
                 if type(bloc) is Solide :
                     bloc.collision_box.topleft = coordbloc
                     self.collision_list.append(bloc.collision_box)
-                    pygame.draw.rect(screen, GREEN, bloc.collision_box)
+                    pygame.draw.rect(screen, self.color, bloc.collision_box)
+    
+    def empty_collision_list(self):
+        '''Vide la liste des rects pour éviter d'en creer à l'infini'''
+        self.collision_list = []
+
 
 class Bloc() :
     def __init__(self, chemin_sprite:str):

@@ -48,6 +48,7 @@ while running:
     grille.dessiner(screen)
     player.afficher(screen)
     player.update_pos(grille, delta)
+    grille.empty_collision_list()
     barre_outil.afficher(screen)
     barre_armure.afficher(screen,player.armure)
     barre_vie.afficher(screen, player.vie)

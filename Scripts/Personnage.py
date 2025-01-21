@@ -3,6 +3,8 @@ from Blocs import Grille
 
 vecteur = pygame.math.Vector2
 BLUE = (0,0,255)
+RED = (255,0,0)
+GREEN = (0, 255, 0)
 
 class Personnage():
     def __init__(self):
@@ -35,6 +37,11 @@ class Personnage():
 
         ACCELERATION = 0.5
         FRICTION = -0.12
+
+        if self.collision_box.collidelist(grille.collision_list) >= 0:
+            grille.color = RED
+        else :
+            grille.color = GREEN
 
         if self.is_on_ground(grille):
             if self.jumping :
