@@ -8,6 +8,7 @@ class Grille():
         self.largeur_grille = largeur_grille
         self.hauteur_grille = hauteur_grille
         self.taille_case = taille_case
+        self.collision_list = []
         self.chunk = None
 
     def charger(self, chemin_chunk:str) -> list:
@@ -46,6 +47,7 @@ class Grille():
                 
                 if type(bloc) is Solide :
                     bloc.collision_box.topleft = coordbloc
+                    self.collision_list.append(bloc.collision_box)
                     pygame.draw.rect(screen, GREEN, bloc.collision_box)
 
 class Bloc() :
