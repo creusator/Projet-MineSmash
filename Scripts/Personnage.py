@@ -27,62 +27,62 @@ class Personnage():
         if self.is_on_ground(grille) and collision_tete == 0:
             self.jumping = True
     
+    def collision_test(self, rect, collision_list):
+        hit_list = []
+        for bloc in collision_list:
+            if rect.colliderect(bloc):
+                hit_list.append(bloc)
+        return hit_list
+
     def update_pos(self, grille:list, delta:float) -> None :
-        '''Permet d'exécuter les instructions nécessaires au déplacements du personnage'''
+        '''Permet d'exécuter les instructions nécessaires au déplacements du personnage en fonction des collisions'''
         key = pygame.key.get_pressed()
-        self.acceleration = vecteur(0,self.gravite)
+        self.acceleration = vecteur(0,0)
         self.collision_box.topleft = (self.coord.x - 32, self.coord.y - 128)
+
+        collision_types = {'top' : False, 'bottom' : False, 'right' : False, 'left' : False}
+        collision_list = self.collision_test(self.collision_box, grille.get_collison_list())
 
         ACCELERATION = 0.5
         FRICTION = -0.12
 
-        if self.is_on_ground(grille):
-            if self.jumping :
-                self.jumping = False
-                self.velocite.y -= self.jump_force
-            else :
-                self.velocite.y = 0
-                self.acceleration.y = 0
-
-        if key[pygame.K_q]:
-            self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
-            if self.colliding_left(grille) == False:
+        if collision_types['left'] == False :
+            if key[pygame.K_q]:
+                self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
                 self.acceleration.x = -ACCELERATION
-            else :
-                self.acceleration.x = 0
-                self.velocite.x = 0
-                
-        if key[pygame.K_d]: 
-            self.sprite = self.charger_sprite("Asset/image/personnage/skin de base droite.png")
-            if self.colliding_right(grille) == False:
+
+        if collision_types['right'] == False :
+            if key[pygame.K_d]: 
+                self.sprite = self.charger_sprite("Asset/image/personnage/skin de base droite.png")
                 self.acceleration.x = ACCELERATION
-            else :
-                self.acceleration.x = 0
-                self.velocite.x = 0
 
         self.acceleration.x += self.velocite.x * FRICTION
         self.velocite += self.acceleration
         self.coord += self.velocite + self.acceleration * delta
 
-    def is_on_ground(self, grille:list) -> bool:
-        '''Renvoi un booleen qui permet de savoir si le personnage touche le sol ou non'''
-        collision_pied_gauche = grille.get_bloc((self.coord.x - 16, self.coord.y))
-        collision_pied_droit = grille.get_bloc((self.coord.x + 16, self.coord.y))
-        return collision_pied_droit != 0 or collision_pied_gauche != 0
+        for bloc in collision_list:
+            if self.velocite.x > 0 :
+                self.collision_box.right = bloc.left
+                collision_types['right'] = True
+            elif self.velocite.x < 0 :
+                self.collision_box.left = bloc.right  
+                collision_types['left'] = True
+            if self.velocite.y > 0 :
+                self.collision_box.bottom = bloc.top
+                collision_types['top'] = True
+            elif self.velocite.y < 0 :
+                self.collision_box.top = bloc.bottom
+                collision_types['bottom'] = True
 
-    def colliding_left(self, grille:list) -> bool:
-        '''Renvoi un booleen si le personnage touche un bloc a gauche'''
-        collision_bas_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 16))
-        collision_milieu_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 64))
-        collision_haut_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 115))
-        return collision_bas_gauche != 0 or collision_milieu_gauche != 0 or collision_haut_gauche != 0
-    
-    def colliding_right(self, grille:list) -> bool:
-        '''Renvoi un booleen si le personnage touche un bloc a droite'''
-        collision_bas_droite = grille.get_bloc((self.coord.x + 24, self.coord.y - 16))
-        collision_milieu_droite = grille.get_bloc((self.coord.x + 24, self.coord.y - 64))
-        collision_haut_droite = grille.get_bloc((self.coord.x +   24, self.coord.y - 115))
-        return collision_bas_droite != 0 or collision_milieu_droite != 0 or collision_haut_droite != 0
+        #if self.is_on_ground(grille):
+        #    if self.jumping :
+         #       self.jumping = False
+          #      self.velocite.y -= self.jump_force
+           # else :
+            #    self.velocite.y = 0
+             #   self.acceleration.y = 0
+
+
 
     def debug(self, screen:pygame.surface.Surface) -> None:
         """Affiche à l'écran des graphisme de debug, visualisation des collisions ect..."""
@@ -100,5 +100,5 @@ class Personnage():
     def afficher(self, screen:pygame.surface.Surface) -> None:
         '''Permet d'afficher le personnage sur l'écran'''
         self.debug(screen)
-        screen.blit(self.sprite, (self.coord.x - 32, self.coord.y - 128))
+        screen.blit(self.sprite, (self.collision_box.x, self.collision_box.y))
         

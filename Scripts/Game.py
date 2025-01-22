@@ -30,8 +30,8 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_e:
                 inventaire.ouvrir()
-            if event.key == pygame.K_SPACE:
-                player.jump(grille)
+            #if event.key == pygame.K_SPACE:
+                #player.jump(grille)
         elif event.type == pygame.MOUSEBUTTONDOWN:  
             x, y = grille.get_coord_grille(event.pos)
             if event.button == 1:
@@ -45,7 +45,7 @@ while running:
                 barre_outil.scroll("down")
 
     screen.fill((135,206,235))
-    grille.dessiner(screen, player)
+    grille.dessiner(screen)
     player.afficher(screen)
     player.update_pos(grille, delta)
     grille.empty_collision_list()
