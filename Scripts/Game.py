@@ -10,7 +10,6 @@ FRAMERATE = 60
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
-ddddd
 running = True
 
 player = Personnage()
@@ -31,7 +30,7 @@ while running:
                 inventaire.ouvrir()
             if event.key == pygame.K_SPACE:
                 player.jump(grille)
-        elif event.type == pygame.MOUSEBUTTONDOWN:
+        elif event.type == pygame.MOUSEBUTTONDOWN:  
             x, y = grille.get_coord_grille(event.pos)
             if event.button == 1:
                 grille.detruire_bloc(x, y)
