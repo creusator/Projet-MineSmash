@@ -6,6 +6,7 @@
 
 **Documentation:**
   Quatres fichiers principaux :
+  
   -Game.py -- Le script d'exécution du jeu
   
   -Blocs.py -- Gère les blocs et la grille qui permet de placer les blocs à leurs place
