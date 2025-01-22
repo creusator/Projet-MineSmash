@@ -1,7 +1,9 @@
 # Projet-MineSmash
 
 **Préréquis :**
+
   -Python 3.12
+  
   -Pygame 2.6
 
 **Documentation:**
