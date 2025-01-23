@@ -37,7 +37,7 @@ class Grille():
         x, y = pos
         return self.chunk[int(y // self.taille_case)][int(x // self.taille_case)]
 
-    def get_collison_list(self):
+    def get_collison_list(self) -> list:
         """Place et renvoie une liste de rect qui représente les blocs solides de la grille"""
         collision_list = []
         for y, ligne in enumerate(self.chunk):

@@ -12,13 +12,13 @@ class Personnage():
         self.coord = vecteur(480, 512/2)
         self.velocity = vecteur(0, 0)
         self.acceleration = vecteur(0, 0)
-        self.acceleration_value = 1
+        self.acceleration_value = 1.7
         self.friction_value = -0.35
-        self.gravite = 9.81
-        self.terminal_velocity = 7
-        self.max_speed = 64
+        self.gravity_value = 9.81
+        self.max_fall_speed = 13
+        self.max_walk_speed = 64
         self.jump_force = 48
-        self.jumping = False
+        self.is_jumping = False
         self.is_on_ground = False
         self.collision_box = pygame.Rect(0, 0,64,128)
 
@@ -34,7 +34,7 @@ class Personnage():
                 hit_list.append(bloc)
         return hit_list
 
-    def check_collision_x(self, grille):
+    def check_collision_x(self, grille:Grille) -> None:
         collision_list = self.player_collision_list(grille.get_collison_list())
         for bloc in collision_list :
             if self.velocity.x > 0:
@@ -44,14 +44,14 @@ class Personnage():
                 self.coord.x = bloc.right
                 self.collision_box.x = self.coord.x
 
-    def check_collision_y(self, grille):
+    def check_collision_y(self, grille:Grille) -> None:
         self.is_on_ground = False
         self.collision_box.bottom += 1
         collison_list = self.player_collision_list(grille.get_collison_list())
         for bloc in collison_list :
             if self.velocity.y > 0:
                 self.is_on_ground = True
-                self.jumping = False
+                self.is_jumping = False
                 self.velocity.y = 0
                 self.coord.y = bloc.top
                 self.collision_box.bottom = self.coord.y
@@ -60,7 +60,7 @@ class Personnage():
                 self.coord.y = bloc.bottom + self.collision_box.h
                 self.collision_box.bottom = self.coord.y
 
-    def horizontal_movement(self, delta_time):
+    def horizontal_movement(self, delta_time:float) -> None:
         self.acceleration.x = 0
         key = pygame.key.get_pressed()
 
@@ -73,20 +73,20 @@ class Personnage():
         
         self.acceleration.x += self.velocity.x * self.friction_value
         self.velocity.x += self.acceleration.x * delta_time       
-        self.velocity_limit(self.max_speed)
+        self.velocity_limit(self.max_walk_speed)
         self.coord.x += self.velocity.x * delta_time - (self.acceleration.x * 0.5) * (delta_time * delta_time)
         self.collision_box.x = self.coord.x
 
-    def vertical_movement(self, delta_time):
-        self.velocity.y += self.gravite * delta_time
+    def vertical_movement(self, delta_time:float) -> None:
+        self.velocity.y += self.gravity_value * delta_time
 
-        if self.velocity.y > self.terminal_velocity : 
-            self.velocity.y = self.terminal_velocity 
+        if self.velocity.y > self.max_fall_speed : 
+            self.velocity.y = self.max_fall_speed 
         
         self.coord.y += self.velocity.y * delta_time - (self.acceleration.y * 0.5) * (delta_time * delta_time)
         self.collision_box.bottom = self.coord.y
 
-    def velocity_limit(self, limit):
+    def velocity_limit(self, limit:int) -> None:
         if self.velocity.x > limit:
             self.velocity.x = limit
         elif self.velocity.x < -limit:
@@ -95,13 +95,13 @@ class Personnage():
         if -0.01 < self.velocity.x < 0.01:
             self.velocity.x = 0
     
-    def jump(self):
+    def jump(self) -> None:
         if self.is_on_ground:
-            self.jumping = True
+            self.is_jumping = True
             self.velocity.y -= self.jump_force
             self.is_on_ground = False
 
-    def move(self,grille, delta):
+    def move(self,grille:Grille, delta:float) -> None:
         self.horizontal_movement(delta)
         self.check_collision_x(grille)
         self.vertical_movement(delta)

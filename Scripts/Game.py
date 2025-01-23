@@ -36,9 +36,9 @@ while running:
                 player.jump()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_SPACE:
-                if player.jumping:
+                if player.is_jumping:
                     player.velocity.y *= 0.25
-                    player.jumping = False
+                    player.is_jumping = False
         if event.type == pygame.MOUSEBUTTONDOWN:  
             x, y = grille.get_coord_grille(event.pos)
             if event.button == 1:
