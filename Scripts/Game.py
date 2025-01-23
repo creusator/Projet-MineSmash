@@ -31,12 +31,8 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_e:
                 inventaire.ouvrir()
-            if event.key == pygame.K_q:
-                player.moving_left = True
-            if event.key == pygame.K_d:
-                player.moving_right = True
             if event.key == pygame.K_SPACE:
-                player.jumping = True
+                player.jump(grille)
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_q:
                 player.moving_left = False
