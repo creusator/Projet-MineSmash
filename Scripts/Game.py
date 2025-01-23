@@ -24,31 +24,40 @@ barre_armure = Barre_armure()
 while running:
 
     delta = clock.tick(FRAMERATE)/1000
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_e:
                 inventaire.ouvrir()
-            #if event.key == pygame.K_SPACE:
-                #player.jump(grille)
-        elif event.type == pygame.MOUSEBUTTONDOWN:  
+            if event.key == pygame.K_q:
+                player.moving_left = True
+            if event.key == pygame.K_d:
+                player.moving_right = True
+            if event.key == pygame.K_SPACE:
+                player.jumping = True
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_q:
+                player.moving_left = False
+            if event.key == pygame.K_d:
+                player.moving_right = False
+        if event.type == pygame.MOUSEBUTTONDOWN:  
             x, y = grille.get_coord_grille(event.pos)
             if event.button == 1:
                 grille.detruire_bloc(x, y)
             elif event.button == 3:
                 grille.placer_bloc(x, y, 1)
-        elif event.type == pygame.MOUSEWHEEL:
-            if event.y == 1:
+        if event.type == pygame.MOUSEWHEEL:
+            if event.y == 1: 
                 barre_outil.scroll("up")
             elif event.y == -1:
                 barre_outil.scroll("down")
 
     screen.fill((135,206,235))
     grille.dessiner(screen)
+    player.move(grille, delta)
     player.afficher(screen)
-    player.update_pos(grille, delta)
-    grille.empty_collision_list()
     barre_outil.afficher(screen)
     barre_armure.afficher(screen,player.armure)
     barre_vie.afficher(screen, player.vie)

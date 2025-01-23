@@ -9,7 +9,6 @@ class Grille():
         self.largeur_grille = largeur_grille
         self.hauteur_grille = hauteur_grille
         self.taille_case = taille_case
-        self.collision_list = []
         self.color = GREEN
         self.chunk = None
 
@@ -40,14 +39,15 @@ class Grille():
 
     def get_collison_list(self):
         """Place et renvoie une liste de rect qui représente les blocs solides de la grille"""
+        collision_list = []
         for y, ligne in enumerate(self.chunk):
             for x, bloc_id in enumerate(ligne):
                 bloc = identify_bloc(bloc_id)
                 coordbloc = (x * self.taille_case, y * self.taille_case)
                 if type(bloc) is Solide :
                     bloc.collision_box.topleft = coordbloc
-                    self.collision_list.append(bloc.collision_box)
-        return self.collision_list
+                    collision_list.append(bloc.collision_box)
+        return collision_list
 
     def dessiner(self, screen:pygame.surface.Surface) -> None:
         """Dessine les blocs sur l'écran en fontion des données de la matrice"""
@@ -56,10 +56,6 @@ class Grille():
                 bloc = identify_bloc(bloc_id)
                 coordbloc = (x * self.taille_case, y * self.taille_case)
                 screen.blit(bloc.sprite, coordbloc)
-    
-    def empty_collision_list(self):
-        '''Vide la liste des rects pour éviter d'en créer à l'infini'''
-        self.collision_list = []
 
 class Bloc() :
     def __init__(self, chemin_sprite:str):
