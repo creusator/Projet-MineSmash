@@ -11,116 +11,94 @@ class Personnage():
         self.vie = 20
         self.armure = 20
         self.coord = vecteur(480, 512/2)
-        self.velocite = vecteur(0, 0)
+        self.velocity = vecteur(0, 0)
         self.acceleration = vecteur(0, 0)
-        self.gravite = 0.81
-        self.jump_force = 13
+        self.acceleration_value = 1
+        self.friction_value = -0.35
+        self.gravite = 9.81
+        self.terminal_velocity = 7
+        self.jump_force = 8
         self.jumping = False
+        self.is_on_ground = False
         self.collision_box = pygame.Rect(0, 0,64,128)
-        self.collision_types = {'top' : False, 'bottom' : False, 'right' : False, 'left' : False}
-        self.moving_left = False
-        self.moving_right = False
 
     def charger_sprite(self, chemin_sprite:str) -> pygame.surface.Surface:
         """Renvoi un sprite utilisable redimensionné en 64x128"""
         return pygame.transform.scale(pygame.image.load(chemin_sprite), (64, 128))
     
-    def player_collision_list(self, rect:pygame.Rect, collision_list:list) -> list:
+    def player_collision_list(self, collision_list:list) -> list:
         '''Renvoie la liste des blocs avec lequel le joueur a des collisions'''
         hit_list = []
         for bloc in collision_list:
-            if rect.colliderect(bloc):
+            if self.collision_box.colliderect(bloc):
                 hit_list.append(bloc)
         return hit_list
 
-    def update_collision_x(self, grille:list) -> None :
-        '''Met a jour la liste des collisions en fonction des mouvements latéraux'''
-        self.collision_box.topleft = (self.coord.x - 32, self.coord.y - 128)
-        collision_list = self.player_collision_list(self.collision_box, grille.get_collison_list())
+    def check_collision_x(self, grille):
+        collision_list = self.player_collision_list(grille.get_collison_list())
+        for bloc in collision_list :
+            if self.velocity.x > 0:
+                self.coord.x = bloc.left - self.collision_box.w
+                self.collision_box.x = self.coord.x
+            if self.velocity.x < 0:
+                self.coord.x = bloc.right
+                self.collision_box.x = self.coord.x
 
-        for bloc in collision_list:
-            if self.velocite.x > 0:
-                self.collision_types['right'] = True
-            else :
-                self.collision_types['right'] = False
-                
-            if self.velocite.x < 0:
-                self.collision_types['left'] = True
-            else :
-                self.collision_types['left'] = False                
+    def check_collision_y(self, grille):
+        self.is_on_ground = False
+        self.collision_box.bottom += 1
+        collison_list = self.player_collision_list(grille.get_collison_list())
+        for bloc in collison_list :
+            if self.velocity.y > 0:
+                self.is_on_ground = True
+                self.jumping = False
+                self.velocity.y = 0
+                self.coord.y = bloc.top
+                self.collision_box.bottom = self.coord.y
+            if self.velocity.y < 0 :
+                self.velocity.y = 0
+                self.coord.y = bloc.bottom + self.collision_box.h
+                self.collision_box.bottom = self.coord.y
 
-        self.coord.x = self.collision_box.centerx
+    def horizontal_movement(self, delta_time):
+        self.acceleration.x = 0
+        key = pygame.key.get_pressed()
+
+        if key[pygame.K_q]:
+            self.acceleration.x -= self.acceleration_value
+        elif key[pygame.K_d]:
+            self.acceleration.x += self.acceleration_value
+        
+        self.acceleration.x += self.velocity.x * self.friction_value
+        self.velocity.x += self.acceleration.x * delta_time       
+        self.velocity_limit(128)
+        self.coord.x += self.velocity.x * delta_time - (self.acceleration.x * 0.5) * (delta_time * delta_time)
+        self.collision_box.x = self.coord.x
+
+    def vertical_movement(self, delta_time):
+        self.velocity.y += self.gravite * delta_time
+
+        if self.velocity.y > self.terminal_velocity : 
+            self.velocity.y = self.terminal_velocity 
+        
+        self.coord.y += self.gravite * delta_time - (self.acceleration.y * 0.5) * (delta_time * delta_time)
+        self.collision_box.bottom = self.coord.y
+
+    def velocity_limit(self, limit):
+        self.velocity.x = max(-limit, min(self.velocity.x, limit))
+        if abs(self.velocity.x) < .01: self.velocity.x = 0
     
-    def update_collision_y(self, grille):
-        '''Met a jour la liste des collisions en fonction des mouvements verticaux'''
-        self.collision_box.topleft = (self.coord.x - 32, self.coord.y - 128)
-        collision_list = self.player_collision_list(self.collision_box, grille.get_collison_list())
-        self.collision_types['bottom'] = False
-
-        for bloc in collision_list:
-            if self.velocite.y > 0:
-                self.collision_types['bottom'] = True
-                self.collision_box.bottom = bloc.top
-
-            if self.velocite.y < 0:
-                self.collision_types['top'] = True
-            else :
-                self.collision_types['top'] = False
-
-        self.coord.y = self.collision_box.bottom
+    def jump(self):
+        if self.is_on_ground:
+            self.jumping = True
+            self.velocity.y -= self.jump_force
+            self.is_on_ground = False
 
     def move(self,grille, delta):
-        key = pygame.key.get_pressed()
-        self.acceleration = vecteur(0,self.gravite)
-        
-        ACCELERATION = 0.5
-        FRICTION = -0.12
-
-        if self.is_on_ground(grille):
-            if self.jumping :
-                self.jumping = False
-                self.velocite.y -= self.jump_force
-            else :
-                self.velocite.y = 0
-                self.acceleration.y = 0
-        
-        if key[pygame.K_q]:
-            self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
-            if self.colliding_left(grille) :
-                self.acceleration.x = 0
-                self.velocite.x = 0
-            else :
-                self.acceleration.x = -ACCELERATION
-        
-        if key[pygame.K_d]:
-            self.sprite = self.charger_sprite("Asset/image/personnage/skin de base droite.png")
-            if self.colliding_right(grille) :
-                self.acceleration.x = 0
-                self.velocite.x = 0
-            else :
-                self.acceleration.x = ACCELERATION
-        
-        self.acceleration.x += self.velocite.x * FRICTION
-        self.velocite += self.acceleration
-        self.coord += self.velocite + self.acceleration * delta
-        self.collision_box.topleft = (self.coord.x - 32, self.coord.y - 128)
-    
-    def jump(self, grille):
-        collision_tete = grille.get_bloc((self.coord.x, self.coord.y - 140))
-        if self.is_on_ground(grille) and collision_tete == 0:
-            self.jumping = True
-
-    def is_on_ground(self, grille) :
-        self.update_collision_y(grille)
-        return self.collision_types['bottom']
-    
-    def colliding_left(self, grille):
-        self.update_collision_x(grille)
-        return self.collision_types['left']
-    
-    def colliding_right(self, grille):
-        self.update_collision_x(grille)
-        return self.collision_types['right']
+        self.horizontal_movement(delta)
+        self.check_collision_x(grille)
+        self.vertical_movement(delta)
+        self.check_collision_y(grille)
 
     def debug(self, screen:pygame.surface.Surface) -> None:
         """Affiche à l'écran des graphisme de debug, visualisation des collisions ect..."""
@@ -130,6 +108,4 @@ class Personnage():
     def afficher(self, screen:pygame.surface.Surface) -> None:
         '''Permet d'afficher le personnage sur l'écran'''
         self.debug(screen)
-        print(self.collision_types)
         screen.blit(self.sprite, (self.collision_box.x, self.collision_box.y))
-        

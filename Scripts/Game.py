@@ -23,7 +23,7 @@ barre_armure = Barre_armure()
 
 while running:
 
-    delta = clock.tick(FRAMERATE)/1000
+    delta = clock.tick(60)/1000 * FRAMERATE
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -32,12 +32,11 @@ while running:
             if event.key == pygame.K_e:
                 inventaire.ouvrir()
             if event.key == pygame.K_SPACE:
-                player.jump(grille)
+                player.jump()
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_q:
-                player.moving_left = False
-            if event.key == pygame.K_d:
-                player.moving_right = False
+            if event.key == pygame.K_SPACE:
+                if player.jumping:
+                    player.jumping = False
         if event.type == pygame.MOUSEBUTTONDOWN:  
             x, y = grille.get_coord_grille(event.pos)
             if event.button == 1:
@@ -52,8 +51,8 @@ while running:
 
     screen.fill((135,206,235))
     grille.dessiner(screen)
-    player.move(grille, delta)
     player.afficher(screen)
+    player.move(grille, delta)
     barre_outil.afficher(screen)
     barre_armure.afficher(screen,player.armure)
     barre_vie.afficher(screen, player.vie)
