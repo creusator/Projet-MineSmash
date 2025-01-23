@@ -69,12 +69,10 @@ class Personnage():
         for bloc in collision_list:
             if self.velocite.y > 0:
                 self.collision_types['bottom'] = True
-                self.collision_box.bottom = bloc.top
                 self.velocite.y = 0
                 self.acceleration.y = 0
             elif self.velocite.y < 0:
                 self.collision_types['top'] = True
-                self.collision_box.top = bloc.bottom
                 self.velocite.y = 0
                 self.acceleration.y = 0
 
@@ -116,5 +114,6 @@ class Personnage():
     def afficher(self, screen:pygame.surface.Surface) -> None:
         '''Permet d'afficher le personnage sur l'écran'''
         self.debug(screen)
+        print(self.collision_types)
         screen.blit(self.sprite, (self.collision_box.x, self.collision_box.y))
         
