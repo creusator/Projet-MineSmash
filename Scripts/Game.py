@@ -5,6 +5,7 @@ from interface import *
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 512
+TILE_SIZE = 64
 FRAMERATE = 60
 
 pygame.init()
@@ -13,39 +14,46 @@ clock = pygame.time.Clock()
 running = True
 
 player = Personnage()
-grille = Grille(SCREEN_WIDTH, SCREEN_HEIGHT, 64)
+grille = Grille(SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE)
 grille.chunk = grille.charger("Save/monde-test/chunk1.json")
 inventaire = Inventaire()
 barre_outil = Barre_outil()
 barre_vie = Barre_vie()
 barre_armure = Barre_armure()
+
 while running:
 
-    delta = clock.tick(FRAMERATE)/1000
+    delta = clock.tick(60)/1000 * FRAMERATE
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_e:
                 inventaire.ouvrir()
             if event.key == pygame.K_SPACE:
-                player.jump(grille)
-        elif event.type == pygame.MOUSEBUTTONDOWN:  
+                player.jump()
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_SPACE:
+                if player.is_jumping:
+                    player.velocity.y *= 0.25
+                    player.is_jumping = False
+        if event.type == pygame.MOUSEBUTTONDOWN:  
             x, y = grille.get_coord_grille(event.pos)
             if event.button == 1:
                 grille.detruire_bloc(x, y)
             elif event.button == 3:
                 grille.placer_bloc(x, y, 1)
-        elif event.type == pygame.MOUSEWHEEL:
-            if event.y == 1:
+        if event.type == pygame.MOUSEWHEEL:
+            if event.y == 1: 
                 barre_outil.scroll("up")
             elif event.y == -1:
                 barre_outil.scroll("down")
 
     screen.fill((135,206,235))
-    player.afficher(screen)
-    player.update_pos(grille, delta)
     grille.dessiner(screen)
+    player.afficher(screen)
+    player.move(grille, delta)
     barre_outil.afficher(screen)
     barre_armure.afficher(screen,player.armure)
     barre_vie.afficher(screen, player.vie)
