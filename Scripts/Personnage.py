@@ -6,8 +6,7 @@ BLUE = (0, 0, 255)
 
 class Personnage():
     def __init__(self):
-        self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
-        self.pos_indicator = pygame.image.load("Asset/image/personnage/pos_indicator.png")
+        self.sprite = self.charger_sprite("Asset/image/personnage/skin de base droite.png")
         self.vie = 20
         self.armure = 20
         self.coord = vecteur(480, 512/2)
@@ -17,7 +16,8 @@ class Personnage():
         self.friction_value = -0.35
         self.gravite = 9.81
         self.terminal_velocity = 7
-        self.jump_force = 8
+        self.max_speed = 64
+        self.jump_force = 48
         self.jumping = False
         self.is_on_ground = False
         self.collision_box = pygame.Rect(0, 0,64,128)
@@ -64,14 +64,16 @@ class Personnage():
         self.acceleration.x = 0
         key = pygame.key.get_pressed()
 
-        if key[pygame.K_q]:
+        if key[pygame.K_q]:        
+            self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
             self.acceleration.x -= self.acceleration_value
         elif key[pygame.K_d]:
+            self.sprite = self.charger_sprite("Asset/image/personnage/skin de base droite.png")
             self.acceleration.x += self.acceleration_value
         
         self.acceleration.x += self.velocity.x * self.friction_value
         self.velocity.x += self.acceleration.x * delta_time       
-        self.velocity_limit(128)
+        self.velocity_limit(self.max_speed)
         self.coord.x += self.velocity.x * delta_time - (self.acceleration.x * 0.5) * (delta_time * delta_time)
         self.collision_box.x = self.coord.x
 
@@ -81,12 +83,17 @@ class Personnage():
         if self.velocity.y > self.terminal_velocity : 
             self.velocity.y = self.terminal_velocity 
         
-        self.coord.y += self.gravite * delta_time - (self.acceleration.y * 0.5) * (delta_time * delta_time)
+        self.coord.y += self.velocity.y * delta_time - (self.acceleration.y * 0.5) * (delta_time * delta_time)
         self.collision_box.bottom = self.coord.y
 
     def velocity_limit(self, limit):
-        self.velocity.x = max(-limit, min(self.velocity.x, limit))
-        if abs(self.velocity.x) < .01: self.velocity.x = 0
+        if self.velocity.x > limit:
+            self.velocity.x = limit
+        elif self.velocity.x < -limit:
+            self.velocity.x = -limit
+
+        if -0.01 < self.velocity.x < 0.01:
+            self.velocity.x = 0
     
     def jump(self):
         if self.is_on_ground:
@@ -103,7 +110,6 @@ class Personnage():
     def debug(self, screen:pygame.surface.Surface) -> None:
         """Affiche à l'écran des graphisme de debug, visualisation des collisions ect..."""
         pygame.draw.rect(screen, BLUE, self.collision_box)
-        screen.blit(self.pos_indicator, (self.coord.x, self.coord.y - 140)) #Tete du joueur
 
     def afficher(self, screen:pygame.surface.Surface) -> None:
         '''Permet d'afficher le personnage sur l'écran'''

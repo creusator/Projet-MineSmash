@@ -5,6 +5,7 @@ from interface import *
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 512
+TILE_SIZE = 64
 FRAMERATE = 60
 
 pygame.init()
@@ -14,7 +15,7 @@ clock = pygame.time.Clock()
 running = True
 
 player = Personnage()
-grille = Grille(SCREEN_WIDTH, SCREEN_HEIGHT, 64)
+grille = Grille(SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE)
 grille.chunk = grille.charger("Save/monde-test/chunk1.json")
 inventaire = Inventaire()
 barre_outil = Barre_outil()
@@ -36,6 +37,7 @@ while running:
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_SPACE:
                 if player.jumping:
+                    player.velocity.y *= 0.25
                     player.jumping = False
         if event.type == pygame.MOUSEBUTTONDOWN:  
             x, y = grille.get_coord_grille(event.pos)
