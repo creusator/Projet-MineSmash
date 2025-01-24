@@ -1,15 +1,11 @@
 import pygame
 import json
 
-GREEN = (0, 255, 0)
-RED = (255,0,0)
-
 class Grille():
     def __init__(self, largeur_grille:int, hauteur_grille:int, taille_case:int):
         self.largeur_grille = largeur_grille
         self.hauteur_grille = hauteur_grille
         self.taille_case = taille_case
-        self.color = GREEN
         self.chunk = None
 
     def charger(self, chemin_chunk:str) -> list:
@@ -61,7 +57,6 @@ class Bloc() :
     def __init__(self, chemin_sprite:str):
         self.sprite = self.charger_sprite(chemin_sprite)
         self.collision_box = pygame.Rect(0,0,64,64)
-        self.rect_color = GREEN
 
     def charger_sprite(self, chemin_sprite:str) -> pygame.Surface:
         """Renvoi un sprite utilisable redimensionné en 64x64"""
