@@ -97,7 +97,38 @@ Ce fichier contient toutes les définitions de blocs ainsi que les fonction néc
   charger_sprite():
   -redimensionne le sprite en 16x en 64x
 
-  
+  **Classe Solide() :**
+  Cette classe utilise les propiétés de Bloc() pour créer des blocs avec les attributs d'un solide
 
+  init():
+  - défini la dureté du bloc
+  - défini la flammabilité du bloc
+  - défini si le bloc à des collisions ou pas
+
+  **Classe Solide() :**
+  Cette classe utilise les propriétés de Bloc() pour créer des blocs avec les attributs d'un liquide
+
+  init():
+  - défini les dégats infligés au joueur quand il touche le liquide
+  - défini la viscosité du liquide
+
+  **Fonction identify_bloc() et définitions:**
+
+  identify_bloc():
   
-  
+  Renvoi un objet bloc ainsi que tout ses attributs en fonction d'un id
+
+  stone_bloc() :
+  - défini le bloc de pierre
+    
+  grass_bloc() :
+  - défini le bloc d'herbe
+
+  dirt_bloc() :
+  - défini le bloc de terre
+
+  air() :
+  -défini le bloc d'air
+
+  Dans chacune de ces définitions il y est précisé les caratéristiques du bloc.
+  L'id du bloc est défini dans la fonction identify_bloc()
