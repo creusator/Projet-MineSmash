@@ -16,11 +16,11 @@
 
 # Game.py
 
-Ce fichier gère l'exécution de toutes les fonctions nécéssaires au jeux. Normalement vous n'aurez pas besoin de trop toucher à ce fichier pour résoudre les issues, à part pour empêcher le joueur de s'emmurer
+Ce fichier gère l'exécution de toutes les fonctions nécéssaires au jeux. Normalement vous n'aurez pas besoin de trop toucher à ce fichier pour résoudre les issues, à part peut être pour empêcher le joueur de s'emmurer.
 
   **Importation des fichiers et de pygame:**
   
-  Permet d'acceder aux fonctions et classes écrites dans les autres fichiers du projet
+  Permet d'accéder aux fonctions et classes écrites dans les autres fichiers du projet
     
   **Initialisation de pygame:**
 
@@ -90,6 +90,7 @@ Ce fichier contient toutes les définitions de blocs ainsi que les fonction néc
   - Redimensionne le sprite en 16x en 64x
 
   **Classe Solide() :**
+  
   Cette classe utilise les propiétés de Bloc() pour créer des blocs avec les attributs d'un solide
 
   init():
@@ -97,7 +98,8 @@ Ce fichier contient toutes les définitions de blocs ainsi que les fonction néc
   - Défini la flammabilité du bloc
   - Défini si le bloc à des collisions ou pas
 
-  **Classe Solide() :**
+  **Classe Liquide() :**
+  
   Cette classe utilise les propriétés de Bloc() pour créer des blocs avec les attributs d'un liquide
 
   init():
@@ -124,3 +126,27 @@ Ce fichier contient toutes les définitions de blocs ainsi que les fonction néc
   Dans chacune de ces définitions il y est précisé les caratéristiques du bloc.
   
   L'id du bloc est défini dans la fonction identify_bloc()
+
+# Personnage.py
+
+Ce fichier gère un des objet les plus important du jeu, le personnage. 
+Il contient les fonction nécéssaires à ses déplacements et son affichage à l'écran.
+
+  **Importations et définition:**
+  - Importation de pygame
+  - Importation de la classe Grille() du fichier Blocs.py
+  - Définition de vecteur, évite de devoir répéter pygame.math.Vector2
+
+  **Classe Personnage():**
+
+  init() :
+  - Définition des variables suivantes :
+      - Chemin vers le sprite
+      - Vie, armure
+      - valeure d'incrémentation de l'accélération, de la friction, de la gravité et de la puissance du saut
+      - vitesses maximales horizontale et verticale
+      - variables d'état is_jumping et is_on_ground
+
+  - Définition des vecteurs suivants :
+
+
