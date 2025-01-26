@@ -35,6 +35,7 @@ class Personnage():
         return hit_list
 
     def check_collision_x(self, grille:Grille) -> None:
+        '''Corrige les déplacements horizontaux du personnage'''
         collision_list = self.player_collision_list(grille.get_collison_list())
         for bloc in collision_list :
             if self.velocity.x > 0:
@@ -45,6 +46,7 @@ class Personnage():
                 self.collision_box.x = self.coord.x
 
     def check_collision_y(self, grille:Grille) -> None:
+        '''Corrige les déplacements verticaux du personnage'''
         self.is_on_ground = False
         self.collision_box.bottom += 1
         collison_list = self.player_collision_list(grille.get_collison_list())
@@ -60,7 +62,18 @@ class Personnage():
                 self.coord.y = bloc.bottom + self.collision_box.h
                 self.collision_box.bottom = self.coord.y
 
+    def velocity_limit(self, limit:int) -> None:
+        '''Limite la vélocité horizontale en fonction de limit'''
+        if self.velocity.x > limit:
+            self.velocity.x = limit
+        elif self.velocity.x < -limit:
+            self.velocity.x = -limit
+
+        if -0.01 < self.velocity.x < 0.01:
+            self.velocity.x = 0
+
     def horizontal_movement(self, delta_time:float) -> None:
+        '''Applique les déplacements horizontaux en fonction des touches'''
         self.acceleration.x = 0
         key = pygame.key.get_pressed()
 
@@ -78,6 +91,7 @@ class Personnage():
         self.collision_box.x = self.coord.x
 
     def vertical_movement(self, delta_time:float) -> None:
+        '''Applique la gravité, limite la vélocité verticale du joueur'''
         self.velocity.y += self.gravity_value * delta_time
 
         if self.velocity.y > self.max_fall_speed : 
@@ -85,23 +99,16 @@ class Personnage():
         
         self.coord.y += self.velocity.y * delta_time - (self.acceleration.y * 0.5) * (delta_time * delta_time)
         self.collision_box.bottom = self.coord.y
-
-    def velocity_limit(self, limit:int) -> None:
-        if self.velocity.x > limit:
-            self.velocity.x = limit
-        elif self.velocity.x < -limit:
-            self.velocity.x = -limit
-
-        if -0.01 < self.velocity.x < 0.01:
-            self.velocity.x = 0
     
     def jump(self) -> None:
+        '''Permet de sauter si le personnage est sur le sol'''
         if self.is_on_ground:
             self.is_jumping = True
             self.velocity.y -= self.jump_force
             self.is_on_ground = False
 
     def move(self,grille:Grille, delta:float) -> None:
+        '''Applique les fonctions ci dessus pour les déplacements'''
         self.horizontal_movement(delta)
         self.check_collision_x(grille)
         self.vertical_movement(delta)
