@@ -148,5 +148,45 @@ Il contient les fonction nécéssaires à ses déplacements et son affichage à 
       - variables d'état is_jumping et is_on_ground
 
   - Définition des vecteurs suivants :
+        - Coordonées
+        - Vélocité, vecteur directionnel appliqué aux coordonées du joueur.
+        - Accélération, vecteur appliqué à la vélocité pour accélérer
 
+  charger_sprite():
+  - Permet de redimensionner le sprite du personnage en une taille affichable à l'écran
 
+  player_collision_list():
+  - En utilisant la fonction get_collision_list() de la classe grille, cette fonction renvoie la liste des rects avec lesquels le rect du personnage est en collision
+
+  check_collision_x():
+  - Cette fonction détermine en fonction de la vélocité du joueur, si il doit s'arrêter de bouger vers la gauche ou la droite.
+    Si c'est le cas, le personnage sera bloqué dans la dite direction. La fonction velocity_limit() permet de limiter son accélération.
+
+  check_collision_y():
+  - Cette fonction détermine en fonction de la vélocité du joueur, si il doit s'arrêter de tomber ou de sauter.
+    Si c'est le cas, le personnage sera bloqué dans la dite direction.
+    Pour pouvoir détecter la collision vers le bas, le rect du joueur est déplacé d'un pixel vers le bas et est immédiatement replacé pour éviter de rester bloqué dans le bloc.
+
+  horizontal_movement():
+  - Effectue les déplacements horizontaux du joueur en fonction des touches appuyés et des variables d' accélération et de friction
+  - Empêche le joueur d'accélérer à l'infini grace à la fonction velocity_limit
+
+  vertical_movement():
+  - Gère les déplacements verticaux du joueur, plus précisément l'application de la gravité.
+  - Empêche le joueur de tomber trop vite en fonction de la variable max_fall_speed
+
+  jump():
+  - Gère le saut du joueur en fonction de la barre espace et des variable is_on_ground, is_jumping et jump_force
+
+  move():
+  - Utilise les fonctions suivantes :
+      - horizontal_movement() pour appliquer les mouvements horizontaux
+      - check_collision_x() pour corriger les potentiels emmurements
+      - vertical_movement() pour appliquer la gravité
+      - check_collision_y() pour empêcher le joueur de tomber dans le sol
+
+  debug():
+  - Affiche le rectange de collision du joueur *fonction sujette à évoluer au gré des besoins*
+
+  afficher():
+  - Permet d'afficher le sprite du personnage sur l'écran.
