@@ -190,3 +190,46 @@ Il contient les fonction nécéssaires à ses déplacements et son affichage à 
 
   afficher():
   - Permet d'afficher le sprite du personnage sur l'écran.
+
+# Interface.py
+
+Ce fichier contient toutes les fonctions nécéssaires à l'affichage et la gestion de l'interface.
+Sujet aux changements, les fonctionnalités liées à l'inventaire et l'interface n'ont pas fini d'être implémentés
+
+Importation de pygame
+
+**Classe Inventaire()**
+
+init():
+- définition de deux sprites
+- définition de deux variables de coordonées (x, y)
+- définiton d'une constante qui permet de savoir si l'inventaire est ouvert ou non
+
+charger_inventaire():
+- Permet de redimensionner le sprite de l'inventaire a une taille affichable
+
+ouvrir():
+- modifie la valeur de la constante en fonction de celle ci
+- la fonction est appelé lorsque la touche e est appuyé
+
+afficher():
+- affiche le sprite de l'inventaire en fonction de la constante
+
+**Classe Barre_outil():**
+
+init():
+- définition du chemin du sprite de la barre d'outils
+- définition de la constante is_open
+- définition de deux variables de coordonées
+- définition de la valeur de l'emplacement du curseur dans la barre
+
+charger_barre():
+- Permet de redimensionner le sprite de la barre d'outils pour être utilisable à l'écran
+
+afficher():
+- affiche le sprite de la barre d'outils en fonction de la constante d'ouverture et de la position du curseur de séléction
+
+scroll():
+- change la position du curseur de séléction en fonction de la molette de la souris
+
+**Classe Barre_outil():**
