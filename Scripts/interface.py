@@ -9,16 +9,18 @@ class Inventaire():
         self.is_open = False
 
     def charger_inventaire(self, chemin_inventaire:str) -> pygame.surface.Surface:
-        """Renvoi un inventaire utilisable redimensionné en 128*98"""
+        """Renvoi un inventaire utilisable redimensionné en 512*392"""
         return pygame.transform.scale(pygame.image.load(chemin_inventaire), (512, 392))
 
     def ouvrir(self) -> None:
+        """Permet de récupérer l'interaction pour ouvrir ou fermer l'inventaire"""
         if self.is_open == False:
             self.is_open = True
         elif self.is_open == True:
             self.is_open = False
 
     def afficher(self, screen:pygame.surface.Surface) -> None:
+        """Récupère le bool de self.is_open pour afficher ou désafficher l'inventaire"""
         if self.is_open == 0:
             screen.blit(self.vide, (self.coordx, self.coordy))
         if self.is_open == 1:
@@ -38,6 +40,7 @@ class Barre_outil():
         return pygame.transform.scale(pygame.image.load(chemin_barre), (4680, 96))
 
     def afficher(self, screen:pygame.surface.Surface) -> None:
+        """Affiche la barre d'inventaire et permete de changer de slot dans Game.py"""
         if self.slot <= 0:
             self.slot = 9
         elif self.slot >= 10:
@@ -45,6 +48,7 @@ class Barre_outil():
         screen.blit(self.barre,(self.coordx,self.coordy),[(520*(self.slot-1)),0,520,self.hauteur])
 
     def scroll(self,arg:str) -> None:
+        """Récupére la valeur de scroll dans Game.py"""
         if arg == "up":
             self.slot+=1
         elif arg == "down":
@@ -64,6 +68,7 @@ class Barre_vie():
         return pygame.transform.scale(pygame.image.load(chemin_barre), (5166, 24))
 
     def afficher(self, screen:pygame.surface.Surface, vie:int) -> None:
+        """Affiche la barre de vie et est relié a la vie de Personnage.py"""
         screen.blit(self.barre,(self.coordx,self.coordy),[246*(20-vie),0,246,self.hauteur])
 
 class Barre_armure():
@@ -79,4 +84,5 @@ class Barre_armure():
         return pygame.transform.scale(pygame.image.load(chemin_barre), (5166, 24))
     
     def afficher(self, screen:pygame.surface.Surface, armure:int) -> None:
+        """Affiche la barre d'armure et est relié a l'armure de Personnage.py"""
         screen.blit(self.barre,(self.coordx,self.coordy),[246*(20-armure),0,246,self.hauteur])
