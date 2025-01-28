@@ -49,7 +49,7 @@ Ce fichier contient toutes les définitions de blocs ainsi que les fonction néc
   La grille de bloc utilise la librairie JSON pour stocker et modifer la grille de blocs.
   Pygame est aussi présent pour la partie affichage de cette dite grille
 
-  **Classe Grille() :**
+  **Classe Grille :**
   
   Cette classe s'occupe de gérer la position des blocs et leurs boîte de collision, puis de les afficher à l'écran
   
@@ -78,7 +78,7 @@ Ce fichier contient toutes les définitions de blocs ainsi que les fonction néc
   dessiner():
   - Affiche les blocs de la matrice sur l'écran 
 
-  **Classe Bloc() :**
+  **Classe Bloc :**
 
   Cette classe défini un objet général de type bloc, elle sera utilisé par Solide() et Liquide() pour affiner les caratéristiques du bloc.
 
@@ -89,7 +89,7 @@ Ce fichier contient toutes les définitions de blocs ainsi que les fonction néc
   charger_sprite():
   - Redimensionne le sprite en 16x en 64x
 
-  **Classe Solide() :**
+  **Classe Solide :**
   
   Cette classe utilise les propiétés de Bloc() pour créer des blocs avec les attributs d'un solide
 
@@ -98,7 +98,7 @@ Ce fichier contient toutes les définitions de blocs ainsi que les fonction néc
   - Défini la flammabilité du bloc
   - Défini si le bloc à des collisions ou pas
 
-  **Classe Liquide() :**
+  **Classe Liquide :**
   
   Cette classe utilise les propriétés de Bloc() pour créer des blocs avec les attributs d'un liquide
 
@@ -137,7 +137,7 @@ Il contient les fonction nécéssaires à ses déplacements et son affichage à 
   - Importation de la classe Grille() du fichier Blocs.py
   - Définition de vecteur, évite de devoir répéter pygame.math.Vector2
 
-  **Classe Personnage():**
+  **Classe Personnage:**
 
   init() :
   - Définition des variables suivantes :
@@ -198,38 +198,61 @@ Sujet aux changements, les fonctionnalités liées à l'inventaire et l'interfac
 
 Importation de pygame
 
-**Classe Inventaire()**
+**Classe Inventaire**
 
 init():
-- définition de deux sprites
-- définition de deux variables de coordonées (x, y)
-- définiton d'une constante qui permet de savoir si l'inventaire est ouvert ou non
+- Définition de deux sprites
+- Définition de deux variables de coordonées (x, y)
+- Définiton de is_open qui permet de savoir si l'inventaire est ouvert ou non
 
 charger_inventaire():
 - Permet de redimensionner le sprite de l'inventaire a une taille affichable
 
 ouvrir():
-- modifie la valeur de la constante en fonction de celle ci
-- la fonction est appelé lorsque la touche e est appuyé
+- Modifie la valeur de la constante en fonction de celle ci
+- La fonction est appelé lorsque la touche e est appuyé
 
 afficher():
-- affiche le sprite de l'inventaire en fonction de la constante
+- Affiche le sprite de l'inventaire en fonction de la constante
 
-**Classe Barre_outil():**
+**Classe Barre_outil:**
 
 init():
-- définition du chemin du sprite de la barre d'outils
-- définition de la constante is_open
-- définition de deux variables de coordonées
-- définition de la valeur de l'emplacement du curseur dans la barre
+- Définition du chemin du sprite de la barre d'outils
+- Définition de deux variables de coordonées
+- Définition de la valeur de l'emplacement du curseur dans la barre
 
 charger_barre():
 - Permet de redimensionner le sprite de la barre d'outils pour être utilisable à l'écran
 
 afficher():
-- affiche le sprite de la barre d'outils en fonction de la constante d'ouverture et de la position du curseur de séléction
+- Affiche le sprite de la barre d'outils en fonction de la constante d'ouverture et de la position du curseur de séléction
 
 scroll():
-- change la position du curseur de séléction en fonction de la molette de la souris
+- Change la position du curseur de séléction en fonction de la molette de la souris
 
-**Classe Barre_outil():**
+**Classe Barre_vie:**
+
+init():
+- Définition du chemin du sprite de la barre de vie
+- Définition de deux variables de coordonées
+- Défintion des variables de taille de la barre
+
+charger_barre():
+- Renvoie le sprite de la barre avec une dimension utilisable
+
+afficher():
+- Permet d'afficher la barre sur l'écran
+
+**Classe Barre_armure:**
+
+init():
+- Définition du chemin du sprite de la barre d'armure
+- Définition de deux variables de coordonées
+- Défintion des variables de taille de la barre
+
+charger_barre():
+- Renvoie le sprite de la barre avec une dimension utilisable
+
+afficher():
+- Permet d'afficher la barre sur l'écran
