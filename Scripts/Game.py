@@ -12,7 +12,7 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 running = True
-
+ 
 player = Personnage()
 grille = Grille(SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE)
 grille.chunk = grille.charger("Save/monde-test/chunk1.json")
@@ -23,7 +23,7 @@ barre_armure = Barre_armure()
 
 while running:
 
-    delta = clock.tick(60)/1000 * FRAMERATE
+    delta = clock.get_time()/1000
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
