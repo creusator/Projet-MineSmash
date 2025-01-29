@@ -91,3 +91,16 @@ def air() -> Liquide:
     air = Liquide(0, 'Asset/image/Blocs/air.png')
     air.viscosite = 0.0
     return air
+
+def eau() -> Liquide:
+    '''Crée un bloc d'eau'''
+    eau = Liquide(4, 'Asset/image/Blocs/bloc_stone.png')
+    eau.viscosite = 0.6
+    return eau 
+
+def lave() -> Liquide:
+    '''Crée un bloc de lave'''
+    lave = Liquide(5,'Asset/image/Blocs/bloc_stone.png')
+    lave.vicosite = 0.6
+    leve.degats = 5 
+    return lave 
