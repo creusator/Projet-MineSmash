@@ -17,31 +17,33 @@ class GameClock:
 
 class Game:
     def __init__(self):
-        self.clock = GameClock(day_duration=120, night_duration=60)  
+        self.clock = GameClock(day_duration=4, night_duration=2)
+        self.delay_counter = 0
         # 120 unités de temps pour le jour, 60 pour la nuit
 
-    def update(self):
+    def update(self, screen):
         self.clock.update()
         time_of_day = self.clock.get_time_of_day()
         if time_of_day == "day":
-            self.set_day()
+            self.set_day(screen)
         else:
-            self.set_night()
+            self.set_night(screen)
 
-    def set_day(self):
+    def set_day(self, screen):
         # Code pour définir l'environnement du jeu pendant le jour
         screen.fill((85,0,170))
 
-    def set_night(self):
+    def set_night(self, screen):
         # Code pour définir l'environnement du jeu pendant la nuit
         screen.fill((135,206,235))
 
-    def run(self):
+    def run(self, screen):
         while True:
             self.delay_counter += 1
             if self.delay_counter >= 60:  # Simule un délai de 60 cycles de boucle
-                self.update()
+                self.update(screen)
                 self.delay_counter = 0
+
 if __name__ == "__main__":
     game = Game()
     game.run()
