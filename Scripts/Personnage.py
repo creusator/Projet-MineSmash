@@ -2,95 +2,123 @@ import pygame
 from Blocs import Grille
 
 vecteur = pygame.math.Vector2
+BLUE = (0, 0, 255)
 
 class Personnage():
     def __init__(self):
-        self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
-        self.pos_indicator = pygame.image.load("Asset/image/personnage/pos_indicator.png")
+        self.sprite = self.charger_sprite("Asset/image/personnage/skin de base droite.png")
         self.vie = 20
         self.armure = 20
         self.coord = vecteur(480, 512/2)
-        self.velocite = vecteur(0, 0)
+        self.velocity = vecteur(0, 0)
         self.acceleration = vecteur(0, 0)
-        self.gravite = 0.81
-        self.jump_force = 13
-        self.jumping = False
+        self.acceleration_value = 1.7
+        self.friction_value = -0.35
+        self.gravity_value = 9.81
+        self.max_fall_speed = 13
+        self.max_walk_speed = 64
+        self.jump_force = 48
+        self.is_jumping = False
+        self.is_on_ground = False
+        self.collision_box = pygame.Rect(0, 0,64,128)
 
     def charger_sprite(self, chemin_sprite:str) -> pygame.surface.Surface:
         """Renvoi un sprite utilisable redimensionné en 64x128"""
         return pygame.transform.scale(pygame.image.load(chemin_sprite), (64, 128))
     
-    def jump(self, grille):
-        collision_tete = grille.get_bloc((self.coord.x, self.coord.y - 140))
-        if self.is_on_ground(grille) and collision_tete == 0:
-            self.jumping = True
-    
-    def update_pos(self, grille:list, delta:float) -> None :
-        '''Permet d'exécuter les instructions nécessaires au déplacements du personnage'''
+    def player_collision_list(self, collision_list:list) -> list:
+        '''Renvoie la liste des blocs avec lequel le joueur a des collisions'''
+        hit_list = []
+        for bloc in collision_list:
+            if self.collision_box.colliderect(bloc):
+                hit_list.append(bloc)
+        return hit_list
+
+    def check_collision_x(self, grille:Grille) -> None:
+        '''Corrige les déplacements horizontaux du personnage'''
+        collision_list = self.player_collision_list(grille.get_collison_list())
+        for bloc in collision_list :
+            if self.velocity.x > 0:
+                self.coord.x = bloc.left - self.collision_box.w
+                self.collision_box.x = self.coord.x
+            if self.velocity.x < 0:
+                self.coord.x = bloc.right
+                self.collision_box.x = self.coord.x
+
+    def check_collision_y(self, grille:Grille) -> None:
+        '''Corrige les déplacements verticaux du personnage'''
+        self.is_on_ground = False
+        self.collision_box.bottom += 1
+        collison_list = self.player_collision_list(grille.get_collison_list())
+        for bloc in collison_list :
+            if self.velocity.y > 0:
+                self.is_on_ground = True
+                self.is_jumping = False
+                self.velocity.y = 0
+                self.coord.y = bloc.top
+                self.collision_box.bottom = self.coord.y
+            if self.velocity.y < 0 :
+                self.velocity.y = 0
+                self.coord.y = bloc.bottom + self.collision_box.h
+                self.collision_box.bottom = self.coord.y
+
+    def velocity_limit(self, limit:int) -> None:
+        '''Limite la vélocité horizontale en fonction de limit'''
+        if self.velocity.x > limit:
+            self.velocity.x = limit
+        elif self.velocity.x < -limit:
+            self.velocity.x = -limit
+
+        if -0.01 < self.velocity.x < 0.01:
+            self.velocity.x = 0
+
+    def horizontal_movement(self, delta_time:float) -> None:
+        '''Applique les déplacements horizontaux en fonction des touches'''
+        self.acceleration.x = 0
         key = pygame.key.get_pressed()
-        self.acceleration = vecteur(0,self.gravite)
 
-        ACCELERATION = 0.5
-        FRICTION = -0.12
-
-        if self.is_on_ground(grille):
-            if self.jumping :
-                self.jumping = False
-                self.velocite.y -= self.jump_force
-            else :
-                self.velocite.y = 0
-                self.acceleration.y = 0
-
-        if key[pygame.K_q]:
+        if key[pygame.K_q]:        
             self.sprite = self.charger_sprite("Asset/image/personnage/skin de base gauche.png")
-            if self.colliding_left(grille) == False:
-                self.acceleration.x = -ACCELERATION
-            else :
-                self.acceleration.x = 0
-                self.velocite.x = 0
-                
-        if key[pygame.K_d]: 
+            self.acceleration.x -= self.acceleration_value
+        elif key[pygame.K_d]:
             self.sprite = self.charger_sprite("Asset/image/personnage/skin de base droite.png")
-            if self.colliding_right(grille) == False:
-                self.acceleration.x = ACCELERATION
-            else :
-                self.acceleration.x = 0
-                self.velocite.x = 0
+            self.acceleration.x += self.acceleration_value
+        
+        self.acceleration.x += self.velocity.x * self.friction_value
+        self.velocity.x += self.acceleration.x * delta_time       
+        self.velocity_limit(self.max_walk_speed)
+        self.coord.x += self.velocity.x * delta_time - (self.acceleration.x * 0.5) * (delta_time * delta_time)
+        self.collision_box.x = self.coord.x
 
-        self.acceleration.x += self.velocite.x * FRICTION
-        self.velocite += self.acceleration
-        self.coord += self.velocite + self.acceleration * delta
+    def vertical_movement(self, delta_time:float) -> None:
+        '''Applique la gravité, limite la vélocité verticale du joueur'''
+        self.velocity.y += self.gravity_value * delta_time
 
-    def is_on_ground(self, grille:list) -> bool:
-        collision_pied_gauche = grille.get_bloc((self.coord.x - 16, self.coord.y))
-        collision_pied_droit = grille.get_bloc((self.coord.x + 16, self.coord.y))
-        return collision_pied_droit != 0 or collision_pied_gauche != 0
-
-    def colliding_left(self, grille:list) -> bool:
-        collision_bas_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 16))
-        collision_milieu_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 64))
-        collision_haut_gauche = grille.get_bloc((self.coord.x - 24, self.coord.y - 115))
-        return collision_bas_gauche != 0 or collision_milieu_gauche != 0 or collision_haut_gauche != 0
+        if self.velocity.y > self.max_fall_speed : 
+            self.velocity.y = self.max_fall_speed 
+        
+        self.coord.y += self.velocity.y * delta_time - (self.acceleration.y * 0.5) * (delta_time * delta_time)
+        self.collision_box.bottom = self.coord.y
     
-    def colliding_right(self, grille:list) -> bool:
-        collision_bas_droite = grille.get_bloc((self.coord.x + 24, self.coord.y - 16))
-        collision_milieu_droite = grille.get_bloc((self.coord.x + 24, self.coord.y - 64))
-        collision_haut_droite = grille.get_bloc((self.coord.x +   24, self.coord.y - 115))
-        return collision_bas_droite != 0 or collision_milieu_droite != 0 or collision_haut_droite != 0
+    def jump(self) -> None:
+        '''Permet de sauter si le personnage est sur le sol'''
+        if self.is_on_ground:
+            self.is_jumping = True
+            self.velocity.y -= self.jump_force
+            self.is_on_ground = False
+
+    def move(self,grille:Grille, delta:float) -> None:
+        '''Applique les fonctions ci dessus pour les déplacements'''
+        self.horizontal_movement(delta)
+        self.check_collision_x(grille)
+        self.vertical_movement(delta)
+        self.check_collision_y(grille)
 
     def debug(self, screen:pygame.surface.Surface) -> None:
         """Affiche à l'écran des graphisme de debug, visualisation des collisions ect..."""
-        screen.blit(self.pos_indicator, (self.coord.x, self.coord.y - 140)) #Tête du joueur
-        screen.blit(self.pos_indicator, (self.coord.x - 16, self.coord.y)) #Pieds gauche du joueur
-        screen.blit(self.pos_indicator, (self.coord.x + 16, self.coord.y)) #Pieds droit du joueur
-        screen.blit(self.pos_indicator, (self.coord.x - 24, self.coord.y - 16)) #Bas gauche
-        screen.blit(self.pos_indicator, (self.coord.x + 24, self.coord.y - 16)) #Bas droit
-        screen.blit(self.pos_indicator, (self.coord.x - 24, self.coord.y - 64)) #Milieu gauche
-        screen.blit(self.pos_indicator, (self.coord.x + 24, self.coord.y - 64)) #Milieu droit
-        screen.blit(self.pos_indicator, (self.coord.x - 24, self.coord.y - 115)) #Haut gauche
-        screen.blit(self.pos_indicator, (self.coord.x + 24, self.coord.y - 115)) #Haut droit
+        pygame.draw.rect(screen, BLUE, self.collision_box)
 
     def afficher(self, screen:pygame.surface.Surface) -> None:
         '''Permet d'afficher le personnage sur l'écran'''
-        screen.blit(self.sprite, (self.coord.x - 32, self.coord.y - 128))
-        self.debug(screen)
+        #self.debug(screen)
+        screen.blit(self.sprite, (self.collision_box.x, self.collision_box.y))
