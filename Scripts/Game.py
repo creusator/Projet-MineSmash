@@ -2,6 +2,7 @@ import pygame
 from Blocs import *
 from Personnage import *
 from Interface import *
+from cycle_jour_nuit import *
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 512
@@ -20,6 +21,7 @@ inventaire = Inventaire()
 barre_outil = Barre_outil()
 barre_vie = Barre_vie()
 barre_armure = Barre_armure()
+Game = Game()
 
 while running:
 
