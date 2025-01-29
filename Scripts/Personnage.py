@@ -12,12 +12,12 @@ class Personnage():
         self.coord = vecteur(480, 512/2)
         self.velocity = vecteur(0, 0)
         self.acceleration = vecteur(0, 0)
-        self.acceleration_value = 1.7
-        self.friction_value = -0.35
-        self.gravity_value = 9.81
-        self.max_fall_speed = 13
+        self.acceleration_value = 7 * 64
+        self.friction_value = -0.12 * 64
+        self.gravity_value = 9.81*64
+        self.max_fall_speed = 13*64
         self.max_walk_speed = 64
-        self.jump_force = 48
+        self.jump_force = 5*64
         self.is_jumping = False
         self.is_on_ground = False
         self.collision_box = pygame.Rect(0, 0,64,128)
@@ -87,7 +87,7 @@ class Personnage():
         self.acceleration.x += self.velocity.x * self.friction_value
         self.velocity.x += self.acceleration.x * delta_time       
         self.velocity_limit(self.max_walk_speed)
-        self.coord.x += self.velocity.x * delta_time - (self.acceleration.x * 0.5) * (delta_time * delta_time)
+        self.coord.x += self.velocity.x * delta_time #- (self.acceleration.x * 0.5) * (delta_time * delta_time)
         self.collision_box.x = self.coord.x
 
     def vertical_movement(self, delta_time:float) -> None:
@@ -97,7 +97,7 @@ class Personnage():
         if self.velocity.y > self.max_fall_speed : 
             self.velocity.y = self.max_fall_speed 
         
-        self.coord.y += self.velocity.y * delta_time - (self.acceleration.y * 0.5) * (delta_time * delta_time)
+        self.coord.y += self.velocity.y * delta_time #- (self.acceleration.y * 0.5) * (delta_time * delta_time)
         self.collision_box.bottom = self.coord.y
     
     def jump(self) -> None:
