@@ -1,4 +1,5 @@
 import pygame
+import json
 
 class Inventaire():
     def __init__(self):
