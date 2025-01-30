@@ -7,12 +7,24 @@
 
 **Documentation:**
 
-  Quatres fichiers principaux :
-  
+  Fichiers principaux :
+
+  - Variables_Globales.py -- Contient les variables importantes comme la taille de l'écran et des blocs afin d'être modifiable facilement dans tout les scripts.
   - Game.py -- Le script d'exécution du jeu
-  - Blocs.py -- Gère les blocs et la grille qui permet de placer les blocs à leurs place
+  - Blocs.py -- Gère la création des blocs et de la grille qui permet de placer les blocs à leurs place
   - Personnage.py -- Gère les mouvements, les collisions, et les attributs du joueur (vie, armure ect...)
   - Interface.py -- Gère tout les éléments d'interface notamment la barre d'item, l'inventaire ect...
+
+# Variables_Globales.py
+
+Contient les variables importantes comme la taille de l'écran et des blocs afin d'être modifiable facilement dans tout les scripts.
+
+Gardez de préférence un ratio 2:1 entre ces valeurs pour l'instant :
+- SCREEN_WIDTH, largeur de la fenêtre de jeu
+- SCREEN_HEIGHT, hauteur de la fenêtre de jeu
+
+- TILE_SIZE, taille des blocs dans le monde
+- FRAMERATE, limite d'images par seconde
 
 # Game.py
 
