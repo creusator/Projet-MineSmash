@@ -3,10 +3,10 @@ import json
 from Variables_Globales import *
 
 class Grille():
-    def __init__(self, largeur_grille:int, hauteur_grille:int, taille_case:int):
-        self.largeur_grille = largeur_grille
-        self.hauteur_grille = hauteur_grille
-        self.taille_case = taille_case
+    def __init__(self):
+        self.largeur_grille = SCREEN_WIDTH
+        self.hauteur_grille = SCREEN_HEIGHT
+        self.taille_case = TILE_SIZE
         self.chunk = None
 
     def charger(self, chemin_chunk:str) -> list:
