@@ -1,5 +1,6 @@
 import pygame
 import json
+from Variables_Globales import *
 
 class Grille():
     def __init__(self, largeur_grille:int, hauteur_grille:int, taille_case:int):
@@ -56,11 +57,11 @@ class Grille():
 class Bloc() :
     def __init__(self, chemin_sprite:str):
         self.sprite = self.charger_sprite(chemin_sprite)
-        self.collision_box = pygame.Rect(0,0,64,64)
+        self.collision_box = pygame.Rect(0,0,TILE_SIZE,TILE_SIZE)
 
     def charger_sprite(self, chemin_sprite:str) -> pygame.Surface:
-        """Renvoi un sprite utilisable redimensionné en 64x64"""
-        return pygame.transform.scale(pygame.image.load(chemin_sprite), (64, 64))
+        """Renvoi un sprite utilisable redimensionné en fonction de la taille des blocs"""
+        return pygame.transform.scale(pygame.image.load(chemin_sprite), (TILE_SIZE, TILE_SIZE))
 
 class Solide(Bloc) :
     def __init__(self, chemin_sprite:str):
@@ -112,13 +113,13 @@ def air() -> Liquide:
 
 def eau() -> Liquide:
     '''Crée un bloc d'eau'''
-    eau = Liquide(4, 'Asset/image/Blocs/bloc_stone.png')
+    eau = Liquide('Asset/image/Blocs/bloc_stone.png')
     eau.viscosite = 0.6
     return eau 
 
 def lave() -> Liquide:
     '''Crée un bloc de lave'''
-    lave = Liquide(5,'Asset/image/Blocs/bloc_stone.png')
+    lave = Liquide('Asset/image/Blocs/bloc_stone.png')
     lave.vicosite = 0.6
     leve.degats = 5 
     return lave 

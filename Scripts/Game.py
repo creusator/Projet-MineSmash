@@ -1,13 +1,9 @@
 import pygame
+from Variables_Globales import *
 from Blocs import *
 from Personnage import *
 from Interface import *
 from cycle_jour_nuit import *
-
-SCREEN_WIDTH = 1024
-SCREEN_HEIGHT = 512
-TILE_SIZE = 64
-FRAMERATE = 60
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))

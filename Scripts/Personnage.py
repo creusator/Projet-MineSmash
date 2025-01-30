@@ -1,4 +1,5 @@
 import pygame
+from Variables_Globales import *
 from Blocs import Grille
 
 vecteur = pygame.math.Vector2
@@ -87,7 +88,7 @@ class Personnage():
         self.acceleration.x += self.velocity.x * self.friction_value
         self.velocity.x += self.acceleration.x * delta_time       
         self.velocity_limit(self.max_walk_speed)
-        self.coord.x += self.velocity.x * delta_time #- (self.acceleration.x * 0.5) * (delta_time * delta_time)
+        self.coord.x += self.velocity.x * delta_time
         self.collision_box.x = self.coord.x
 
     def vertical_movement(self, delta_time:float) -> None:
@@ -97,7 +98,7 @@ class Personnage():
         if self.velocity.y > self.max_fall_speed : 
             self.velocity.y = self.max_fall_speed 
         
-        self.coord.y += self.velocity.y * delta_time #- (self.acceleration.y * 0.5) * (delta_time * delta_time)
+        self.coord.y += self.velocity.y * delta_time
         self.collision_box.bottom = self.coord.y
     
     def jump(self) -> None:
