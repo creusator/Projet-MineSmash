@@ -10,22 +10,22 @@ class Personnage():
         self.sprite = self.charger_sprite("Asset/image/personnage/skin de base droite.png")
         self.vie = 20
         self.armure = 20
-        self.coord = vecteur(480, 512/2)
+        self.coord = vecteur(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
         self.velocity = vecteur(0, 0)
         self.acceleration = vecteur(0, 0)
-        self.acceleration_value = 15 * 64
-        self.friction_value = -0.12 * 64
-        self.gravity_value = 9.81*64
-        self.max_fall_speed = 13*64
-        self.max_walk_speed = 1*64
-        self.jump_force = 5*64
+        self.acceleration_value = 15 * TILE_SIZE
+        self.friction_value = -0.12 * TILE_SIZE
+        self.gravity_value = 9.81 * TILE_SIZE
+        self.max_fall_speed = 13 * TILE_SIZE
+        self.max_walk_speed = 1 * TILE_SIZE
+        self.jump_force = 5 * TILE_SIZE
         self.is_jumping = False
         self.is_on_ground = False
-        self.collision_box = pygame.Rect(0, 0,64,128)
+        self.collision_box = pygame.Rect(0, 0,TILE_SIZE, TILE_SIZE * 2)
         
     def charger_sprite(self, chemin_sprite:str) -> pygame.surface.Surface:
         """Renvoi un sprite utilisable redimensionné en 64x128"""
-        return pygame.transform.scale(pygame.image.load(chemin_sprite), (64, 128))
+        return pygame.transform.scale(pygame.image.load(chemin_sprite), (TILE_SIZE, TILE_SIZE * 2))
 
     def player_collision_list(self, collision_list:list) -> list:
         '''Renvoie la liste des blocs avec lequel le joueur a des collisions'''
