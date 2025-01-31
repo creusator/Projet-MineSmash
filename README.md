@@ -54,7 +54,8 @@ Ce fichier gère l'exécution de toutes les fonctions nécéssaires au jeux. Nor
 
 # Blocs.py
 
-Ce fichier contient toutes les définitions de blocs ainsi que les fonction nécéssaires à leur affichage sur l'écran
+Ce fichier contient toutes les définitions de blocs ainsi que les fonction nécéssaires à leur affichage sur l'écran.
+Veuillez modifier la taille des blocs dans Variables_Globales.py et nul part d'autre.
 
   **Importation des librairies :**
   
@@ -66,7 +67,7 @@ Ce fichier contient toutes les définitions de blocs ainsi que les fonction néc
   Cette classe s'occupe de gérer la position des blocs et leurs boîte de collision, puis de les afficher à l'écran
   
   init():
-  - Défini la largeur, hauteur de la grille
+  - Défini la largeur, hauteur de la grille pour modifier ces valeurs vous référer à Variables_Globales.py
   - Défini la taille des blocs sur l'écran (textures en x16, affiché en x64 sur l'écran)
 
   charger():
@@ -143,6 +144,7 @@ Ce fichier contient toutes les définitions de blocs ainsi que les fonction néc
 
 Ce fichier gère un des objet les plus important du jeu, le personnage. 
 Il contient les fonction nécéssaires à ses déplacements et son affichage à l'écran.
+Les valeurs de déplacements et de taille du personnage sont définis par la taille des blocs dans Variables_Globales.py
 
   **Importations et définition:**
   - Importation de pygame
@@ -155,9 +157,10 @@ Il contient les fonction nécéssaires à ses déplacements et son affichage à 
   - Définition des variables suivantes :
       - Chemin vers le sprite
       - Vie, armure
+      - variables d'état is_jumping et is_on_ground
+    **Toutes les valeurs ci dessous sont exprimés en fonction de la taille des blocs (exempe gravité = 9.81 blocs par seconde)**
       - valeure d'incrémentation de l'accélération, de la friction, de la gravité et de la puissance du saut
       - vitesses maximales horizontale et verticale
-      - variables d'état is_jumping et is_on_ground
 
   - Définition des vecteurs suivants :
         - Coordonées
