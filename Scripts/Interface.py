@@ -1,17 +1,18 @@
 import pygame
 import json
+from Variables_Globales import *
 
 class Inventaire():
     def __init__(self):
         self.inventaire = self.charger_inventaire("Asset/image/interface/inventaire.png")
         self.vide = self.charger_inventaire("Asset/image/Blocs/air.png")
-        self.coordx = 256
-        self.coordy = 64
+        self.coordx = SCREEN_WIDTH * 0.25
+        self.coordy = SCREEN_HEIGHT * 0.12
         self.is_open = False
 
     def charger_inventaire(self, chemin_inventaire:str) -> pygame.surface.Surface:
-        """Renvoi un inventaire utilisable redimensionné en 512*392"""
-        return pygame.transform.scale(pygame.image.load(chemin_inventaire), (512, 392))
+        """Renvoi un sprite d'inventaire utilisable redimensionné en fontion de la taille de l'écran"""
+        return pygame.transform.scale(pygame.image.load(chemin_inventaire), (SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.7))
 
     def ouvrir(self) -> None:
         """Permet de récupérer l'interaction pour ouvrir ou fermer l'inventaire"""
@@ -31,14 +32,14 @@ class Barre_outil():
 
     def __init__ (self):
         self.slot = 1
-        self.coordx = 256
-        self.coordy = 400
+        self.coordx = SCREEN_WIDTH * 0.25
+        self.coordy = SCREEN_HEIGHT * 0.8
         self.barre = self.charger_barre("Asset/image/interface/barre d'inventaire.png")
         self.largeur,self.hauteur = self.barre.get_size()
     
     def charger_barre(self, chemin_barre:str) -> pygame.surface.Surface:
-        """Renvoi une barre utilisable redimensionné en 4680 * 96"""
-        return pygame.transform.scale(pygame.image.load(chemin_barre), (4680, 96))
+        """Renvoi une barre utilisable redimensionné en fonction de la taille de l'écran"""
+        return pygame.transform.scale(pygame.image.load(chemin_barre), (SCREEN_WIDTH * 4.57, SCREEN_HEIGHT * 0.18))
 
     def afficher(self, screen:pygame.surface.Surface) -> None:
         """Affiche la barre d'inventaire et permete de changer de slot dans Game.py"""
@@ -46,7 +47,7 @@ class Barre_outil():
             self.slot = 9
         elif self.slot >= 10:
             self.slot = 1
-        screen.blit(self.barre,(self.coordx,self.coordy),[(520*(self.slot-1)),0,520,self.hauteur])
+        screen.blit(self.barre,(self.coordx,self.coordy),[(SCREEN_HEIGHT * (self.slot-1)), 0, SCREEN_WIDTH * 0.51, self.hauteur])
 
     def scroll(self,arg:str) -> None:
         """Récupére la valeur de scroll dans Game.py"""
