@@ -158,6 +158,7 @@ Les valeurs de déplacements et de taille du personnage sont définis par la tai
       - Chemin vers le sprite
       - Vie, armure
       - variables d'état is_jumping et is_on_ground
+        
     **Toutes les valeurs ci dessous sont exprimés en fonction de la taille des blocs (exempe gravité = 9.81 blocs par seconde)**
       - valeure d'incrémentation de l'accélération, de la friction, de la gravité et de la puissance du saut
       - vitesses maximales horizontale et verticale
@@ -216,16 +217,16 @@ Importation de pygame
 **Classe Inventaire**
 
 init():
-- Définition de deux sprites
-- Définition de deux variables de coordonées (x, y)
+- Définition de deux sprites (affiché, non affiché)
+- Définition de deux variables de coordonées en fonction de la taille de l'écran (x, y)
 - Définiton de is_open qui permet de savoir si l'inventaire est ouvert ou non
 
 charger_inventaire():
-- Permet de redimensionner le sprite de l'inventaire a une taille affichable
+- Permet de redimensionner le sprite de l'inventaire en fonction de la taille de l'écran
 
 ouvrir():
 - Modifie la valeur de la constante en fonction de celle ci
-- La fonction est appelé lorsque la touche e est appuyé
+- La fonction est appelé lorsque la touche E est appuyé
 
 afficher():
 - Affiche le sprite de l'inventaire en fonction de la constante
@@ -238,10 +239,10 @@ init():
 - Définition de la valeur de l'emplacement du curseur dans la barre
 
 charger_barre():
-- Permet de redimensionner le sprite de la barre d'outils pour être utilisable à l'écran
+- Permet de redimensionner le sprite de la barre d'outils en fonction de la taille de l'écran
 
 afficher():
-- Affiche le sprite de la barre d'outils en fonction de la constante d'ouverture et de la position du curseur de séléction
+- Affiche le sprite de la barre d'outils en fonction de la constante d'ouverture et de la position du curseur de seléction
 
 scroll():
 - Change la position du curseur de séléction en fonction de la molette de la souris
