@@ -47,7 +47,7 @@ class Barre_outil():
             self.slot = 9
         elif self.slot >= 10:
             self.slot = 1
-        screen.blit(self.barre,(self.coordx,self.coordy),[(SCREEN_HEIGHT * (self.slot-1)), 0, SCREEN_WIDTH * 0.51, self.hauteur])
+        screen.blit(self.barre,(self.coordx,self.coordy),[((self.largeur/9) * (self.slot-1)), 0, (self.largeur/9), self.hauteur])
 
     def scroll(self,arg:str) -> None:
         """Récupére la valeur de scroll dans Game.py"""
@@ -60,13 +60,15 @@ class Barre_outil():
 class Barre_vie():
 
     def __init__ (self):
-        self.coordx = 255
-        self.coordy = 365
+        #self.coordx = 255
+        #self.coordy = 365
+        self.coordx = SCREEN_WIDTH*0.25
+        self.coordy = SCREEN_HEIGHT*0.715
         self.barre = self.charger_barre("Asset/image/interface/barre de vie.png")
         self.largeur,self.hauteur = self.barre.get_size()
         
     def charger_barre(self, chemin_barre:str) -> pygame.surface.Surface:
-        """Renvoi une barre utilisable redimensionné en 5166 * 24"""
+        """Renvoi une barre utilisable redimensionné en fonction de la taille de l'écran"""
         return pygame.transform.scale(pygame.image.load(chemin_barre), (5166, 24))
 
     def afficher(self, screen:pygame.surface.Surface, vie:int) -> None:
