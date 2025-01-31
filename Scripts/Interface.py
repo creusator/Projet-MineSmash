@@ -63,30 +63,32 @@ class Barre_vie():
         #self.coordx = 255
         #self.coordy = 365
         self.coordx = SCREEN_WIDTH*0.25
-        self.coordy = SCREEN_HEIGHT*0.715
+        self.coordy = SCREEN_HEIGHT*0.73
         self.barre = self.charger_barre("Asset/image/interface/barre de vie.png")
         self.largeur,self.hauteur = self.barre.get_size()
         
     def charger_barre(self, chemin_barre:str) -> pygame.surface.Surface:
         """Renvoi une barre utilisable redimensionné en fonction de la taille de l'écran"""
-        return pygame.transform.scale(pygame.image.load(chemin_barre), (5166, 24))
+        return pygame.transform.scale(pygame.image.load(chemin_barre), (SCREEN_WIDTH * 5.01, SCREEN_HEIGHT * 0.05))
 
     def afficher(self, screen:pygame.surface.Surface, vie:int) -> None:
         """Affiche la barre de vie et est relié a la vie de Personnage.py"""
-        screen.blit(self.barre,(self.coordx,self.coordy),[246*(20-vie),0,246,self.hauteur])
+        screen.blit(self.barre,(self.coordx,self.coordy),[(self.largeur/21)*(20-vie),0,(self.largeur/21),self.hauteur])
 
 class Barre_armure():
 
     def __init__ (self):
-        self.coordx = 535
-        self.coordy = 365
+        #self.coordx = 535
+        #self.coordy = 365
+        self.coordx = SCREEN_WIDTH*0.52
+        self.coordy = SCREEN_HEIGHT*0.73
         self.barre = self.charger_barre("Asset/image/interface/barre d'armure.png")
         self.largeur,self.hauteur = self.barre.get_size()
     
     def charger_barre(self, chemin_barre:str) -> pygame.surface.Surface:
         """Renvoi une barre utilisable redimensionné en 5166 * 24"""
-        return pygame.transform.scale(pygame.image.load(chemin_barre), (5166, 24))
+        return pygame.transform.scale(pygame.image.load(chemin_barre), (SCREEN_WIDTH * 5.1, SCREEN_HEIGHT * 0.05))
     
     def afficher(self, screen:pygame.surface.Surface, armure:int) -> None:
         """Affiche la barre d'armure et est relié a l'armure de Personnage.py"""
-        screen.blit(self.barre,(self.coordx,self.coordy),[246*(20-armure),0,246,self.hauteur])
+        screen.blit(self.barre,(self.coordx,self.coordy),[(self.largeur/21)*(20-armure),0,(self.largeur/21),self.hauteur])
