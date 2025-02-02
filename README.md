@@ -7,12 +7,24 @@
 
 **Documentation:**
 
-  Quatres fichiers principaux :
-  
+  Fichiers principaux :
+
+  - Variables_Globales.py -- Contient les variables importantes comme la taille de l'écran et des blocs afin d'être modifiable facilement dans tout les scripts.
   - Game.py -- Le script d'exécution du jeu
-  - Blocs.py -- Gère les blocs et la grille qui permet de placer les blocs à leurs place
+  - Blocs.py -- Gère la création des blocs et de la grille qui permet de placer les blocs à leurs place
   - Personnage.py -- Gère les mouvements, les collisions, et les attributs du joueur (vie, armure ect...)
   - Interface.py -- Gère tout les éléments d'interface notamment la barre d'item, l'inventaire ect...
+
+# Variables_Globales.py
+
+Contient les variables importantes comme la taille de l'écran et des blocs afin d'être modifiable facilement dans tout les scripts.
+
+Gardez de préférence un ratio 2:1 entre ces valeurs pour l'instant :
+- SCREEN_WIDTH, largeur de la fenêtre de jeu
+- SCREEN_HEIGHT, hauteur de la fenêtre de jeu
+
+- TILE_SIZE, taille des blocs dans le monde
+- FRAMERATE, limite d'images par seconde
 
 # Game.py
 
@@ -42,7 +54,8 @@ Ce fichier gère l'exécution de toutes les fonctions nécéssaires au jeux. Nor
 
 # Blocs.py
 
-Ce fichier contient toutes les définitions de blocs ainsi que les fonction nécéssaires à leur affichage sur l'écran
+Ce fichier contient toutes les définitions de blocs ainsi que les fonction nécéssaires à leur affichage sur l'écran.
+Veuillez modifier la taille des blocs dans Variables_Globales.py et nul part d'autre.
 
   **Importation des librairies :**
   
@@ -54,7 +67,7 @@ Ce fichier contient toutes les définitions de blocs ainsi que les fonction néc
   Cette classe s'occupe de gérer la position des blocs et leurs boîte de collision, puis de les afficher à l'écran
   
   init():
-  - Défini la largeur, hauteur de la grille
+  - Défini la largeur, hauteur de la grille pour modifier ces valeurs vous référer à Variables_Globales.py
   - Défini la taille des blocs sur l'écran (textures en x16, affiché en x64 sur l'écran)
 
   charger():
@@ -131,6 +144,7 @@ Ce fichier contient toutes les définitions de blocs ainsi que les fonction néc
 
 Ce fichier gère un des objet les plus important du jeu, le personnage. 
 Il contient les fonction nécéssaires à ses déplacements et son affichage à l'écran.
+Les valeurs de déplacements et de taille du personnage sont définis par la taille des blocs dans Variables_Globales.py
 
   **Importations et définition:**
   - Importation de pygame
@@ -143,9 +157,11 @@ Il contient les fonction nécéssaires à ses déplacements et son affichage à 
   - Définition des variables suivantes :
       - Chemin vers le sprite
       - Vie, armure
+      - variables d'état is_jumping et is_on_ground
+        
+    **Toutes les valeurs ci dessous sont exprimés en fonction de la taille des blocs (exempe gravité = 9.81 blocs par seconde)**
       - valeure d'incrémentation de l'accélération, de la friction, de la gravité et de la puissance du saut
       - vitesses maximales horizontale et verticale
-      - variables d'état is_jumping et is_on_ground
 
   - Définition des vecteurs suivants :
         - Coordonées
@@ -201,16 +217,16 @@ Importation de pygame
 **Classe Inventaire**
 
 init():
-- Définition de deux sprites
-- Définition de deux variables de coordonées (x, y)
+- Définition de deux sprites (affiché, non affiché)
+- Définition de deux variables de coordonées en fonction de la taille de l'écran (x, y)
 - Définiton de is_open qui permet de savoir si l'inventaire est ouvert ou non
 
 charger_inventaire():
-- Permet de redimensionner le sprite de l'inventaire a une taille affichable
+- Permet de redimensionner le sprite de l'inventaire en fonction de la taille de l'écran
 
 ouvrir():
 - Modifie la valeur de la constante en fonction de celle ci
-- La fonction est appelé lorsque la touche e est appuyé
+- La fonction est appelé lorsque la touche E est appuyé
 
 afficher():
 - Affiche le sprite de l'inventaire en fonction de la constante
@@ -223,10 +239,10 @@ init():
 - Définition de la valeur de l'emplacement du curseur dans la barre
 
 charger_barre():
-- Permet de redimensionner le sprite de la barre d'outils pour être utilisable à l'écran
+- Permet de redimensionner le sprite de la barre d'outils en fonction de la taille de l'écran
 
 afficher():
-- Affiche le sprite de la barre d'outils en fonction de la constante d'ouverture et de la position du curseur de séléction
+- Affiche le sprite de la barre d'outils en fonction de la constante d'ouverture et de la position du curseur de seléction
 
 scroll():
 - Change la position du curseur de séléction en fonction de la molette de la souris

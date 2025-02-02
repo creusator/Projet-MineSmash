@@ -1,13 +1,9 @@
 import pygame
+from Variables_Globales import *
 from Blocs import *
 from Personnage import *
 from Interface import *
 from cycle_jour_nuit import *
-
-SCREEN_WIDTH = 1024
-SCREEN_HEIGHT = 512
-TILE_SIZE = 64
-FRAMERATE = 60
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -15,7 +11,7 @@ clock = pygame.time.Clock()
 running = True
  
 player = Personnage()
-grille = Grille(SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE)
+grille = Grille()
 grille.chunk = grille.charger("Save/monde-test/chunk1.json")
 inventaire = Inventaire()
 barre_outil = Barre_outil()
