@@ -36,6 +36,7 @@ while running:
                 if player.is_jumping:
                     player.velocity.y *= 0.25
                     player.is_jumping = False
+
         if event.type == pygame.MOUSEBUTTONDOWN:  
             x, y = grille.get_coord_grille(event.pos)
             if event.button == 1:
@@ -58,4 +59,5 @@ while running:
     inventaire.afficher(screen)
     pygame.display.flip()
     clock.tick(FRAMERATE)
+    print(clock.get_fps())
 pygame.quit()
