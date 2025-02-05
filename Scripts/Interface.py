@@ -2,8 +2,20 @@ import pygame
 import json
 from Variables_Globales import *
 
-class Inventaire():
+class Ui():
     def __init__(self):
+        self.show_user = False
+        self.show_interface = False
+
+    def utilisateur(self):
+        return self.show_user == True and show_interface == False
+    
+    def interface(self):
+        return self.show_user == False and show_interface == True
+
+class Inventaire(Ui):
+    def __init__(self):
+        super().__init__()
         self.inventaire = self.charger_inventaire("Asset/image/interface/inventaire.png")
         self.vide = self.charger_inventaire("Asset/image/Blocs/air.png")
         self.coordx = SCREEN_WIDTH * 0.25
@@ -23,14 +35,15 @@ class Inventaire():
 
     def afficher(self, screen:pygame.surface.Surface) -> None:
         """Récupère le bool de self.is_open pour afficher ou désafficher l'inventaire"""
-        if self.is_open == 0:
+        if self.is_open == False:
             screen.blit(self.vide, (self.coordx, self.coordy))
-        if self.is_open == 1:
+        if self.is_open == True:
             screen.blit(self.inventaire, (self.coordx, self.coordy))
 
-class Barre_outil():
+class Barre_outil(Ui):
 
     def __init__ (self):
+        super().__init__()
         self.slot = 1
         self.coordx = SCREEN_WIDTH * 0.25
         self.coordy = SCREEN_HEIGHT * 0.8
@@ -57,9 +70,10 @@ class Barre_outil():
             self.slot-=1
 
 
-class Barre_vie():
+class Barre_vie(Ui):
 
     def __init__ (self):
+        super().__init__()
         #self.coordx = 255
         #self.coordy = 365
         self.coordx = SCREEN_WIDTH*0.25
@@ -75,9 +89,10 @@ class Barre_vie():
         """Affiche la barre de vie et est relié a la vie de Personnage.py"""
         screen.blit(self.barre,(self.coordx,self.coordy),[(self.largeur/21)*(20-vie),0,(self.largeur/21),self.hauteur])
 
-class Barre_armure():
+class Barre_armure(Ui):
 
     def __init__ (self):
+        super().__init__()
         #self.coordx = 535
         #self.coordy = 365
         self.coordx = SCREEN_WIDTH*0.52
