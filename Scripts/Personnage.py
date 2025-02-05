@@ -35,9 +35,9 @@ class Personnage():
                 hit_list.append(bloc)
         return hit_list
 
-    def check_collision_x(self, grille:Grille) -> None:
+    def check_collision_x(self, grille_collision_list:list) -> None:
         '''Corrige les déplacements horizontaux du personnage'''
-        collision_list = self.player_collision_list(grille.get_collison_list())
+        collision_list = self.player_collision_list(grille_collision_list)
         for bloc in collision_list :
             if self.velocity.x > 0:
                 self.coord.x = bloc.left - self.collision_box.w
@@ -46,11 +46,11 @@ class Personnage():
                 self.coord.x = bloc.right
                 self.collision_box.x = self.coord.x
 
-    def check_collision_y(self, grille:Grille) -> None:
+    def check_collision_y(self, grille_collision_list:list) -> None:
         '''Corrige les déplacements verticaux du personnage'''
         self.is_on_ground = False
         self.collision_box.bottom += 1
-        collison_list = self.player_collision_list(grille.get_collison_list())
+        collison_list = self.player_collision_list(grille_collision_list)
         for bloc in collison_list :
             if self.velocity.y > 0:
                 self.is_on_ground = True
@@ -110,10 +110,11 @@ class Personnage():
 
     def move(self,grille:Grille, delta:float) -> None:
         '''Applique les fonctions ci dessus pour les déplacements'''
+        grille_collision_list = grille.get_collison_list()
         self.horizontal_movement(delta)
-        self.check_collision_x(grille)
+        self.check_collision_x(grille_collision_list)
         self.vertical_movement(delta)
-        self.check_collision_y(grille)
+        self.check_collision_y(grille_collision_list)
 
     def debug(self, screen:pygame.surface.Surface) -> None:
         """Affiche à l'écran des graphisme de debug, visualisation des collisions ect..."""
