@@ -49,7 +49,10 @@ while running:
             elif event.y == -1:
                 barre_outil.scroll("down")
 
-    screen.fill((135,206,235))
+    if clock.get_fps() < 31:
+        screen.fill((255,0,0))
+    else :
+        screen.fill((0,255, 0))
     grille.dessiner(screen)
     player.afficher(screen)
     player.move(grille, delta)
@@ -59,5 +62,4 @@ while running:
     inventaire.afficher(screen)
     pygame.display.flip()
     clock.tick(FRAMERATE)
-    print(clock.get_fps())
 pygame.quit()
