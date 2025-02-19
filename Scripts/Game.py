@@ -10,7 +10,8 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 running = True
  
-player = Personnage()
+player1 = Personnage()
+player2 = Personnage()
 grille = Grille()
 grille.chunk = grille.charger("Save/monde-test/chunk1.json")
 inventaire = Inventaire()
@@ -30,12 +31,18 @@ while running:
             if event.key == pygame.K_e:
                 inventaire.ouvrir()
             if event.key == pygame.K_SPACE:
-                player.jump()
+                player1.jump()
+            if event.key == pygame.K_UP:
+                player2.jump()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_SPACE:
-                if player.is_jumping:
-                    player.velocity.y *= 0.25
-                    player.is_jumping = False
+                if player1.is_jumping:
+                    player1.velocity.y *= 0.25
+                    player1.is_jumping = False
+            if event.key == pygame.K_UP:
+                if player2.is_jumping:
+                    player2.velocity.y *= 0.25
+                    player2.is_jumping = False
 
         if event.type == pygame.MOUSEBUTTONDOWN:  
             x, y = grille.get_coord_grille(event.pos)
@@ -54,11 +61,13 @@ while running:
     else :
         screen.fill((0,255, 0))
     grille.dessiner(screen)
-    player.afficher(screen)
-    player.move(grille, delta)
+    player1.afficher(screen)
+    player2.afficher(screen)
+    player1.move(grille, delta)
+    player2.move(grille, delta)
     barre_outil.afficher(screen)
-    barre_armure.afficher(screen,player.armure)
-    barre_vie.afficher(screen, player.vie)
+    barre_armure.afficher(screen,player1.armure)
+    barre_vie.afficher(screen, player1.vie)
     inventaire.afficher(screen)
     pygame.display.flip()
     clock.tick(FRAMERATE)
