@@ -10,8 +10,8 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 running = True
  
-player1 = Personnage()
-player2 = Personnage()
+player1 = Personnage("Asset/image/personnage/skin de base droite.png")
+player2 = Personnage("Asset/image/personnage/skin de base droite.png")
 grille = Grille()
 grille.chunk = grille.charger("Save/monde-test/chunk1.json")
 inventaire = Inventaire()
