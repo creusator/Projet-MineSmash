@@ -6,10 +6,11 @@ vecteur = pygame.math.Vector2
 BLUE = (0, 0, 255)
 
 class Personnage():
-    def __init__(self, chemin_sprite):
+    def __init__(self,key_left, key_right, chemin_sprite):
         self.sprite = self.charger_sprite(chemin_sprite)
         self.sprite_facing_right = self.sprite
         self.sprite_facing_left = pygame.transform.flip(self.sprite, True, False)
+        self.keybinds = {'move_left': key_left, 'move_right': key_right}
         self.vie = 20
         self.armure = 20
         self.coord = vecteur(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
@@ -80,10 +81,10 @@ class Personnage():
         self.acceleration.x = 0
         key = pygame.key.get_pressed()
 
-        if key[pygame.K_q]:        
+        if key[self.keybinds['move_left']]:        
             self.sprite = self.sprite_facing_left
             self.acceleration.x -= self.acceleration_value
-        elif key[pygame.K_d]:
+        elif key[self.keybinds['move_right']]:
             self.sprite = self.sprite_facing_right
             self.acceleration.x += self.acceleration_value
         
