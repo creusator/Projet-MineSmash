@@ -1,4 +1,4 @@
-# Projet-MineSmash
+# Introduction
 
 **Préréquis :**
 
@@ -142,8 +142,8 @@ Veuillez modifier la taille des blocs dans Variables_Globales.py et nul part d'a
 
 # Personnage.py
 
-Ce fichier gère un des objet les plus important du jeu, le personnage. 
-Il contient les fonction nécéssaires à ses déplacements et son affichage à l'écran.
+Ce fichier gère un des objet les plus important du jeu, le personnage. Il contient les fonction nécéssaires à ses déplacements et son affichage à l'écran.
+Lors de la déclaration de cet objet vous aurez la possibilité de spécifier les touches de déplacements et le sprite du personnage.
 Les valeurs de déplacements et de taille du personnage sont définis par la taille des blocs dans Variables_Globales.py
 
   **Importations et définition:**
@@ -184,7 +184,7 @@ Les valeurs de déplacements et de taille du personnage sont définis par la tai
     Pour pouvoir détecter la collision vers le bas, le rect du joueur est déplacé d'un pixel vers le bas et est immédiatement replacé pour éviter de rester bloqué dans le bloc.
 
   horizontal_movement():
-  - Effectue les déplacements horizontaux du joueur en fonction des touches appuyés et des variables d' accélération et de friction
+  - Effectue les déplacements horizontaux du joueur en fonction des touches spécifiés dans la définition et des variables d'accélération et de friction
   - Empêche le joueur d'accélérer à l'infini grace à la fonction velocity_limit
 
   vertical_movement():
