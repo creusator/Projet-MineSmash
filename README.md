@@ -2,7 +2,7 @@
 
 **Préréquis :**
 
-  - Python 3.12
+  - Python 3.13
   - Pygame 2.6
 
 **Documentation:**
