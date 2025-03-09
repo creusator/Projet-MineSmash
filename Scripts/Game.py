@@ -47,10 +47,7 @@ while running:
             elif event.y == -1:
                 barre_outil.scroll("down")
 
-    if clock.get_fps() < 31:
-        screen.fill((255,0,0))
-    else :
-        screen.fill((0,255, 0))
+    screen.fill(SKY_BLUE)
     grille.dessiner(screen)
     player1.afficher(screen)
     player2.afficher(screen)

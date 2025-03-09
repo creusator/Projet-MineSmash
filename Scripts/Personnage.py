@@ -3,7 +3,6 @@ from Variables_Globales import *
 from Blocs import Grille
 
 vecteur = pygame.math.Vector2
-BLUE = (0, 0, 255)
 
 class Personnage():
     def __init__(self,key_left, key_right, key_jump, key_run, chemin_sprite):
