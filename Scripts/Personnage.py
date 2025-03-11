@@ -146,5 +146,5 @@ class Personnage():
 
     def afficher(self, screen:pygame.surface.Surface) -> None:
         '''Permet d'afficher le personnage sur l'écran'''
-        #self.debug(screen)
-        screen.blit(self.sprite, (self.collision_box.x, self.collision_box.y))
+        self.debug(screen)
+        screen.blit(self.sprite, (self.coord.x, self.coord.y - TILE_SIZE * 2))
