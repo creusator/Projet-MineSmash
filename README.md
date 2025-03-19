@@ -7,7 +7,7 @@ Bienvenue sur le dépot du projet MineSmash! Le but de ce projet est de créer u
   - Python 3.13
   - Pygame 2.6
 
-**Documentation:**
+# Documentation:
 
   Fichiers principaux (actuellement en fonctionnement dans le projet):
 
@@ -17,7 +17,7 @@ Bienvenue sur le dépot du projet MineSmash! Le but de ce projet est de créer u
   - Personnage.py -- Gère les mouvements, les collisions, et les attributs du joueur (vie, armure ect...)
   - Interface.py -- Gère tout les éléments d'interface notamment la barre d'item, l'inventaire ect...
 
-## Variables_Globales.py
+### Variables_Globales.py
 
 Contient les variables importantes comme la taille de l'écran et des blocs ainsi que des couleurs afin d'être modifiable facilement dans tout les scripts.
 
@@ -28,7 +28,7 @@ Contient les variables importantes comme la taille de l'écran et des blocs ains
 - TILE_SIZE, taille des blocs dans le monde
 - FRAMERATE, limite d'images par seconde
 
-## Game.py
+### Game.py
 
 Ce fichier gère l'exécution de toutes les fonctions nécéssaires au jeux.
 
@@ -54,7 +54,7 @@ Ce fichier gère l'exécution de toutes les fonctions nécéssaires au jeux.
   - Boucle qui détecte les appuis de touches et effectue les actions en conséquence, notamment l'ouverture de l'inventaire, le saut, les modifications de la grille et le scroll de la barre d'item.
   - Dessine les éléments à l'écran, effectue les déplacements des personnages et actualise l'affichage.
 
-## Blocs.py
+### Blocs.py
 
 Ce fichier contient toutes les définitions de blocs ainsi que les fonction nécéssaires à leur affichage sur l'écran.
 Rappel : la taille des blocs est stockée dans Variables_Globales.py
@@ -142,7 +142,7 @@ Rappel : la taille des blocs est stockée dans Variables_Globales.py
   
   L'id du bloc est défini dans la fonction identify_bloc()
 
-## Personnage.py
+### Personnage.py
 
 Ce fichier gère un des objet les plus important du jeu, le personnage. Il contient les fonction nécéssaires à ses déplacements et son affichage à l'écran.
 Lors de la déclaration de cet objet vous aurez la possibilité de spécifier les touches de déplacements et le sprite du personnage.
@@ -209,7 +209,7 @@ Les valeurs de déplacements et de taille du personnage sont définis par la tai
   afficher():
   - Permet d'afficher le sprite du personnage sur l'écran.
 
-# Interface.py
+### Interface.py
 
 Ce fichier contient toutes les fonctions nécéssaires à l'affichage et la gestion de l'interface.
 Sujet aux changements, les fonctionnalités liées à l'inventaire et l'interface n'ont pas fini d'être implémentés
