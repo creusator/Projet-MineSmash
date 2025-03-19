@@ -26,6 +26,12 @@ class Ui():
         return pygame.transform.scale(pygame.image.load(chemin_vide), (1, 1))
     
 
+    def afficher(self, player ,screen:pygame.surface.Surface) -> None:
+        barre_outil.afficher(screen)
+        barre_armure.afficher(screen,player.armure)
+        barre_vie.afficher(screen, player.vie)
+        inventaire.afficher(screen)
+
 class Inventaire(Ui):
     def __init__(self):
         super().__init__()
