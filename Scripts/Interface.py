@@ -4,14 +4,27 @@ from Variables_Globales import *
 
 class Ui():
     def __init__(self):
-        self.show_user = False
-        self.show_interface = False
-
-    def utilisateur(self):
-        return self.show_user == True and show_interface == False
+        self.id_interface = 0
+        self.show_barre = True
+        self.show_inventaire = False
+        self.vide = self.charger_vide("Asset/image/Blocs/air.png")
+        
+    def affchage(self):
+        ''' vie, armure, barre d'inventaire'''
+        if self.id_interface == 0:
+            return self.show_barre == True
+        elif self.id_interface != 0:
+            return self.show_barre == False
+        '''inventaire'''
+        if self.id_interface == 1:
+            return self.show_inventaire == True
+        elif self.id_interface != 1:
+            return self.show_inventaire == False
     
-    def interface(self):
-        return self.show_user == False and show_interface == True
+    def charger_vide(self, chemin_vide:str) -> pygame.surface.Surface:
+        """Renvoi un sprite vide utilisable redimensionné en fontion de la taille de l'écran"""
+        return pygame.transform.scale(pygame.image.load(chemin_vide), (1, 1))
+    
 
     def afficher(self, player ,screen:pygame.surface.Surface) -> None:
         barre_outil.afficher(screen)
@@ -23,7 +36,6 @@ class Inventaire(Ui):
     def __init__(self):
         super().__init__()
         self.inventaire = self.charger_inventaire("Asset/image/interface/inventaire.png")
-        self.vide = self.charger_inventaire("Asset/image/Blocs/air.png")
         self.coordx = SCREEN_WIDTH * 0.25
         self.coordy = SCREEN_HEIGHT * 0.12
         self.is_open = False
@@ -34,17 +46,19 @@ class Inventaire(Ui):
 
     def ouvrir(self) -> None:
         """Permet de récupérer l'interaction pour ouvrir ou fermer l'inventaire"""
-        if self.is_open == False:
+        if self.id_interface != 1:
             self.is_open = True
-        elif self.is_open == True:
-            self.is_open = False
+            self.id_interface = 1
+        elif self.id_interface == 1:
+            self.is_open = False 
+            self.id_interface = 0
 
     def afficher(self, screen:pygame.surface.Surface) -> None:
         """Récupère le bool de self.is_open pour afficher ou désafficher l'inventaire"""
-        if self.is_open == False:
-            screen.blit(self.vide, (self.coordx, self.coordy))
         if self.is_open == True:
             screen.blit(self.inventaire, (self.coordx, self.coordy))
+        elif self.is_open == False:
+            screen.blit(self.vide, (self.coordx, self.coordy))
 
 class Barre_outil(Ui):
 
@@ -66,7 +80,10 @@ class Barre_outil(Ui):
             self.slot = 9
         elif self.slot >= 10:
             self.slot = 1
-        screen.blit(self.barre,(self.coordx,self.coordy),[((self.largeur/9) * (self.slot-1)), 0, (self.largeur/9), self.hauteur])
+        if self.show_barre == True:
+            screen.blit(self.barre,(self.coordx,self.coordy),[((self.largeur/9) * (self.slot-1)), 0, (self.largeur/9), self.hauteur])
+        elif self.show_barre == False:
+            screen.blit(self.vide, (self.coordx, self.coordy))
 
     def scroll(self,arg:str) -> None:
         """Récupére la valeur de scroll dans Game.py"""
