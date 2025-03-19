@@ -24,7 +24,8 @@ Game = Game()
 while running:
 
     delta = clock.get_time()/1000
-    
+    mouse_x, mouse_y = pygame.mouse.get_pos()
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -37,7 +38,7 @@ while running:
                 player2.jump()
 
         if event.type == pygame.MOUSEBUTTONDOWN:  
-            x, y = grille.get_coord_grille(event.pos)
+            x, y = grille.get_coord_grille((mouse_x, mouse_y))
             if event.button == 1:
                 grille.detruire_bloc(x, y)
             elif event.button == 3:
@@ -54,7 +55,6 @@ while running:
     player2.afficher(screen)
     player1.move(grille, delta)
     player2.move(grille, delta)
-    Ui.afficher(player1, screen)
     pygame.display.flip()
     clock.tick(FRAMERATE)
 pygame.quit()
