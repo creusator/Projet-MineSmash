@@ -13,6 +13,12 @@ class Ui():
     def interface(self):
         return self.show_user == False and show_interface == True
 
+    def afficher(self, player ,screen:pygame.surface.Surface) -> None:
+        barre_outil.afficher(screen)
+        barre_armure.afficher(screen,player.armure)
+        barre_vie.afficher(screen, player.vie)
+        inventaire.afficher(screen)
+
 class Inventaire(Ui):
     def __init__(self):
         super().__init__()
