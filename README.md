@@ -1,5 +1,7 @@
 # Introduction
 
+Bienvenue sur le dépot du projet MineSmash! Le but de ce projet est de créer une sorte de Minecraft2D, avec une touche de SmashBros.
+
 **Préréquis :**
 
   - Python 3.13
@@ -7,60 +9,60 @@
 
 **Documentation:**
 
-  Fichiers principaux :
+  Fichiers principaux (actuellement en fonctionnement dans le projet):
 
-  - Variables_Globales.py -- Contient les variables importantes comme la taille de l'écran et des blocs afin d'être modifiable facilement dans tout les scripts.
+  - Variables_Globales.py -- Contient les variables importantes comme la taille de l'écran et des blocs ainsi que des couleurs afin d'être modifiable facilement dans tout les scripts.
   - Game.py -- Le script d'exécution du jeu
   - Blocs.py -- Gère la création des blocs et de la grille qui permet de placer les blocs à leurs place
   - Personnage.py -- Gère les mouvements, les collisions, et les attributs du joueur (vie, armure ect...)
   - Interface.py -- Gère tout les éléments d'interface notamment la barre d'item, l'inventaire ect...
 
-# Variables_Globales.py
+## Variables_Globales.py
 
-Contient les variables importantes comme la taille de l'écran et des blocs afin d'être modifiable facilement dans tout les scripts.
+Contient les variables importantes comme la taille de l'écran et des blocs ainsi que des couleurs afin d'être modifiable facilement dans tout les scripts.
 
-Gardez de préférence un ratio 2:1 entre ces valeurs pour l'instant :
+***Gardez de préférence un ratio 2:1*** entre ces deux valeurs ci dessous:
 - SCREEN_WIDTH, largeur de la fenêtre de jeu
 - SCREEN_HEIGHT, hauteur de la fenêtre de jeu
 
 - TILE_SIZE, taille des blocs dans le monde
 - FRAMERATE, limite d'images par seconde
 
-# Game.py
+## Game.py
 
-Ce fichier gère l'exécution de toutes les fonctions nécéssaires au jeux. Normalement vous n'aurez pas besoin de trop toucher à ce fichier pour résoudre les issues, à part peut être pour empêcher le joueur de s'emmurer.
+Ce fichier gère l'exécution de toutes les fonctions nécéssaires au jeux.
 
   **Importation des fichiers et de pygame:**
   
-  Permet d'accéder aux fonctions et classes écrites dans les autres fichiers du projet
+  Permet d'accéder aux fonctions et classes écrites dans les autres fichiers du projet.
     
   **Initialisation de pygame:**
 
-  Trois variables permettent de définir la taille de la fenêtre et la limite du framerate
+  Trois variables permettent de définir la taille de la fenêtre et la limite du framerate. Ces valeurs sont exprimés en fonction des variable de Variables_Globale.py
 
   **Initialisation des objects de base:**
 
-  Défini les principaux objects utilisés dans le projet notamment :
+  Défini les principaux objects utilisés dans le projet notamment (arguments entre parenthèse) :
 
-  - Le joueur
-  - La grille 
+  - Le/Les joueur (touche_gauche, touche_droite, touche_saut, touche_course, chemin_sprite)
+  - La grille (charger le chunk avec le chemin du json correspondant)
   - Les éléments d'interface
 
   **Boucle principale :**
 
   - Défini delta (variable qui permet de rendre la vitesse de déplacement indépendante du framerate)
-  - Boucle qui détecte les appuis de touches et effectue les actions en conséquence.
-  - Dessine les éléments à l'écran et actualise l'affichage
+  - Boucle qui détecte les appuis de touches et effectue les actions en conséquence, notamment l'ouverture de l'inventaire, le saut, les modifications de la grille et le scroll de la barre d'item.
+  - Dessine les éléments à l'écran, effectue les déplacements des personnages et actualise l'affichage.
 
-# Blocs.py
+## Blocs.py
 
 Ce fichier contient toutes les définitions de blocs ainsi que les fonction nécéssaires à leur affichage sur l'écran.
-Veuillez modifier la taille des blocs dans Variables_Globales.py et nul part d'autre.
+Rappel : la taille des blocs est stockée dans Variables_Globales.py
 
-  **Importation des librairies :**
+  **Importation des bibliothèques :**
   
   La grille de bloc utilise la librairie JSON pour stocker et modifer la grille de blocs.
-  Pygame est aussi présent pour la partie affichage de cette dite grille
+  Pygame est aussi présent pour la partie affichage de cette dite grille.
 
   **Classe Grille :**
   
@@ -68,19 +70,19 @@ Veuillez modifier la taille des blocs dans Variables_Globales.py et nul part d'a
   
   init():
   - Défini la largeur, hauteur de la grille pour modifier ces valeurs vous référer à Variables_Globales.py
-  - Défini la taille des blocs sur l'écran (textures en x16, affiché en x64 sur l'écran)
+  - Défini la taille des blocs sur l'écran (textures en x16, redimensionnées avec TAILLE_BLOC dans Variable_Globales.py)
 
   charger():
   - Permet de charger le fichier JSON et d'extraire la matrice qu'il contient
 
   placer_bloc():
-  - Permet de placer un bloc de pierre à des coordonées données
+  - Permet de placer un bloc de pierre *(id:1)* à des coordonées données *(souris)*
 
   detruire_bloc():
-  - Permet de détruire n'importe quel bloc de la grille à des coordonées données
+  - Permet de détruire n'importe quel bloc de la grille à des coordonées données *(Place en réalité un bloc d'air)*
 
   get_coord_grille():
-  - Prend des coordonées x, y sur l'écran et renvoie les indice de la grille correspondant à ces coordonées
+  - Prend des coordonées x, y sur l'écran et renvoie les indice de la grille correspondant à ces coordonées *(Division entière par TAILLE_BLOC de Variables_Globales.py)*
 
   get_bloc():
   - Prend des indices de la grille et renvoie l'indice du bloc a cet endroit
@@ -100,7 +102,7 @@ Veuillez modifier la taille des blocs dans Variables_Globales.py et nul part d'a
   - Défini la taille des rects pour les collisions
 
   charger_sprite():
-  - Redimensionne le sprite en 16x en 64x
+  - Redimensionne le sprite en 16x avec TAILLE_BLOC de Variables_Globales.py
 
   **Classe Solide :**
   
@@ -140,7 +142,7 @@ Veuillez modifier la taille des blocs dans Variables_Globales.py et nul part d'a
   
   L'id du bloc est défini dans la fonction identify_bloc()
 
-# Personnage.py
+## Personnage.py
 
 Ce fichier gère un des objet les plus important du jeu, le personnage. Il contient les fonction nécéssaires à ses déplacements et son affichage à l'écran.
 Lors de la déclaration de cet objet vous aurez la possibilité de spécifier les touches de déplacements et le sprite du personnage.
@@ -169,7 +171,7 @@ Les valeurs de déplacements et de taille du personnage sont définis par la tai
         - Accélération, vecteur appliqué à la vélocité pour accélérer
 
   charger_sprite():
-  - Permet de redimensionner le sprite du personnage en une taille affichable à l'écran
+  - Redimensionne le sprite en 16x32 avec TAILLE_BLOC de Variables_Globales.py
 
   player_collision_list():
   - En utilisant la fonction get_collision_list() de la classe grille, cette fonction renvoie la liste des rects avec lesquels le rect du personnage est en collision
@@ -183,7 +185,7 @@ Les valeurs de déplacements et de taille du personnage sont définis par la tai
     Si c'est le cas, le personnage sera bloqué dans la dite direction.
     Pour pouvoir détecter la collision vers le bas, le rect du joueur est déplacé d'un pixel vers le bas et est immédiatement replacé pour éviter de rester bloqué dans le bloc.
 
-  horizontal_movement():
+  horizontal_movement(delta:float):
   - Effectue les déplacements horizontaux du joueur en fonction des touches spécifiés dans la définition et des variables d'accélération et de friction
   - Empêche le joueur d'accélérer à l'infini grace à la fonction velocity_limit
 
