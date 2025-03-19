@@ -43,9 +43,9 @@ while running:
             elif event.button == 3:
                 grille.placer_bloc(x, y, barre[barre_outil.slot])
         if event.type == pygame.MOUSEWHEEL:
-            if event.y == 1: 
+            if event.y == -1: 
                 barre_outil.scroll("up")
-            elif event.y == -1:
+            elif event.y == 1:
                 barre_outil.scroll("down")
 
     screen.fill(SKY_BLUE)
