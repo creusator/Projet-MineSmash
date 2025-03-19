@@ -2,6 +2,11 @@ import pygame
 
 
 class Item():
+    """
+    Classe qui va être utilisé sur les autres
+    classes de item.py pour des chose à 
+    utilisé de manière répété
+    """
     def __init__(self, chemin_sprite:str):
         self.sprite = self.charger_sprite(chemin_sprite)
         self.stack = 0
@@ -12,11 +17,20 @@ class Item():
 
 
 class Bloc(Item):
+    """
+    Classe qui va permettre de réaliser un bloc/item
+    qui aura la possiblité de se faire poser    
+    """
     def __init__(self, chemin_sprite:str):
         super().__init__(chemin_sprite)
         self.poser = None
 
 class Outil(Item):
+    """
+    Classe qui permet d'avoir des outils/item
+    qui auront une durabilité, un usage(bois,pierre,terre)
+    et une efficacité (bois,pierre,fer,diamant,obsidienne)
+    """
     def __init__(self, chemin_sprite:str):
         super().__init__(chemin_sprite)
         self.durabilite = 0
@@ -24,6 +38,11 @@ class Outil(Item):
         self.efficacite = None
 
 class Nourriture(Item):
+    """
+    Classe qui permet d'avoir de la nourriture/item
+    qui auront l'utilité de faire consommer et
+    régénerer de la vie
+    """
     def __init__(self, chemin_sprite:str):
         super().__init__(chemin_sprite)
         self.regeneration = 0
