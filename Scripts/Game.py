@@ -13,7 +13,7 @@ running = True
 player1 = Personnage(pygame.K_q, pygame.K_d, pygame.K_z, pygame.K_LSHIFT,"Asset/image/personnage/skin de base.png")
 player2 = Personnage(pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_0, "Asset/image/personnage/skin alternatif.png")
 grille = Grille()
-grille.chunk = grille.charger("Save/monde-test/chunk1.json")
+grille.chunk = grille.charger(CHEMIN_CHUNK)
 inventaire = Inventaire()
 barre_outil = Barre_outil()
 barre_vie = Barre_vie()
@@ -27,6 +27,7 @@ while running:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            grille.sauvegarder()
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_e:

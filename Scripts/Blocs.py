@@ -14,6 +14,10 @@ class Grille():
         chunk = open(chemin_chunk, 'r')
         return json.load(chunk)
 
+    def sauvegarder(self) -> None:
+        with open(CHEMIN_CHUNK, 'w') as chemin_sauvegarde:
+            json.dump(self.chunk, chemin_sauvegarde)
+
     def placer_bloc(self, x:int, y:int, bloc:int) -> None:
         """Place le bloc 'bloc' la grille au coordonées du curseur. """
         if 0 <= y < len(self.chunk) and 0 <= x < len(self.chunk[0]):
