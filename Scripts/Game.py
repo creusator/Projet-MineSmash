@@ -18,7 +18,6 @@ inventaire = Inventaire()
 barre_outil = Barre_outil()
 barre_vie = Barre_vie()
 barre_armure = Barre_armure()
-Ui = Ui()
 Game = Game()
 
 while running:
@@ -42,7 +41,7 @@ while running:
             if event.button == 1:
                 grille.detruire_bloc(x, y)
             elif event.button == 3:
-                grille.placer_bloc(x, y, 1)
+                grille.placer_bloc(x, y, barre[barre_outil.slot])
         if event.type == pygame.MOUSEWHEEL:
             if event.y == 1: 
                 barre_outil.scroll("up")
@@ -55,6 +54,10 @@ while running:
     player2.afficher(screen)
     player1.move(grille, delta)
     player2.move(grille, delta)
+    barre_outil.afficher(screen)
+    barre_armure.afficher(screen,player1.armure)
+    barre_vie.afficher(screen, player1.vie)
+    inventaire.afficher(screen)
     pygame.display.flip()
     clock.tick(FRAMERATE)
 pygame.quit()
