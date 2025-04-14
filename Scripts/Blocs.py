@@ -65,7 +65,7 @@ class Bloc() :
 
     def charger_sprite(self, chemin_sprite:str) -> pygame.Surface:
         """Renvoi un sprite utilisable redimensionné en fonction de la taille des blocs"""
-        return pygame.transform.scale(pygame.image.load(chemin_sprite), (TILE_SIZE, TILE_SIZE))
+        return pygame.transform.scale(pygame.image.load(chemin_sprite), (TILE_SIZE, TILE_SIZE)).convert_alpha()
 
 class Solide(Bloc) :
     def __init__(self, chemin_sprite:str):
