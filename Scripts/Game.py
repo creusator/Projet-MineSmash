@@ -21,7 +21,7 @@ barre_armure = Barre_armure()
 Game = Game()
 
 while running:
-
+    pygame.display.set_caption(str(clock.get_fps()))
     delta = clock.get_time()/1000
     mouse_x, mouse_y = pygame.mouse.get_pos()
 
